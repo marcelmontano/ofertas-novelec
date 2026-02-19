@@ -21,6 +21,8 @@
             --border: #DDD;
             --green: #2DB882;
             --wa-color: #25D366;
+            --alert-red: #D32F2F;
+            --alert-bg: #FFEBEE;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -97,6 +99,25 @@
         }
         .price-main { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; }
         
+        /* FOMO TAGS */
+        .fomo-badge {
+            background-color: var(--alert-bg);
+            color: var(--alert-red);
+            border: 1px solid var(--alert-red);
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(211, 47, 47, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
+
         /* TABLAS TÉCNICAS */
         .tech-section { margin-top: 30px; }
         .tech-title {
@@ -233,20 +254,28 @@
         </div>
     </div>
 
-    <!-- DELTA 2 MAX -->
+    <!-- DELTA 2 MAX (MODIFICADO: FOMO) -->
     <div class="section product-card">
-        <div class="p-img-col">
+        <div class="p-img-col" style="border-color: var(--alert-red);">
             <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-2-max-power-station.jpg" alt="Delta 2 Max">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">LOTE 2: 20 UNIDADES</div>
+            <div style="margin-top:10px; font-size:12px; font-weight:800; color: var(--alert-red); background: var(--alert-bg); padding: 5px 10px; width: 100%;">
+                ⚠ ÚLTIMO LOTE (10 UNDS) · EN NEGOCIACIÓN
+            </div>
         </div>
         <div>
             <div class="sku-tag">SKU: EFDELTA2Max-US-NCBox</div>
             <h2>EcoFlow Delta 2 Max</h2>
             <p class="font-serif text-gold">Expandible hasta 6kWh · Carga Dual Solar</p>
-            <div class="price-block">
-                <div style="font-size: 10px; text-transform: uppercase;">Precio Mayorista</div>
+            
+            <!-- ALERTA DE STOCK -->
+            <div class="fomo-badge" style="width: 100%; text-align: center; margin-top: 10px;">
+                ¡ATENCIÓN! QUEDAN 10 UNIDADES DISPONIBLES. ACTUALMENTE BAJO OFERTA VERBAL.
+            </div>
+
+            <div class="price-block" style="border-left-color: var(--alert-red);">
+                <div style="font-size: 10px; text-transform: uppercase; color: var(--alert-red); font-weight: bold;">ALTA PROBABILIDAD DE VENTA HOY</div>
                 <div class="price-main">$980 USD / unidad</div>
-                <div style="font-size: 12px; margin-top: 5px;"><strong>Pack 10 unds: $9,800</strong> (Retail Sugerido ~$1,400)</div>
+                <div style="font-size: 12px; margin-top: 5px;"><strong>Último Pack 10 unds: $9,800</strong> (Se vende al primero que pague)</div>
             </div>
             <div class="tech-section">
                 <h4 class="tech-title">Especificaciones Técnicas</h4>
@@ -260,7 +289,7 @@
                 </div>
             </div>
             <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Delta%202%20Max" class="btn btn-wa">Cotizar Lote 2</a>
+                <a href="https://wa.me/5358183649?text=URGENTE%20Quiero%20el%20ultimo%20lote%20Delta%202%20Max" class="btn btn-wa" style="background: var(--alert-red);">Reservar Ahora (Último Lote)</a>
             </div>
         </div>
     </div>
@@ -297,26 +326,29 @@
         </div>
     </div>
 
-    <!-- DELTA PRO 3 -->
+    <!-- DELTA PRO 3 (MODIFICADO: SOLO AGOTADO) -->
     <div class="section product-card">
         <div class="p-img-col">
             <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-pro-3-power-station-2.jpg" alt="Delta Pro 3">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">COMBOS 4 & 5</div>
+            <div style="margin-top:10px; font-size:12px; font-weight:bold;">COMBO 4 DISPONIBLE · SOLO AGOTADO</div>
         </div>
         <div>
             <div class="sku-tag">SKU: EFDELTAPRO3-US</div>
             <h2>EcoFlow Delta Pro 3</h2>
             <p class="font-serif text-gold">Generación 3 · 4kW Salida · 120/240V Nativo</p>
             <div style="display:flex; gap:10px; margin: 20px 0;">
-                <div style="background:#F0F0F0; padding:15px; flex:1;">
-                    <div style="font-size:11px; font-weight:bold;">COMBO 4 (Full Kit)</div>
+                <div style="background:#F0F0F0; padding:15px; flex:1; border: 2px solid var(--green);">
+                    <div style="font-size:11px; font-weight:bold; color: var(--green);">✔ COMBO 4 (Full Kit)</div>
                     <div style="font-family:'Space Mono'; font-weight:700; font-size:18px;">$4,050</div>
                     <div style="font-size:11px;">1 Gen + 1 Bat Extra (8kWh Total)</div>
                 </div>
-                <div style="background:#F0F0F0; padding:15px; flex:1;">
-                    <div style="font-size:11px; font-weight:bold;">COMBO 5 (Solo)</div>
-                    <div style="font-family:'Space Mono'; font-weight:700; font-size:18px;">$2,300</div>
-                    <div style="font-size:11px;">Generador solo (Condicionado)</div>
+                
+                <!-- COMBO 5 AGOTADO -->
+                <div style="background:#FFE5E5; padding:15px; flex:1; opacity: 0.7; border: 1px solid #FFCDCD; position: relative;">
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); border: 2px solid var(--alert-red); color: var(--alert-red); font-weight: 800; font-size: 20px; padding: 5px; background: rgba(255,255,255,0.8);">AGOTADO</div>
+                    <div style="font-size:11px; font-weight:bold; color: #555;">COMBO 5 (Solo)</div>
+                    <div style="font-family:'Space Mono'; font-weight:700; font-size:18px; text-decoration: line-through; color: #999;">$2,300</div>
+                    <div style="font-size:11px; color: var(--alert-red);">Sin stock disponible</div>
                 </div>
             </div>
             <div class="tech-section">
@@ -331,7 +363,7 @@
                 </div>
             </div>
             <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Combos%20Delta%20Pro%203" class="btn btn-wa">Cotizar Combos</a>
+                <a href="https://wa.me/5358183649?text=Cotizar%20Combos%20Delta%20Pro%203" class="btn btn-wa">Cotizar Combo 4 (Único Disponible)</a>
             </div>
         </div>
     </div>
@@ -374,16 +406,23 @@
         </div>
     </div>
 
-    <!-- LONGI PANELES -->
+    <!-- LONGI PANELES (MODIFICADO: FOMO) -->
     <div class="section product-card">
-        <div class="p-img-col">
+        <div class="p-img-col" style="border-color: var(--alert-red);">
             <img src="https://s.alicdn.com/@sc04/kf/Haf04fd06702349688f8543cae2ef81940.jpg" alt="LONGi Hi-MO 7">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">VENTA POR PALLET O CONTENEDOR</div>
+            <div style="margin-top:10px; font-size:12px; font-weight:800; color: var(--alert-red); background: var(--alert-bg); padding: 5px 10px; width: 100%;">
+                ⚠ 24 PALLETS RESERVADOS/EN NEGOCIACIÓN
+            </div>
         </div>
         <div>
             <div class="sku-tag">MODELO: LR8-48HGD (430-455M)</div>
             <h2>LONGi Hi-MO 7</h2>
             <p class="font-serif text-gold">Módulos Bifaciales · Tecnología HPBC · Eficiencia 22.8%</p>
+            
+            <div style="color: var(--alert-red); font-weight: 700; margin-top: 10px; font-size: 14px; border-left: 3px solid var(--alert-red); padding-left: 10px;">
+                ALERTA DE STOCK: Inventario comprometido. Confirmar disponibilidad antes de transferir.
+            </div>
+
             <div class="price-block">
                 <div style="font-size: 10px; text-transform: uppercase;">Precio por Pallet (36 Unidades)</div>
                 <div class="price-main">$3,060 USD</div>
@@ -412,7 +451,7 @@
                 </div>
             </div>
             <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Paneles%20LONGi" class="btn btn-wa">Cotizar Paneles</a>
+                <a href="https://wa.me/5358183649?text=URGENTE%20Consultar%20disponibilidad%20Paneles%20LONGi" class="btn btn-wa" style="background: var(--alert-red);">Consultar Si Queda Stock</a>
             </div>
         </div>
     </div>
