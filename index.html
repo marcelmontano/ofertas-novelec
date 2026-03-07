@@ -3,738 +3,913 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVELEC — Catálogo Solar 2026 | Especificaciones Técnicas Completas</title>
+    <title>NOVELEC B2B | Catálogo Técnico Mayorista de Energías Renovables</title>
     
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Rajdhani:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Fuentes premium y técnicas -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --gold: #B08D55;
-            --gold-light: #F4EBD0;
-            --gold-dark: #8B6914;
-            --black: #111111;
-            --white: #FFFFFF;
-            --bg-gray: #F9F9F9;
-            --text-main: #111111;
-            --text-sec: #444444;
-            --border: #DDD;
-            --green: #2DB882;
-            --wa-color: #25D366;
-            --alert-red: #D32F2F;
-            --alert-bg: #FFEBEE;
+            /* Paleta High-End Tech */
+            --bg-dark: #070B14;
+            --bg-panel: #111827;
+            --bg-card: #1F2937;
+            --accent-green: #00E676;
+            --accent-blue: #3B82F6;
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --border-color: #374151;
+            --danger: #EF4444;
+            --warning: #F59E0B;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
+
         body {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            background-color: var(--white);
-            line-height: 1.4;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* TIPOGRAFÍA */
-        h1, h2, h3, h4, h5 { font-weight: 700; line-height: 1.1; margin-bottom: 0.5em; }
-        .font-mono { font-family: 'Space Mono', monospace; }
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-        .text-gold { color: var(--gold-dark); }
-        .text-sm { font-size: 0.9em; }
-        
-        /* ESTRUCTURA */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section { padding: 60px 0; border-bottom: 1px solid var(--border); }
-        
-        /* BOTONES */
-        .btn {
-            display: inline-flex; align-items: center; gap: 8px; justify-content: center;
-            padding: 12px 24px;
-            background: var(--black); color: white;
-            text-decoration: none; text-transform: uppercase;
-            font-weight: 700; letter-spacing: 0.1em;
-            font-size: 14px; border-radius: 2px;
-            transition: all 0.3s;
-            border: none; cursor: pointer;
-        }
-        .btn-wa { background: var(--wa-color); }
-        .btn-wa:hover { background: #1da851; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
-        
+        /* TIPOGRAFÍA B2B */
+        h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.02em; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .text-accent { color: var(--accent-green); }
+        .text-blue { color: var(--accent-blue); }
+
+        /* LAYOUT GENERAL */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        .section { padding: 100px 0; border-bottom: 1px solid var(--border-color); }
+
         /* HEADER */
         header {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(255,255,255,0.98);
-            border-bottom: 2px solid var(--gold);
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: rgba(7, 11, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; z-index: 1000;
+            padding: 20px 0;
         }
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-size: 28px; font-weight: 800; letter-spacing: 0.1em; }
+        .header-grid { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 32px; font-weight: 900; letter-spacing: 0.1em; color: white; display: flex; align-items: center; gap: 10px;}
+        .logo span { color: var(--accent-green); }
+        .header-meta { text-align: right; font-size: 13px; color: var(--text-muted); }
 
-        /* HERO */
+        /* HERO SECTION */
         .hero {
-            background: radial-gradient(circle at 90% 10%, rgba(176, 141, 85, 0.15) 0%, transparent 70%);
-            padding: 80px 0;
+            position: relative;
+            padding: 160px 0 120px;
+            background: radial-gradient(circle at 80% -20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 120%, rgba(0, 230, 118, 0.1) 0%, transparent 50%);
         }
-        .hero-title { font-size: clamp(3rem, 5vw, 5rem); font-weight: 800; line-height: 0.9; }
-        
-        /* PRODUCT CARD */
-        .product-card {
-            display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px;
-            margin-bottom: 80px; align-items: start;
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            line-height: 1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #9CA3AF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .p-img-col {
-            background: #FAFAFA; border: 1px solid var(--border);
-            padding: 20px; position: sticky; top: 100px;
-            text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 40px;
+            font-weight: 300;
         }
-        .p-img-col img { max-width: 100%; max-height: 400px; object-fit: contain; mix-blend-mode: multiply; }
-        
-        /* INFO BLOCKS */
-        .sku-tag { font-size: 11px; letter-spacing: 0.1em; color: var(--gold-dark); font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
-        .price-block {
-            background: var(--gold-light);
-            border-left: 4px solid var(--gold);
-            padding: 15px 20px; margin: 20px 0;
-        }
-        .price-main { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; }
-        
-        /* FOMO TAGS */
-        .fomo-badge {
-            background-color: var(--alert-bg);
-            color: var(--alert-red);
-            border: 1px solid var(--alert-red);
-            padding: 5px 10px;
-            font-size: 12px;
-            font-weight: 800;
-            display: inline-block;
-            margin-bottom: 10px;
-            animation: pulse 2s infinite;
+        .badge-leader {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 30px;
+            text-transform: uppercase;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(211, 47, 47, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        /* BOTONES */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 16px 32px;
+            font-size: 15px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase; text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer; border: none;
         }
+        .btn-primary {
+            background: var(--accent-green);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+        }
+        .btn-primary:hover {
+            background: #00C853;
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.5);
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--border-color);
+        }
+        .btn-outline:hover { background: var(--bg-card); border-color: white; }
 
-        /* TABLAS TÉCNICAS */
-        .tech-section { margin-top: 30px; }
-        .tech-title {
-            font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em;
-            border-bottom: 2px solid var(--border); padding-bottom: 5px; margin-bottom: 15px;
+        /* PRODUCT CARDS (EQUIPOS HIGH-END) */
+        .grid-tech { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; }
+        .card-tech {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s;
         }
-        .tech-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 30px;
+        .card-tech:hover { border-color: var(--accent-blue); }
+        .card-header {
+            padding: 30px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+        .sku-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px; color: var(--text-muted);
+            margin-bottom: 10px; display: block;
+        }
+        .stock-badge {
+            display: inline-block; padding: 4px 10px; font-size: 12px; font-weight: 800;
+            background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid var(--warning);
+            border-radius: 4px; margin-top: 15px; font-family: 'JetBrains Mono', monospace;
+        }
+        .price-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px; font-weight: 800; color: white;
+            margin-top: 15px; display: flex; align-items: baseline; gap: 5px;
+        }
+        .price-currency { font-size: 16px; color: var(--accent-green); }
+
+        /* TECHNICAL SPECS TABLE (INSIDE CARDS) */
+        .specs-list { list-style: none; padding: 0; margin: 0; }
+        .specs-list li {
+            display: flex; justify-content: space-between;
+            padding: 12px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 14px;
         }
-        .tech-item {
-            display: flex; justify-content: space-between;
-            border-bottom: 1px solid #EEE; padding: 4px 0;
-        }
-        .tech-key { color: var(--text-sec); font-size: 0.9em; }
-        .tech-val { font-weight: 600; color: var(--text-main); text-align: right; }
-        
-        /* TABLAS COMPLETAS */
-        .full-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 15px; }
-        .full-table th { background: #EFEFEF; padding: 8px; text-align: left; border: 1px solid #DDD; text-transform: uppercase; }
-        .full-table td { padding: 6px 8px; border: 1px solid #EEE; font-family: 'Space Mono', monospace; }
-        .full-table tr:nth-child(even) { background: #FAFAFA; }
-        .highlight-row { background: var(--gold-light) !important; font-weight: 700; }
+        .specs-list li:last-child { border-bottom: none; }
+        .spec-label { color: var(--text-muted); }
+        .spec-value { font-family: 'JetBrains Mono', monospace; color: white; font-weight: 600; text-align: right; }
 
-        /* --- ESTILOS ESPECÍFICOS SECCIÓN CÓMO COMPRAR --- */
-        .buying-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+        /* HUGE DATA TABLE (FOR CABLES) */
+        .table-container {
+            width: 100%; overflow-x: auto;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             margin-top: 40px;
         }
-        .step-row {
-            display: flex; gap: 20px; margin-bottom: 30px;
-            padding-bottom: 30px; border-bottom: 1px solid #EEE;
+        .data-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+        .data-table th {
+            background: var(--bg-card);
+            padding: 16px 20px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--border-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
         }
-        .step-row:last-child { border-bottom: none; }
-        .step-num {
-            min-width: 55px; height: 55px;
-            background: var(--gold-light);
-            border: 2px solid var(--gold);
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700; font-size: 22px; color: var(--gold-dark);
+        .data-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
         }
-        .step-icon {
-            min-width: 55px; height: 55px;
-            background: #F0F0F0; border: 2px solid var(--gold);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px;
+        .data-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+        .td-price { font-family: 'JetBrains Mono', monospace; font-weight: 800; color: var(--accent-green); font-size: 15px; }
+        .td-qty { font-family: 'JetBrains Mono', monospace; color: var(--text-main); font-weight: 600; }
+        .td-brand { font-weight: 800; text-transform: uppercase; color: var(--text-muted); }
+        .td-desc { font-weight: 600; color: white; }
+
+        /* COMO COMPRAR SECTION B2B */
+        .process-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;
         }
-        .info-box {
-            background: #F9F9F9; border: 1px solid #EEE;
-            padding: 25px; margin-bottom: 20px;
+        .process-card {
+            background: var(--bg-panel); padding: 40px 30px;
+            border: 1px solid var(--border-color); border-radius: 8px;
+            position: relative;
         }
-        .info-title {
-            font-size: 12px; font-weight: 800; letter-spacing: 0.2em;
-            text-transform: uppercase; margin-bottom: 10px;
-            border-bottom: 1px solid #DDD; padding-bottom: 8px;
+        .step-number {
+            font-family: 'JetBrains Mono', monospace; font-size: 48px; font-weight: 900;
+            color: rgba(255,255,255,0.05); position: absolute; top: 10px; right: 20px; line-height: 1;
         }
-        .contact-box {
-            background: rgba(37,211,102,.06);
-            border: 1px solid rgba(37,211,102,.4);
-            padding: 30px; text-align: center;
-            margin-top: 30px;
+        .process-title { font-size: 18px; color: white; margin-bottom: 15px; font-weight: 700; }
+        .process-text { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+
+        @media (max-width: 1024px) {
+            .grid-tech { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .product-card { grid-template-columns: 1fr; }
-            .p-img-col { position: static; }
-            .tech-grid { grid-template-columns: 1fr; }
-            .buying-grid { grid-template-columns: 1fr; gap: 30px; }
+        /* CONTENEDORES DE IMAGEN HIGH-END */
+        .card-image-wrapper {
+            background: #E5E7EB; /* Fondo claro técnico para contraste */
+            height: 280px;
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
         }
+        .card-image-wrapper img {
+            max-width: 100%; max-height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply; /* Elimina fondos blancos de las fotos */
+            transition: transform 0.4s ease;
+        }
+        .card-tech:hover .card-image-wrapper img {
+            transform: scale(1.05);
+        }
+        .section-header {
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 20px; margin-bottom: 40px;
+        }
+
     </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-    <div class="container nav-flex">
-        <div class="brand">NOVELEC</div>
-        <div style="text-align: right; font-size: 12px;">
-            <div><strong>CATÁLOGO TÉCNICO 2026</strong></div>
-            <div class="text-gold">Almacén Inbond · La Habana</div>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-grid">
+            <div class="logo">NOVELEC<span>.</span></div>
+            <div class="header-meta">
+                <div style="font-family: 'JetBrains Mono'; color: white; font-weight: bold; font-size: 16px;">+53 5818 3649</div>
+                <div>Almacén Inbond · La Habana, Cuba</div>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
-</div>
-</header>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge-leader">#1 DISTRIBUIDOR MAYORISTA EN CUBA</div>
+            <h1>INFRAESTRUCTURA<br>RENOVABLE <span class="text-blue">B2B</span></h1>
+            <p class="hero-subtitle">Inventario físico de grado industrial en La Habana. Especialistas en suministros para TCP y MIPYMES. Despliegue inmediato (24-48h). Precios netos DAP Inbond.</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <a href="#inversores" class="btn btn-primary">VER EQUIPOS HIGH-END</a>
+                <a href="#cables" class="btn btn-outline">CATÁLOGO DE CONDUCTORES</a>
+            </div>
+        </div>
+    </section>
 
-<!-- BANNER PRÓXIMA LLEGADA -->
-<div style="background: var(--black); color: var(--gold-light); text-align: center; padding: 12px 20px; font-weight: 600; font-size: 15px; letter-spacing: 0.05em; border-bottom: 3px solid var(--gold);">
-    🚢 ¡ATENCIÓN! Contenedores en camino: <span style="color: var(--gold); font-weight: 800; text-transform: uppercase;">Paneles LONGi 645W Monofaciales</span> · Llegada estimada: <span style="background: var(--gold); color: var(--black); padding: 2px 8px; border-radius: 2px; font-weight: 800; margin-left: 5px;">10 DE ABRIL</span>
-</div>
-
-<!-- HERO INTRO -->
-
-<!-- HERO INTRO -->
-<div class="hero">
-    <div class="container">
-        <div style="font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--gold-dark); margin-bottom: 10px;">Inventario en Plaza · Reparto Eléctrico</div>
-        <h1 class="hero-title">ENERGÍA SOLAR<br><span style="color:var(--gold)">PROFESIONAL</span></h1>
-        <p style="max-width: 600px; margin-top: 20px;">Fichas técnicas completas para instaladores y revendedores. EcoFlow, LONGi y SMA. Disponibilidad inmediata (24-48h). Precios mayoristas DAP La Habana.</p>
-        <div style="margin-top: 30px;">
-            <a href="#catalogo" class="btn">Ver Equipos</a>
-            <a href="#comprar" class="btn btn-wa">Cómo Comprar</a>
-        </div>
-    </div>
-</div>
-
-<!-- CATALOGO -->
-<div id="catalogo" class="container" style="padding-top: 40px;">
-
-    <!-- E980 -->
-    <div class="section product-card">
-        <div class="p-img-col">
-            <img src="https://lh3.googleusercontent.com/d/1pKzI9KkeEWbr9dkeUmWGNksn_ARTI7u0=w800" alt="EcoFlow E980">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">LOTE 1: 40 UNIDADES</div>
-        </div>
-        <div>
-            <div class="sku-tag">SKU: EFE980-US · HS: 842783153630</div>
-            <h2>EcoFlow E980 "LATAM"</h2>
-            <p class="font-serif text-gold">Edición Industrial · Alta Autonomía Portátil</p>
-            <div class="price-block">
-                <div style="font-size: 10px; text-transform: uppercase;">Precio Mayorista</div>
-                <div class="price-main">$460 USD / unidad</div>
-                <div style="font-size: 12px; margin-top: 5px;"><strong>Pack 10 unds: $4,600</strong> (Margen Retail ~52%)</div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Especificaciones Técnicas</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Capacidad</span><span class="tech-val">980 Wh</span></div>
-                    <div class="tech-item"><span class="tech-key">Salida AC (x4)</span><span class="tech-val">500W (Pico 750W)</span></div>
-                    <div class="tech-item"><span class="tech-key">X-Boost</span><span class="tech-val">Hasta 650W</span></div>
-                    <div class="tech-item"><span class="tech-key">Química Batería</span><span class="tech-val">LFP (LiFePO₄)</span></div>
-                    <div class="tech-item"><span class="tech-key">Ciclos de Vida</span><span class="tech-val">3000 ciclos al 80%</span></div>
-                    <div class="tech-item"><span class="tech-key">EPS (Backup)</span><span class="tech-val">&lt;30ms</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20E980%20Lote%201" class="btn btn-wa">Cotizar Lote 1</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- DELTA 2 MAX (AGOTADO) -->
-    <div class="section product-card">
-        <div class="p-img-col" style="position: relative; opacity: 0.5; border-color: #EEE;">
-            <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-2-max-power-station.jpg" alt="Delta 2 Max">
-            <!-- Sello de Agotado -->
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); border: 3px solid var(--alert-red); color: var(--alert-red); font-weight: 900; font-size: 32px; padding: 5px 15px; background: rgba(255,255,255,0.9); z-index: 10;">AGOTADO</div>
-        </div>
-        <div style="opacity: 0.6;">
-            <div class="sku-tag">SKU: EFDELTA2Max-US-NCBox</div>
-            <h2>EcoFlow Delta 2 Max</h2>
-            <p class="font-serif text-gold">Expandible hasta 6kWh · Carga Dual Solar</p>
-            
-            <div class="price-block" style="border-left-color: #999; background: #F5F5F5;">
-                <div style="font-size: 10px; text-transform: uppercase; color: #666; font-weight: bold;">SIN STOCK DISPONIBLE</div>
-                <div class="price-main" style="text-decoration: line-through; color: #999;">$980 USD / unidad</div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Especificaciones Técnicas</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Capacidad Base</span><span class="tech-val">2048 Wh (2 kWh)</span></div>
-                    <div class="tech-item"><span class="tech-key">Expansión Máxima</span><span class="tech-val">6144 Wh</span></div>
-                    <div class="tech-item"><span class="tech-key">Salida AC (x6)</span><span class="tech-val">2400W (Surge 4800W)</span></div>
-                    <div class="tech-item"><span class="tech-key">X-Boost</span><span class="tech-val">Hasta 3400W</span></div>
-                    <div class="tech-item"><span class="tech-key">Química Batería</span><span class="tech-val">LFP (LiFePO₄)</span></div>
-                    <div class="tech-item"><span class="tech-key">Entrada Solar</span><span class="tech-val">Dual 500W+500W (1000W Max)</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <button class="btn" style="background: #999; cursor: not-allowed; width: 100%;" disabled>MERCANCÍA AGOTADA</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- DELTA PRO GEN 1 -->
-    <div class="section product-card">
-        <div class="p-img-col">
-            <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-pro-power-station.jpg" alt="Delta Pro">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">LOTE 3: 20 UNIDADES</div>
-        </div>
-        <div>
-            <div class="sku-tag">SKU: DELTAPro-1600W-US · HS: 8507600090</div>
-            <h2>EcoFlow Delta Pro (Gen 1)</h2>
-            <p class="font-serif text-gold">El Estándar de la Industria · 3.6kWh Base</p>
-            <div class="price-block">
-                <div style="font-size: 10px; text-transform: uppercase;">Precio Mayorista</div>
-                <div class="price-main">$1,550 USD / unidad</div>
-                <div style="font-size: 12px; margin-top: 5px;"><strong>Pack 10 unds: $15,500</strong></div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Especificaciones Técnicas</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Capacidad Base</span><span class="tech-val">3600 Wh (3.6 kWh)</span></div>
-                    <div class="tech-item"><span class="tech-key">Expansión Máxima</span><span class="tech-val">10.8 kWh</span></div>
-                    <div class="tech-item"><span class="tech-key">Salida AC (x5)</span><span class="tech-val">3600W (Surge 7200W)</span></div>
-                    <div class="tech-item"><span class="tech-key">X-Boost</span><span class="tech-val">Hasta 4500W</span></div>
-                    <div class="tech-item"><span class="tech-key">Carga AC</span><span class="tech-val">1800W (120V) / 3000W (240V)</span></div>
-                    <div class="tech-item"><span class="tech-key">Entrada Solar</span><span class="tech-val">1600W Max (11-150V, 15A)</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Delta%20Pro%20Gen1" class="btn btn-wa">Cotizar Lote 3</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- DELTA PRO 3 (MODIFICADO: SOLO AGOTADO) -->
-    <div class="section product-card">
-        <div class="p-img-col">
-            <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-pro-3-power-station-2.jpg" alt="Delta Pro 3">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">COMBO 4 DISPONIBLE · SOLO AGOTADO</div>
-        </div>
-        <div>
-            <div class="sku-tag">SKU: EFDELTAPRO3-US</div>
-            <h2>EcoFlow Delta Pro 3</h2>
-            <p class="font-serif text-gold">Generación 3 · 4kW Salida · 120/240V Nativo</p>
-            <div style="display:flex; gap:10px; margin: 20px 0;">
-                <div style="background:#F0F0F0; padding:15px; flex:1; border: 2px solid var(--green);">
-                    <div style="font-size:11px; font-weight:bold; color: var(--green);">✔ COMBO 4 (Full Kit)</div>
-                    <div style="font-family:'Space Mono'; font-weight:700; font-size:18px;">$4,050</div>
-                    <div style="font-size:11px;">1 Gen + 1 Bat Extra (8kWh Total)</div>
-                </div>
-                
-                <!-- COMBO 5 AGOTADO -->
-                <div style="background:#FFE5E5; padding:15px; flex:1; opacity: 0.7; border: 1px solid #FFCDCD; position: relative;">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); border: 2px solid var(--alert-red); color: var(--alert-red); font-weight: 800; font-size: 20px; padding: 5px; background: rgba(255,255,255,0.8);">AGOTADO</div>
-                    <div style="font-size:11px; font-weight:bold; color: #555;">COMBO 5 (Solo)</div>
-                    <div style="font-family:'Space Mono'; font-weight:700; font-size:18px; text-decoration: line-through; color: #999;">$2,300</div>
-                    <div style="font-size:11px; color: var(--alert-red);">Sin stock disponible</div>
-                </div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Especificaciones Técnicas (Generador)</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Capacidad</span><span class="tech-val">4096 Wh (4 kWh)</span></div>
-                    <div class="tech-item"><span class="tech-key">Potencia Salida</span><span class="tech-val">4000W (120V) / 4000W (240V)</span></div>
-                    <div class="tech-item"><span class="tech-key">Pico (Surge)</span><span class="tech-val">8000W / 12000W</span></div>
-                    <div class="tech-item"><span class="tech-key">Voltaje</span><span class="tech-val">120V/240V Split-Phase Nativo</span></div>
-                    <div class="tech-item"><span class="tech-key">Expansión</span><span class="tech-val">Hasta 36 kWh</span></div>
-                    <div class="tech-item"><span class="tech-key">Ruido</span><span class="tech-val">Ultra-silencioso (&lt;30dB)</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Combos%20Delta%20Pro%203" class="btn btn-wa">Cotizar Combo 4 (Único Disponible)</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- SISTEMA ULTRA -->
-    <div class="section product-card">
-        <div class="p-img-col">
-            <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-pro-ultra-inverter.jpg" alt="Delta Pro Ultra">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">SISTEMAS CASA ESTÁNDAR & MAX</div>
-        </div>
-        <div>
-            <div class="sku-tag">SKU: EFDeltaProUltra-US + BP</div>
-            <h2>Sistema EcoFlow Ultra</h2>
-            <p class="font-serif text-gold">Respaldo Integral · Inversor Híbrido + Batería LFP</p>
-            <div class="price-block">
-                <div style="margin-bottom:10px; border-bottom:1px solid #CCC; padding-bottom:5px;">
-                    <span style="font-weight:700;">OPCIÓN CASA ESTÁNDAR (12kWh)</span>
-                    <div class="price-main">$7,200 USD</div>
-                    <div class="text-sm">1 Inversor + 2 Baterías</div>
-                </div>
-                <div>
-                    <span style="font-weight:700;">OPCIÓN CASA MAX (18kWh)</span>
-                    <div class="price-main">$9,400 USD</div>
-                    <div class="text-sm">1 Inversor + 3 Baterías (Autonomía 24h+)</div>
-                </div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Especificaciones Inversor Ultra</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Potencia Continua</span><span class="tech-val">7.2 kW</span></div>
-                    <div class="tech-item"><span class="tech-key">Potencia Pico</span><span class="tech-val">10.8 kW (10s) / 21.6 kW (Motor)</span></div>
-                    <div class="tech-item"><span class="tech-key">Salida AC</span><span class="tech-val">120/240V Fase Dividida</span></div>
-                    <div class="tech-item"><span class="tech-key">UPS (Transferencia)</span><span class="tech-val">0ms (Online) / &lt;20ms (Backup)</span></div>
-                    <div class="tech-item"><span class="tech-key">Expansión Sistema</span><span class="tech-val">Hasta 90 kWh (15 baterías)</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Sistema%20Ultra" class="btn btn-wa">Cotizar Ultra</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- LONGI PANELES (ALTA PRESIÓN FOMO) -->
-    <div class="section product-card">
-        <div class="p-img-col" style="border-color: var(--alert-red); border-width: 2px;">
-            <img src="https://s.alicdn.com/@sc04/kf/Haf04fd06702349688f8543cae2ef81940.jpg" alt="LONGi Hi-MO 7">
-            <!-- Etiqueta en la imagen con animación -->
-            <div style="margin-top:10px; font-size:14px; font-weight:900; color: white; background: var(--alert-red); padding: 8px 10px; width: 100%; text-transform: uppercase; animation: pulse 2s infinite;">
-                ⚠ SOLO 16 PALLETS EN STOCK
-            </div>
-            <div style="font-size: 12px; color: var(--alert-red); margin-top: 5px; font-weight: bold;">(23 PALLETS LIQUIDADOS HOY)</div>
-        </div>
-        <div>
-            <div class="sku-tag">MODELO: LR8-48HGD (430-455M)</div>
-            <h2>LONGi Hi-MO 7</h2>
-            <p class="font-serif text-gold">Módulos Bifaciales · Tecnología HPBC · Eficiencia 22.8%</p>
-            
-            <!-- ALERTA DE STOCK ULTRA AGRESIVA -->
-            <div class="fomo-badge" style="width: 100%; text-align: left; margin-top: 15px; padding: 15px; font-size: 13px;">
-                <strong style="font-size: 16px; display: block; margin-bottom: 5px;">🔥 URGENTE: INVENTARIO CRÍTICO</strong>
-                Un solo cliente acaba de comprar 20 pallets. <strong>ÚNICAMENTE QUEDAN 16 DISPONIBLES EN INBOND.</strong><br><br>
-                <span style="background: var(--alert-red); color: white; padding: 2px 5px;">Las reservas de palabra han sido canceladas.</span> La mercancía se asigna automáticamente al primero que envíe comprobante de pago.
-            </div>
-
-            <div class="price-block" style="border-left-color: var(--alert-red);">
-                <div style="font-size: 10px; text-transform: uppercase; color: var(--alert-red); font-weight: bold;">SE AGOTAN HOY - PRECIO POR PALLET (36 UNIDADES)</div>
-                <div class="price-main">$3,060 USD</div>
-                <div style="font-size: 12px; margin-top: 5px;">Sale a <strong>$85.00 por panel</strong> (Precio garantizado SOLO con pago)</div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Tabla Eléctrica (STC 1000W/m²)</h4>
-                <div style="overflow-x: auto;">
-                    <table class="full-table">
-                        <thead>
-                            <tr><th>Modelo</th><th>Pmax</th><th>Voc (V)</th><th>Isc (A)</th><th>Efic %</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>LR8-48HGD-430M</td><td>430W</td><td>34.77</td><td>15.71</td><td>21.5</td></tr>
-                            <tr class="highlight-row"><td>LR8-48HGD-440M ★</td><td>440W</td><td>35.05</td><td>15.91</td><td>22.0</td></tr>
-                            <tr><td>LR8-48HGD-455M</td><td>455W</td><td>35.47</td><td>16.22</td><td>22.8</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <h4 class="tech-title" style="margin-top:15px;">Especificaciones Mecánicas</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Dimensiones</span><span class="tech-val">1762 × 1134 × 30 mm</span></div>
-                    <div class="tech-item"><span class="tech-key">Bifacialidad</span><span class="tech-val">80% ± 5%</span></div>
-                    <div class="tech-item"><span class="tech-key">Carga Mecánica</span><span class="tech-val">Frontal 5400Pa / Trasera 2400Pa</span></div>
-                    <div class="tech-item"><span class="tech-key">Garantía</span><span class="tech-val">12 años Materiales / 30 años Potencia</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 25px;">
-                <a href="https://wa.me/5358183649?text=URGENTE%3A%20Tengo%20el%20dinero%2C%20quiero%20asegurar%20mis%20pallets%20de%20LONGi%20antes%20de%20que%20se%20agoten" class="btn btn-wa" style="background: var(--alert-red); font-size: 14px; width: 100%; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);">PAGAR AHORA Y ASEGURAR (QUEDAN 16)</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- SMA INVERSORES -->
-    <div class="section product-card" style="border-bottom:none;">
-        <div class="p-img-col">
-            <img src="https://www.sma-america.com/fileadmin/_processed_/a/9/csm_sunny-tripower-core1_47478de01e.webp" alt="SMA CORE1">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">MODELOS: 33kW / 50kW / 62kW</div>
-        </div>
-        <div>
-            <div class="sku-tag">SERIE: SUNNY TRIPOWER CORE1-US-41</div>
-            <h2>SMA Sunny Tripower</h2>
-            <p class="font-serif text-gold">Inversor Trifásico Comercial Autoportante</p>
-            <div class="price-block">
-                <div style="font-size: 10px; text-transform: uppercase;">Rango de Precios</div>
-                <div class="price-main">$5,100 (33kW) / $6,400 (50kW)</div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Comparativa de Modelos</h4>
-                <div style="overflow-x: auto;">
-                    <table class="full-table">
-                        <thead>
-                            <tr><th>Parámetro</th><th>STP 33-US-41</th><th>STP 50-US-41</th><th>STP 62-US-41</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Potencia AC Nom.</td><td>33,000 W</td><td>50,000 W</td><td>62,000 W</td></tr>
-                            <tr><td>Voltaje AC</td><td>208 / 480 V</td><td>480 V</td><td>480 V</td></tr>
-                            <tr><td>MPPT Trackers</td><td>3</td><td>3</td><td>3</td></tr>
-                            <tr><td>Entradas (Strings)</td><td>6 (2 por MPPT)</td><td>6 (2 por MPPT)</td><td>6 (2 por MPPT)</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <h4 class="tech-title" style="margin-top:15px;">Características Generales</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Topología</span><span class="tech-val">Sin transformador</span></div>
-                    <div class="tech-item"><span class="tech-key">Eficiencia Máx</span><span class="tech-val">98.4% - 98.6%</span></div>
-                    <div class="tech-item"><span class="tech-key">Protección</span><span class="tech-val">NEMA 4X (IP66) - Exterior</span></div>
-                    <div class="tech-item"><span class="tech-key">Comunicaciones</span><span class="tech-val">Ethernet, WLAN, Modbus TCP</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20SMA%20Tripower" class="btn btn-wa">Cotizar SMA</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ========================================== -->
-    <!-- NUEVOS PRODUCTOS DEYE (INVERSOR Y BATERÍAS)-->
     <!-- ========================================== -->
+    <!-- SECCIÓN 1: INVERSORES Y ALMACENAMIENTO DEYE / SMA / GOODWE -->
+    <!-- ========================================== -->
+    <section id="inversores" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="font-size: 36px; color: white; text-transform: uppercase;">Inversores y Baterías Industriales</h2>
+                <p class="font-mono text-muted" style="margin-top: 10px;">SISTEMAS ON/OFF GRID · GOODWE, SMA & DEYE</p>
+            </div>
 
-    <!-- INVERSOR DEYE 10kW -->
-    <div class="section product-card">
-        <div class="p-img-col">
-            <img src="https://www.deyeinverter.com/deyeinverter/2025/12/05/SUN-5-12K-SG01LP1-USEU2.png" alt="Deye Inversor 10kW">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">STOCK DISPONIBLE: 30 UNIDADES</div>
-        </div>
-        <div>
-            <div class="sku-tag">MODELO: SUN-10K-SG02LP2-US-AM3</div>
-            <h2>Inversor Híbrido Deye 10kW</h2>
-            <p class="font-serif text-gold">Fase Dividida (120/240V) · Soporte para Generador Diésel</p>
-            <div class="price-block">
-                <div style="font-size: 10px; text-transform: uppercase;">Precio Mayorista</div>
-                <div class="price-main">$2,800 USD / unidad</div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Especificaciones Técnicas</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Potencia Salida AC</span><span class="tech-val">10,000 W (Split Phase 120/240V)</span></div>
-                    <div class="tech-item"><span class="tech-key">Entrada Solar (PV) Máx</span><span class="tech-val">15,000 W (150-425V)</span></div>
-                    <div class="tech-item"><span class="tech-key">Rastreadores MPPT</span><span class="tech-val">3 (Strings: 2+2+2)</span></div>
-                    <div class="tech-item"><span class="tech-key">Corriente Carga/Descarga</span><span class="tech-val">220 A Máximo</span></div>
-                    <div class="tech-item"><span class="tech-key">Paralelizable</span><span class="tech-val">Hasta 16 unidades (Off-grid/On-grid)</span></div>
-                    <div class="tech-item"><span class="tech-key">Protección y Pantalla</span><span class="tech-val">IP65 (NEMA 3R) / LCD Táctil a color</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Inversor%20Deye%2010kW" class="btn btn-wa">Cotizar Inversor Deye</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- BATERÍA DEYE 5.12 kWh (100Ah) -->
-    <div class="section product-card">
-        <div class="p-img-col">
-            <img src="https://deye.com/wp-content/uploads/2024/04/se-g5.1-pro-b.jpg" alt="Batería Deye 5.12kWh">
-            <div style="margin-top:10px; font-size:12px; font-weight:bold;">STOCK DISPONIBLE: 35 UNIDADES</div>
-        </div>
-        <div>
-            <div class="sku-tag">MODELO: SE-G5.1 (48V 100Ah)</div>
-            <h2>Batería Deye 5.12 kWh</h2>
-            <p class="font-serif text-gold">Química LiFePO₄ Libre de Cobalto · Formato Rack 3U</p>
-            <div class="price-block">
-                <div style="font-size: 10px; text-transform: uppercase;">Precio Mayorista</div>
-                <div class="price-main">$1,000 USD / unidad</div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Especificaciones Técnicas</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Capacidad Nominal</span><span class="tech-val">5.12 kWh (100 Ah)</span></div>
-                    <div class="tech-item"><span class="tech-key">Voltaje Nominal</span><span class="tech-val">51.2 V (Rango 44.8V-57.6V)</span></div>
-                    <div class="tech-item"><span class="tech-key">Corriente Descarga/Carga</span><span class="tech-val">50A Continuo / 100A Pico (10s)</span></div>
-                    <div class="tech-item"><span class="tech-key">Ciclos de Vida</span><span class="tech-val">≥6000 Ciclos (80% DoD)</span></div>
-                    <div class="tech-item"><span class="tech-key">Escalabilidad Máxima</span><span class="tech-val">64 unidades en paralelo (327 kWh)</span></div>
-                    <div class="tech-item"><span class="tech-key">Comunicaciones</span><span class="tech-val">CAN2.0, RS485 (Auto-networking)</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Bateria%20Deye%205.12kWh" class="btn btn-wa">Cotizar Batería 5kWh</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- BATERÍA DEYE 10.24 kWh (200Ah) -->
-    <div class="section product-card">
-        <div class="p-img-col">
-            <img src="https://deye.com/wp-content/uploads/2025/01/se-g10.2%E4%BE%A7%E9%9D%A2.jpg" alt="Batería Deye 10.24kWh">
-            <div style="margin-top:10px; font-size:12px; font-weight:900; color: var(--alert-red); background: var(--alert-bg); padding: 5px 10px; width: 100%; border: 1px solid var(--alert-red);">
-                ⚠ INVENTARIO LIMITADO: 14 UNIDADES
-            </div>
-        </div>
-        <div>
-            <div class="sku-tag">MODELO: SE-G10.2 (48V 200Ah)</div>
-            <h2>Batería Deye 10.24 kWh</h2>
-            <p class="font-serif text-gold">Alta Densidad Energética · Química LiFePO₄</p>
-            <div class="price-block">
-                <div style="font-size: 10px; text-transform: uppercase;">Precio Mayorista</div>
-                <div class="price-main">$2,000 USD / unidad</div>
-            </div>
-            <div class="tech-section">
-                <h4 class="tech-title">Especificaciones Técnicas</h4>
-                <div class="tech-grid">
-                    <div class="tech-item"><span class="tech-key">Capacidad Nominal</span><span class="tech-val">10.24 kWh (200 Ah)</span></div>
-                    <div class="tech-item"><span class="tech-key">Voltaje Nominal</span><span class="tech-val">51.2 V (Rango 44.8V-57.6V)</span></div>
-                    <div class="tech-item"><span class="tech-key">Corriente Descarga/Carga</span><span class="tech-val">100A Continuo / 200A Pico (10s)</span></div>
-                    <div class="tech-item"><span class="tech-key">Ciclos de Vida</span><span class="tech-val">≥6000 Ciclos (80% DoD)</span></div>
-                    <div class="tech-item"><span class="tech-key">Escalabilidad Máxima</span><span class="tech-val">64 unidades en paralelo (655 kWh)</span></div>
-                    <div class="tech-item"><span class="tech-key">Refrigeración</span><span class="tech-val">Natural (Sin ventiladores / IP20)</span></div>
-                </div>
-            </div>
-            <div style="margin-top: 20px;">
-                <a href="https://wa.me/5358183649?text=Cotizar%20Bateria%20Deye%2010.24kWh" class="btn btn-wa">Cotizar Batería 10kWh</a>
-            </div>
-        </div>
-    </div>
-    <!-- FIN NUEVOS PRODUCTOS DEYE -->
-
-<!-- ========================================== -->
-<!-- SECCIÓN CÓMO COMPRAR (REDISEÑADA) -->
-<!-- ========================================== -->
-<div id="comprar" class="section" style="background: white; border-top: 2px solid var(--border);">
-    <div class="container">
-        
-        <!-- Header Sección -->
-        <div style="margin-bottom: 50px;">
-            <h1 style="font-size: 42px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px;">Cómo Comprar con Novelec</h1>
-            <p class="font-serif" style="font-style: italic; font-size: 18px; color: var(--text-sec);">Proceso simplificado para TCP y MIPYME · Acompañamiento completo</p>
-        </div>
-
-        <div class="buying-grid">
-            
-            <!-- Columna Izquierda: PASOS -->
-            <div>
-                <h5 class="tech-title" style="color:var(--gold-dark); border-color:var(--gold-dark);">PASOS DEL PROCESO</h5>
+            <div class="grid-tech">
                 
-                <!-- Paso 1 -->
-                <div class="step-row">
-                    <div class="step-num">1</div>
-                    <div>
-                        <h4 style="margin-bottom: 5px; font-size: 18px;">Entidad Jurídica Requerida</h4>
-                        <p style="font-size: 14px; color: var(--text-sec); line-height: 1.6;">Es necesario ser TCP (Trabajador por Cuenta Propia) o MIPYME legalmente constituida en Cuba. Sin este requisito no es posible formalizar la operación.</p>
+                <!-- GOODWE 3.68kW -->
+                <div class="card-tech">
+                    <div class="card-header">
+                        <span class="sku-badge">FAMILIA: INVERSOR HÍBRIDO | FABRICANTE: GOODWE</span>
+                        <h3 style="font-size: 24px; color: white;">Inversor Híbrido Monofásico 3.68 kW</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Soporte On/Off Grid, DC Switch, 2 MPPT</p>
+                        <div class="price-display"><span class="price-currency">$</span>1,698.24 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <div class="stock-badge">STOCK AUDITADO: 14 UNIDADES</div>
                     </div>
-                </div>
-
-                <!-- Paso 2 -->
-                <div class="step-row">
-                    <div class="step-num">2</div>
-                    <div>
-                        <h4 style="margin-bottom: 5px; font-size: 18px;">Contrato Comercial con el Importador</h4>
-                        <p style="font-size: 14px; color: var(--text-sec); line-height: 1.6;">Se formaliza un contrato comercial con la empresa importadora (generalmente CUBAELECTRÓNICA). Novelec gestiona este proceso por el cliente.</p>
-                    </div>
-                </div>
-
-                <!-- Paso 3 -->
-                <div class="step-row">
-                    <div class="step-num">3</div>
-                    <div>
-                        <h4 style="margin-bottom: 5px; font-size: 18px;">Pago en Efectivo en Oficinas</h4>
-                        <p style="font-size: 14px; color: var(--text-sec); line-height: 1.6;">Pago en efectivo USD aceptado en las oficinas del importador. Se emite <strong>Factura Comercial</strong> oficial como constancia de la transacción.</p>
-                    </div>
-                </div>
-
-                <!-- Paso 4 -->
-                <div class="step-row">
-                    <div class="step-num">4</div>
-                    <div>
-                        <h4 style="margin-bottom: 5px; font-size: 18px;">Declaración de Mercancía (Aduanas)</h4>
-                        <p style="font-size: 14px; color: var(--text-sec); line-height: 1.6;">Novelec gestiona la Declaración de Mercancía ante la aduana cubana. Se aplican <strong>aranceles MINCEX</strong> estándar (bajos, regulados). Este paso es transparente para el comprador.</p>
-                    </div>
-                </div>
-
-                <!-- Paso 5 -->
-                <div class="step-row">
-                    <div class="step-num">5</div>
-                    <div>
-                        <h4 style="margin-bottom: 5px; font-size: 18px;">Entrega DAP en Almacén Inbond</h4>
-                        <p style="font-size: 14px; color: var(--text-sec); line-height: 1.6;">La entrega se realiza en modalidad <strong>DAP (Entregado en Lugar de Destino)</strong> en el almacén Inbond, Reparto Eléctrico, La Habana. El comprador recoge en esta ubicación.</p>
-                    </div>
-                </div>
-
-                <!-- Plazo -->
-                <div class="step-row">
-                    <div class="step-icon">⏱</div>
-                    <div>
-                        <h4 style="margin-bottom: 5px; font-size: 18px;">Plazo de Entrega</h4>
-                        <p style="font-size: 14px; color: var(--text-sec); line-height: 1.6;"><strong>1-2 días hábiles</strong> tras la confirmación del pago. En algunos casos, entrega el mismo día. Mercancía ya en Cuba, sin esperas de importación.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Columna Derecha: INFORMACIÓN -->
-            <div>
-                <h5 class="tech-title" style="color:var(--gold-dark); border-color:var(--gold-dark);">INFORMACIÓN IMPORTANTE</h5>
-                
-                <div class="info-box">
-                    <div class="info-title">COSTOS ADICIONALES</div>
-                    <p style="font-size: 13px; color: var(--text-sec); line-height: 1.6;">Únicamente aplican los aranceles aduanales estándar regulados por MINCEX, que son <strong>bajos y están claramente establecidos</strong>. No hay costos ocultos ni cargos adicionales de gestión por parte de Novelec.</p>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-title">VENTAJAS DEL ALMACÉN INBOND</div>
-                    <ul style="font-size: 13px; color: var(--text-sec); line-height: 1.8; list-style: none; padding-left: 0;">
-                        <li>▸ Mercancía en Cuba — sin riesgo de retención en frontera</li>
-                        <li>▸ Entrega ultra-rápida: 24-48h post-pago garantizadas</li>
-                        <li>▸ Stock físicamente disponible y auditable</li>
-                        <li>▸ Precios en USD, protegidos de fluctuaciones cambiarias</li>
-                        <li>▸ Proceso aduanal ya iniciado y gestionado por Novelec</li>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Potencia Aparente Salida Max.</span><span class="spec-value">3680 VA</span></li>
+                        <li><span class="spec-label">Tensión Nominal Salida</span><span class="spec-value">230V (± 2%)</span></li>
+                        <li><span class="spec-label">Entrada FV (Potencia Max)</span><span class="spec-value">4950W - 6700W</span></li>
+                        <li><span class="spec-label">Tensión Entrada Max. (FV)</span><span class="spec-value">580 V</span></li>
+                        <li><span class="spec-label">Voltaje Nominal Batería</span><span class="spec-value">48 V (Ion Litio)</span></li>
+                        <li><span class="spec-label">Corriente Carga/Descarga</span><span class="spec-value">75 A Continuo</span></li>
                     </ul>
                 </div>
 
-                <div class="info-box">
-                    <div class="info-title">UBICACIÓN DEL ALMACÉN</div>
-                    <div style="font-weight: 700; font-size: 14px; margin-bottom: 5px;">Reparto Eléctrico, La Habana</div>
-                    <p style="font-size: 13px; color: var(--text-sec); line-height: 1.6;">Almacén Inbond bajo supervisión aduanal cubana. Acceso coordinado con Novelec para revisión de mercancía antes de la compra (previa cita).</p>
+                <!-- GOODWE 4.6kW -->
+                <div class="card-tech">
+                    <div class="card-header">
+                        <span class="sku-badge">FAMILIA: INVERSOR HÍBRIDO | FABRICANTE: GOODWE</span>
+                        <h3 style="font-size: 24px; color: white;">Inversor Híbrido Monofásico 4.60 kW</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Soporte On/Off Grid, DC Switch, 2 MPPT</p>
+                        <div class="price-display"><span class="price-currency">$</span>1,930.69 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <div class="stock-badge">STOCK AUDITADO: 12 UNIDADES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Potencia Aparente Salida Max.</span><span class="spec-value">4600 VA</span></li>
+                        <li><span class="spec-label">Tensión Nominal Salida</span><span class="spec-value">230V (± 2%)</span></li>
+                        <li><span class="spec-label">Entrada FV (Potencia Max)</span><span class="spec-value">6700W</span></li>
+                        <li><span class="spec-label">Tensión Entrada Max. (FV)</span><span class="spec-value">580 V</span></li>
+                        <li><span class="spec-label">Voltaje Nominal Batería</span><span class="spec-value">48 V (Ion Litio)</span></li>
+                        <li><span class="spec-label">Corriente Carga/Descarga</span><span class="spec-value">100 A Continuo</span></li>
+                    </ul>
                 </div>
 
-                <!-- Contacto Box -->
-                <div class="contact-box">
-                    <div style="font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 15px;">CONTACTO DIRECTO</div>
-                    <div style="font-size: 16px; font-weight: 700;">NOVELEC · El Náutico, La Habana</div>
-                    <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--gold-dark); font-weight: 700; margin: 10px 0 20px;">+53 5818 3649</div>
+                <!-- GOODWE BATERIA 5.4 kWh -->
+                <div class="card-tech">
+                    <div class="card-header">
+                        <span class="sku-badge">FAMILIA: FOTOVOLTAICA | FABRICANTE: GOODWE</span>
+                        <h3 style="font-size: 24px; color: white;">Módulo de Batería 5.4 kWh</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Sistema "Todo Incluido" exclusivo Inversores Goodwe</p>
+                        <div class="price-display"><span class="price-currency">$</span>2,044.26 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <div class="stock-badge" style="color: var(--danger); border-color: var(--danger); background: rgba(239, 68, 68, 0.1);">STOCK CRÍTICO: 8 UNIDADES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Capacidad de Almacenamiento</span><span class="spec-value">5.4 kWh</span></li>
+                        <li><span class="spec-label">Química de Celda</span><span class="spec-value">Li-Ion (Alta Densidad)</span></li>
+                        <li><span class="spec-label">Integración</span><span class="spec-value">Plug & Play c/ Goodwe</span></li>
+                        <li><span class="spec-label">BMS Incorporado</span><span class="spec-value">Sí (Protección Integral)</span></li>
+                    </ul>
+                </div>
+
+                <!-- DEYE INVERSOR 10KW -->
+                <div class="card-tech">
+                    <div class="card-image-wrapper">
+                        <img src="https://www.deyeinverter.com/deyeinverter/2025/12/05/SUN-5-12K-SG01LP1-USEU2.png" alt="Deye Inversor 10kW">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">MODELO: SUN-10K-SG02LP2-US-AM3 | DEYE</span>
+                        <h3 style="font-size: 24px; color: white;">Inversor Híbrido Deye 10kW</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Fase Dividida (120/240V) · Soporte nativo para Generador Diésel</p>
+                        <div class="price-display"><span class="price-currency">$</span>2,800.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <div class="stock-badge">STOCK AUDITADO: 30 UNIDADES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Potencia Salida AC</span><span class="spec-value">10,000 W (Split Phase 120/240V)</span></li>
+                        <li><span class="spec-label">Entrada Solar (PV) Máx</span><span class="spec-value">15,000 W (150-425V)</span></li>
+                        <li><span class="spec-label">Rastreadores MPPT</span><span class="spec-value">3 (Strings: 2+2+2)</span></li>
+                        <li><span class="spec-label">Corriente Carga/Descarga</span><span class="spec-value">220 A Máximo</span></li>
+                        <li><span class="spec-label">Topología Paralela</span><span class="spec-value">Hasta 16 unidades</span></li>
+                    </ul>
+                </div>
+
+                <!-- DEYE BATERIA 5.12KW -->
+                <div class="card-tech">
+                    <div class="card-image-wrapper">
+                        <img src="https://deye.com/wp-content/uploads/2024/04/se-g5.1-pro-b.jpg" alt="Batería Deye 5.12kWh">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">MODELO: SE-G5.1 (48V 100Ah) | DEYE</span>
+                        <h3 style="font-size: 24px; color: white;">Batería Rack Deye 5.12 kWh</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Química LiFePO₄ Libre de Cobalto · Formato Rack 3U</p>
+                        <div class="price-display"><span class="price-currency">$</span>1,000.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <div class="stock-badge">STOCK AUDITADO: 35 UNIDADES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Capacidad Nominal</span><span class="spec-value">5.12 kWh (100 Ah)</span></li>
+                        <li><span class="spec-label">Voltaje Operativo</span><span class="spec-value">51.2 V (44.8V-57.6V)</span></li>
+                        <li><span class="spec-label">Corriente Descarga/Carga</span><span class="spec-value">50A Continuo / 100A Pico</span></li>
+                        <li><span class="spec-label">Ciclos de Vida</span><span class="spec-value">≥6000 Ciclos (80% DoD)</span></li>
+                        <li><span class="spec-label">Escalabilidad</span><span class="spec-value">64 unids paralelo (327 kWh)</span></li>
+                    </ul>
+                </div>
+
+                <!-- DEYE BATERIA 10.24KW -->
+                <div class="card-tech" style="border-color: var(--danger);">
+                    <div class="card-image-wrapper">
+                        <img src="https://deye.com/wp-content/uploads/2025/01/se-g10.2%E4%BE%A7%E9%9D%A2.jpg" alt="Batería Deye 10.24kWh">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">MODELO: SE-G10.2 (48V 200Ah) | DEYE</span>
+                        <h3 style="font-size: 24px; color: white;">Batería Deye 10.24 kWh</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Química LiFePO₄ Industrial · Máximo almacenamiento por U</p>
+                        <div class="price-display"><span class="price-currency">$</span>2,000.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <div class="stock-badge" style="color: var(--danger); border-color: var(--danger); background: rgba(239, 68, 68, 0.1);">INVENTARIO LIMITADO: 14 UNIDADES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Capacidad Nominal</span><span class="spec-value">10.24 kWh (200 Ah)</span></li>
+                        <li><span class="spec-label">Voltaje Operativo</span><span class="spec-value">51.2 V (44.8V-57.6V)</span></li>
+                        <li><span class="spec-label">Corriente Descarga/Carga</span><span class="spec-value">100A Continuo / 200A Pico</span></li>
+                        <li><span class="spec-label">Ciclos de Vida</span><span class="spec-value">≥6000 Ciclos (80% DoD)</span></li>
+                        <li><span class="spec-label">Escalabilidad</span><span class="spec-value">64 unids paralelo (655 kWh)</span></li>
+                    </ul>
+                </div>
+
+                <!-- SMA TRIPOWER 33kW -->
+                <div class="card-tech" style="border-color: #F59E0B;">
+                    <div class="card-image-wrapper">
+                        <img src="https://www.sma-america.com/fileadmin/_processed_/a/9/csm_sunny-tripower-core1_47478de01e.webp" alt="SMA CORE1">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">FAMILIA: INVERSOR FOTOVOLTAICO | SMA</span>
+                        <h3 style="font-size: 24px; color: white;">Sunny Tripower 33-US (33.000W)</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Inversor Trifásico Comercial. Diseño Autoportante Core1.</p>
+                        <div class="price-display"><span class="price-currency">$</span>6,059.06 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <div class="stock-badge">STOCK EXCLUSIVO: 4 UNIDADES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Potencia Nominal AC</span><span class="spec-value">33,000 W</span></li>
+                        <li><span class="spec-label">Voltaje AC Nominal</span><span class="spec-value">208 V / 480 V Trifásico</span></li>
+                        <li><span class="spec-label">Trackers MPPT</span><span class="spec-value">3 Independientes</span></li>
+                        <li><span class="spec-label">Entradas (Strings)</span><span class="spec-value">6 (2 por MPPT)</span></li>
+                    </ul>
+                </div>
+
+                <!-- SMA TRIPOWER 50kW -->
+                <div class="card-tech" style="border-color: #F59E0B;">
+                    <div class="card-image-wrapper">
+                        <img src="https://www.sma-america.com/fileadmin/_processed_/a/9/csm_sunny-tripower-core1_47478de01e.webp" alt="SMA CORE1">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">FAMILIA: INVERSOR FOTOVOLTAICO | SMA</span>
+                        <h3 style="font-size: 24px; color: white;">Sunny Tripower 50-US (50.000W)</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Inversor Trifásico Comercial. Inyección a Red.</p>
+                        <div class="price-display"><span class="price-currency">$</span>7,591.04 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <div class="stock-badge">STOCK EXCLUSIVO: 6 UNIDADES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Potencia Nominal AC</span><span class="spec-value">50,000 W</span></li>
+                        <li><span class="spec-label">Voltaje AC Nominal</span><span class="spec-value">480 V Trifásico</span></li>
+                        <li><span class="spec-label">Trackers MPPT</span><span class="spec-value">3 Independientes</span></li>
+                        <li><span class="spec-label">Entradas (Strings)</span><span class="spec-value">6 (2 por MPPT)</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECCIÓN 2: ECOSISTEMA PORTÁTIL ECOFLOW -->
+    <!-- ========================================== -->
+    <section id="ecoflow" class="section" style="background: rgba(17, 24, 39, 0.4);">
+        <div class="container">
+            <div class="section-header" style="border-color: var(--accent-green);">
+                <h2 style="font-size: 36px; color: white; text-transform: uppercase;">Estaciones de Energía y Backup</h2>
+                <p class="font-mono text-muted" style="margin-top: 10px;">ECOSISTEMA INTELIGENTE ECOFLOW · PLUG & PLAY</p>
+            </div>
+
+            <div class="grid-tech">
+                
+                <!-- ECOFLOW E980 -->
+                <div class="card-tech">
+                    <div class="card-image-wrapper">
+                        <img src="https://lh3.googleusercontent.com/d/1pKzI9KkeEWbr9dkeUmWGNksn_ARTI7u0=w800" alt="EcoFlow E980">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">SKU: EFE980-US | HS: 842783153630 | ECOFLOW</span>
+                        <h3 style="font-size: 24px; color: white;">EcoFlow E980 "LATAM"</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Edición Industrial · Alta Autonomía Portátil</p>
+                        <div class="price-display"><span class="price-currency">$</span>460.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <p style="font-size: 12px; color: var(--accent-green); font-family: 'JetBrains Mono'; margin-top:5px;">Pack 10 unids: $4,600 (Margen Retail ~52%)</p>
+                        <div class="stock-badge">LOTE 1: 40 UNIDADES DISPONIBLES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Capacidad LFP</span><span class="spec-value">980 Wh</span></li>
+                        <li><span class="spec-label">Salida AC (x4 puertos)</span><span class="spec-value">500W (Pico Surge 750W)</span></li>
+                        <li><span class="spec-label">Modo X-Boost</span><span class="spec-value">Soporta cargas hasta 650W</span></li>
+                        <li><span class="spec-label">Ciclos de Vida</span><span class="spec-value">3000 ciclos al 80%</span></li>
+                        <li><span class="spec-label">Conmutación EPS (Backup)</span><span class="spec-value">< 30ms</span></li>
+                    </ul>
+                </div>
+
+                <!-- ECOFLOW DELTA 2 MAX (AGOTADO) -->
+                <div class="card-tech" style="opacity: 0.5; border-color: var(--border-color);">
+                    <div class="card-image-wrapper" style="position: relative;">
+                        <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-2-max-power-station.jpg" alt="Delta 2 Max">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); border: 3px solid var(--danger); color: var(--danger); font-weight: 900; font-size: 32px; padding: 5px 15px; background: rgba(255,255,255,0.9); z-index: 10;">AGOTADO</div>
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">SKU: EFDELTA2Max-US-NCBox | ECOFLOW</span>
+                        <h3 style="font-size: 24px; color: white; text-decoration: line-through;">EcoFlow Delta 2 Max</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Expandible hasta 6kWh · Carga Dual Solar</p>
+                        <div class="price-display"><span class="price-currency" style="color:#666;">$</span><span style="color:#666; text-decoration:line-through;">980.00</span></div>
+                        <div class="stock-badge" style="color: var(--danger); border-color: var(--danger); background: rgba(239, 68, 68, 0.1);">SIN STOCK DISPONIBLE</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Capacidad Base LFP</span><span class="spec-value">2048 Wh (2 kWh)</span></li>
+                        <li><span class="spec-label">Salida AC (x6 puertos)</span><span class="spec-value">2400W (Pico 4800W)</span></li>
+                        <li><span class="spec-label">Entrada Solar MPPT</span><span class="spec-value">Dual 500W+500W (1000W Max)</span></li>
+                    </ul>
+                </div>
+
+                <!-- ECOFLOW DELTA PRO GEN 1 -->
+                <div class="card-tech">
+                    <div class="card-image-wrapper">
+                        <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-pro-power-station.jpg" alt="Delta Pro">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">SKU: DELTAPro-1600W-US | ECOFLOW</span>
+                        <h3 style="font-size: 24px; color: white;">EcoFlow Delta Pro (Gen 1)</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">El Estándar de la Industria · Sistema 3.6kWh Base</p>
+                        <div class="price-display"><span class="price-currency">$</span>1,550.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ unid</span></div>
+                        <p style="font-size: 12px; color: var(--accent-green); font-family: 'JetBrains Mono'; margin-top:5px;">Pack 10 unids: $15,500</p>
+                        <div class="stock-badge">LOTE 3: 20 UNIDADES DISPONIBLES</div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Capacidad Base</span><span class="spec-value">3600 Wh (3.6 kWh)</span></li>
+                        <li><span class="spec-label">Expansión Máxima</span><span class="spec-value">10.8 kWh</span></li>
+                        <li><span class="spec-label">Salida AC (x5 puertos)</span><span class="spec-value">3600W (Surge 7200W)</span></li>
+                        <li><span class="spec-label">Carga AC Rápida</span><span class="spec-value">1800W (120V) / 3000W (240V)</span></li>
+                        <li><span class="spec-label">Entrada Solar PV</span><span class="spec-value">1600W Max (11-150V, 15A)</span></li>
+                    </ul>
+                </div>
+
+                <!-- ECOFLOW DELTA PRO 3 -->
+                <div class="card-tech">
+                    <div class="card-image-wrapper">
+                        <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-pro-3-power-station-2.jpg" alt="Delta Pro 3">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">SKU: EFDELTAPRO3-US | ECOFLOW</span>
+                        <h3 style="font-size: 24px; color: white;">EcoFlow Delta Pro 3</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Generación 3 · 4kW Salida · 120/240V Nativo Integrado</p>
+                        
+                        <div style="display:flex; gap:15px; margin-top:20px;">
+                            <div style="background: rgba(0,230,118,0.1); border: 1px solid var(--accent-green); padding: 15px; flex: 1; border-radius: 4px;">
+                                <div style="font-size: 11px; font-weight: bold; color: var(--accent-green); margin-bottom: 5px;">✔ COMBO 4 (Full Kit 8kWh)</div>
+                                <div style="font-family: 'JetBrains Mono'; font-weight: 800; font-size: 22px; color: white;">$4,050</div>
+                                <div style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">1 Gen + 1 Bat Extra</div>
+                            </div>
+                            <div style="background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.3); padding: 15px; flex: 1; border-radius: 4px; position:relative; overflow:hidden;">
+                                <div style="position:absolute; top:40%; left:-10px; width:120%; text-align:center; transform:rotate(-10deg); background:var(--danger); color:white; font-weight:900; font-size:12px; padding:2px 0;">AGOTADO</div>
+                                <div style="font-size: 11px; font-weight: bold; color: #666; margin-bottom: 5px;">COMBO 5 (Solo)</div>
+                                <div style="font-family: 'JetBrains Mono'; font-weight: 800; font-size: 22px; color: #666; text-decoration:line-through;">$2,300</div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Capacidad Base Generador</span><span class="spec-value">4096 Wh (4 kWh)</span></li>
+                        <li><span class="spec-label">Potencia Salida Continua</span><span class="spec-value">4000W (120V/240V)</span></li>
+                        <li><span class="spec-label">Topología Eléctrica</span><span class="spec-value">Split-Phase Nativo</span></li>
+                        <li><span class="spec-label">Nivel de Ruido</span><span class="spec-value">Ultra-silencioso (< 30dB)</span></li>
+                    </ul>
+                </div>
+
+                <!-- ECOFLOW ULTRA -->
+                <div class="card-tech" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto; width: 100%;">
+                    <div class="card-image-wrapper">
+                        <img src="https://www.ecoflow.nl/data/upload/Shop/images/ecoflow-delta-pro-ultra-inverter.jpg" alt="Delta Pro Ultra" style="max-height: 200px;">
+                    </div>
+                    <div class="card-header">
+                        <span class="sku-badge">SKU: EFDeltaProUltra-US + BP | ECOFLOW</span>
+                        <h3 style="font-size: 24px; color: white;">Sistema Respaldo Ultra (Whole-Home)</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Inversor Híbrido + Baterías Apilables LFP</p>
+                        
+                        <div style="background: var(--bg-card); padding: 15px; margin-top: 20px; border-radius: 4px; border-left: 3px solid var(--accent-blue);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center;">
+                                <div>
+                                    <div style="font-size: 12px; font-weight: bold; color: white;">OPCIÓN ESTÁNDAR (12kWh)</div>
+                                    <div style="font-size: 11px; color: var(--text-muted);">1 Inversor + 2 Baterías</div>
+                                </div>
+                                <div style="font-family: 'JetBrains Mono'; font-weight: 800; font-size: 18px; color: var(--accent-green);">$7,200</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
+                                <div>
+                                    <div style="font-size: 12px; font-weight: bold; color: white;">OPCIÓN MAX (18kWh)</div>
+                                    <div style="font-size: 11px; color: var(--text-muted);">1 Inversor + 3 Bats (Autonomía 24h+)</div>
+                                </div>
+                                <div style="font-family: 'JetBrains Mono'; font-weight: 800; font-size: 18px; color: var(--accent-green);">$9,400</div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="specs-list">
+                        <li><span class="spec-label">Potencia AC Continua</span><span class="spec-value">7,200 W</span></li>
+                        <li><span class="spec-label">Potencia Pico (Surge)</span><span class="spec-value">10.8 kW (10s)</span></li>
+                        <li><span class="spec-label">Salida AC</span><span class="spec-value">120/240V Fase Dividida</span></li>
+                        <li><span class="spec-label">Expansión del Sistema</span><span class="spec-value">Hasta 90 kWh</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECCIÓN 3: PANELES FOTOVOLTAICOS LONGI -->
+    <!-- ========================================== -->
+    <section id="paneles" class="section">
+        <div class="container">
+            <div class="section-header" style="border-color: var(--danger);">
+                <h2 style="font-size: 36px; color: white; text-transform: uppercase;">Módulos Fotovoltaicos Industriales</h2>
+                <p class="font-mono text-muted" style="margin-top: 10px;">MÁXIMA EFICIENCIA · TIER 1</p>
+            </div>
+
+            <div class="grid-tech" style="grid-template-columns: 1fr;">
+                <!-- LONGI PANELES -->
+                <div class="card-tech" style="border: 2px solid var(--danger); box-shadow: 0 0 30px rgba(239,68,68,0.15); display: grid; grid-template-columns: 1fr 1fr; gap: 0;">
                     
-                    <a href="https://wa.me/5358183649?text=Hola%20Novelec%2C%20quiero%20iniciar%20el%20proceso%20de%20compra" class="btn btn-wa" style="width: 100%; display: flex;">
-                        <svg width="20" height="20" fill="white" viewBox="0 0 24 24" style="margin-right: 8px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        INICIAR PROCESO DE COMPRA
-                    </a>
+                    <!-- Lado Izquierdo: Imagen -->
+                    <div class="card-image-wrapper" style="height: auto; border-bottom: none; border-right: 1px solid var(--border-color);">
+                        <img src="https://s.alicdn.com/@sc04/kf/Haf04fd06702349688f8543cae2ef81940.jpg" alt="LONGi Hi-MO 7">
+                    </div>
+
+                    <!-- Lado Derecho: Datos -->
+                    <div>
+                        <div class="card-header" style="background: transparent;">
+                            <span class="sku-badge" style="color: var(--danger);">MODELO: LR8-48HGD (430-455M) | LONGI</span>
+                            <h3 style="font-size: 32px; color: white; margin-top: 5px;">LONGi Hi-MO 7</h3>
+                            <p style="color: var(--text-muted); font-size: 15px; margin-top: 5px;">Módulos Bifaciales · Tecnología HPBC · Eficiencia 22.8%</p>
+                            
+                            <div style="background: var(--danger); color: white; padding: 15px; border-radius: 4px; margin-top: 25px; font-size: 14px; font-weight: 700;">
+                                <div style="font-size: 18px; margin-bottom: 5px;">⚠️ INVENTARIO CRÍTICO</div>
+                                SOLO QUEDAN 16 PALLETS (23 liquidados hoy).
+                            </div>
+
+                            <div class="price-display" style="margin-top:25px;"><span class="price-currency">$</span>3,060.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ pallet (36 unid)</span></div>
+                            <p style="font-size: 14px; color: var(--accent-green); font-family: 'JetBrains Mono'; margin-top:8px; font-weight: 800;">Equivale a $85.00 por panel (Garantizado con pago inmediato)</p>
+                        </div>
+                        <ul class="specs-list" style="border-top: 1px solid var(--border-color);">
+                            <li><span class="spec-label">Modelo Destacado</span><span class="spec-value">LR8-48HGD-440M (440W)</span></li>
+                            <li><span class="spec-label">Voltaje de Circuito Abierto (Voc)</span><span class="spec-value">35.05 V</span></li>
+                            <li><span class="spec-label">Corriente de Cortocircuito (Isc)</span><span class="spec-value">15.91 A</span></li>
+                            <li><span class="spec-label">Eficiencia del Módulo</span><span class="spec-value">22.0% (Hasta 22.8%)</span></li>
+                            <li><span class="spec-label">Bifacialidad</span><span class="spec-value">80% ± 5%</span></li>
+                            <li><span class="spec-label">Dimensiones Físicas</span><span class="spec-value">1762 × 1134 × 30 mm</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
+            <div style="margin-top: 50px; text-align: center;">
+                <a href="https://wa.me/5358183649?text=Hola,%20deseo%20cotizar%20equipos%20fotovoltaicos" class="btn btn-primary" style="width: 100%; max-width: 400px;">SOLICITAR COTIZACIÓN GLOBAL</a>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
 
-<!-- FOOTER -->
-<footer style="background: var(--black); color: white; padding: 40px 0;">
-    <div class="container" style="text-align: center;">
-        <div class="brand" style="margin-bottom: 10px;">NOVELEC</div>
-        <p style="font-size: 14px; color: #AAA;">Distribución Mayorista · El Náutico, La Habana</p>
-        <p style="font-size: 18px; font-weight: bold; margin: 10px 0; color: var(--gold);">+53 5818 3649</p>
-        <p style="font-size: 11px; color: #666; margin-top: 30px;">
-            Todos los derechos reservados 2026. Precios en USD sujetos a disponibilidad de inventario Inbond.
-        </p>
-    </div>
-</footer>
+    <!-- SECCIÓN: CONDUCTORES INDUSTRIALES (TABLA MASIVA) -->
+    <section id="cables" class="section" style="background: var(--bg-dark);">
+        <div class="container">
+            <div style="border-left: 4px solid var(--accent-green); padding-left: 20px; margin-bottom: 20px;">
+                <h2 style="font-size: 36px; color: white;">CONDUCTORES INDUSTRIALES Y CONTROL</h2>
+                <p class="font-mono text-muted" style="margin-top: 10px;">INVENTARIO DE BOBINAS Y ROLLOS · PRYSMIAN & ASCABLE</p>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th width="45%">Especificación Técnica del Conductor</th>
+                            <th width="10%">Marca</th>
+                            <th width="10%">Familia</th>
+                            <th width="10%">Unidad</th>
+                            <th width="10%">Disp.</th>
+                            <th width="15%" style="text-align: right;">Precio TT (USD)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- PRYSMIAN CABLES -->
+                        <tr>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X95 MM2 (CALIBRE 3/0) BOBINA</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>CABLES</td>
+                            <td>UD</td>
+                            <td class="td-qty">999</td>
+                            <td class="td-price" style="text-align: right;">$19.90</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X120 MM2 (CALIBRE 4/0) BOBINA</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>CABLES</td>
+                            <td>UD</td>
+                            <td class="td-qty">1,019</td>
+                            <td class="td-price" style="text-align: right;">$25.35</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X150 MM2 (CALIBRE 300MCM) BOBINA</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>CABLES</td>
+                            <td>UD</td>
+                            <td class="td-qty">999</td>
+                            <td class="td-price" style="text-align: right;">$31.15</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X240 MM2 (CALIBRE 500MCM) BOBINA</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>CABLES</td>
+                            <td>M</td>
+                            <td class="td-qty">2,000</td>
+                            <td class="td-price" style="text-align: right;">$50.14</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 5G16 MM2 ROYAL CORD 5X6 (1 VIA DE TIERRA), BOBINA</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>CABLES</td>
+                            <td>M</td>
+                            <td class="td-qty">1,997</td>
+                            <td class="td-price" style="text-align: right;">$18.34</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE RETENAX CPRO RV-K 1KV 3G6 MM2 ROL, ROYAL CORD 3 VIAS (1 VIA DE TIERRA)</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>CABLES</td>
+                            <td>m</td>
+                            <td class="td-qty">500</td>
+                            <td class="td-price" style="text-align: right;">$4.20</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 16 AZ CAJ</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>LSOH 750V</td>
+                            <td>m</td>
+                            <td class="td-qty">1,700</td>
+                            <td class="td-price" style="text-align: right;">$3.49</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 16 NE CAJ</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>LSOH 750V</td>
+                            <td>m</td>
+                            <td class="td-qty">1,600</td>
+                            <td class="td-price" style="text-align: right;">$3.49</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 25 AV ROL</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>LSOH 750V</td>
+                            <td>m</td>
+                            <td class="td-qty">600</td>
+                            <td class="td-price" style="text-align: right;">$5.33</td>
+                        </tr>
+                        <tr>
+                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 25 AZ ROL</td>
+                            <td class="td-brand">PRYSMIAN</td>
+                            <td>LSOH 750V</td>
+                            <td>m</td>
+                            <td class="td-qty">100</td>
+                            <td class="td-price" style="text-align: right;">$5.33</td>
+                        </tr>
+
+                        <!-- ASCABLE CABLES -->
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5 AV (R200)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>CONTROL</td>
+                            <td>m</td>
+                            <td class="td-qty">55,200</td>
+                            <td class="td-price" style="text-align: right;">$0.32</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5 AZ (R200)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>CONTROL</td>
+                            <td>m</td>
+                            <td class="td-qty">50,000</td>
+                            <td class="td-price" style="text-align: right;">$0.32</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5 NG (R200)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>CONTROL</td>
+                            <td>m</td>
+                            <td class="td-qty">47,200</td>
+                            <td class="td-price" style="text-align: right;">$0.32</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">H07V-K CPR 6 AV (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>M</td>
+                            <td class="td-qty">99</td>
+                            <td class="td-price" style="text-align: right;">$1.16</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">H07V-K CPR 6 NG (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>M</td>
+                            <td class="td-qty">99</td>
+                            <td class="td-price" style="text-align: right;">$1.16</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">H07V-K CPR 16 AV (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>M</td>
+                            <td class="td-qty">14,400</td>
+                            <td class="td-price" style="text-align: right;">$3.26</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">H07V-K CPR 16 AZ (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>M</td>
+                            <td class="td-qty">14,900</td>
+                            <td class="td-price" style="text-align: right;">$3.26</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">H07V-K CPR 16 NG (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>MTR</td>
+                            <td class="td-qty">1,500</td>
+                            <td class="td-price" style="text-align: right;">$3.26</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">H07V-K CPR 25 AV (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>M</td>
+                            <td class="td-qty">1,500</td>
+                            <td class="td-price" style="text-align: right;">$5.11</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">H07V-K CPR 35 NG (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>MTS</td>
+                            <td class="td-qty">800</td>
+                            <td class="td-price" style="text-align: right;">$6.96</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">Cable de Fuerza Monoconductor POWERFLEX RV-K 1 X 50 MM2 (BOBINAS 1000 M)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>M</td>
+                            <td class="td-qty">--</td>
+                            <td class="td-price" style="text-align: right;">$12.87</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">CABLE DOBLE AISLAMIENTO RV-K 1KV CPR 1X95 NG (BOB)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>PCS</td>
+                            <td class="td-qty">1,000</td>
+                            <td class="td-price" style="text-align: right;">$19.42</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">RV-K 1KV CPR 3G4 NG (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>ROYAL CORD</td>
+                            <td>MTS</td>
+                            <td class="td-qty">900</td>
+                            <td class="td-price" style="text-align: right;">$2.73</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">MTS. RV-K 1kV CPR 7G4 NG (BOB)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>ROYAL CORD</td>
+                            <td>M</td>
+                            <td class="td-qty">500</td>
+                            <td class="td-price" style="text-align: right;">$7.86</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="margin-top: 30px; display: flex; justify-content: flex-end;">
+                 <a href="https://wa.me/5358183649?text=Hola,%20deseo%20hacer%20un%20pedido%20de%20bobinas%20de%20cable" class="btn btn-outline">GESTIONAR COMPRA DE CABLES</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROTOCOLO DE ADQUISICIÓN B2B -->
+    <section id="proceso" class="section">
+        <div class="container">
+            <h2 style="font-size: 36px; color: white; text-align: center; margin-bottom: 60px;">PROTOCOLO DE ADQUISICIÓN MAYORISTA</h2>
+            
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="step-number">01</div>
+                    <h4 class="process-title">Verificación de Identidad Jurídica</h4>
+                    <p class="process-text">Requisito indispensable operar bajo la figura de TCP o MIPYME debidamente constituida. Se formaliza el vínculo comercial a través de la empresa importadora pertinente (ej. CUBAELECTRÓNICA).</p>
+                </div>
+                
+                <div class="process-card">
+                    <div class="step-number">02</div>
+                    <h4 class="process-title">Liquidación y Facturación Oficial</h4>
+                    <p class="process-text">El pago se efectúa en efectivo (USD) directamente en las oficinas de la entidad importadora, generándose la Factura Comercial que avala legal y contablemente la transacción.</p>
+                </div>
+                
+                <div class="process-card" style="border-color: var(--accent-green);">
+                    <div class="step-number" style="color: rgba(0, 230, 118, 0.1);">03</div>
+                    <h4 class="process-title text-accent">Despliegue DAP (Inbond Habana)</h4>
+                    <p class="process-text">Tras liquidar los aranceles estandarizados del MINCEX (gestionados por Novelec), la mercancía se libera en modalidad DAP desde nuestro almacén en Reparto Eléctrico. Plazo garantizado: 24-48h hábiles.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center; background: var(--bg-panel); padding: 40px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 800; color: var(--accent-green); margin-bottom: 20px;">CONTACTO DIRECTO: +53 5818 3649</div>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px;">Ejecutivo de cuentas mayoristas dedicado. Asesoría técnica integral y gestión aduanal incluida sin sobrecargos ocultos.</p>
+                <a href="https://wa.me/5358183649?text=Hola%20Novelec,%20deseo%20iniciar%20tr%C3%A1mites%20de%20compra%20B2B" class="btn btn-primary">INICIAR OPERACIÓN B2B VÍA WHATSAPP</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background: #000; padding: 60px 0; border-top: 1px solid var(--border-color); text-align: center;">
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 15px;">NOVELEC<span>.</span></div>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Infraestructura Energética de Vanguardia · La Habana, Cuba</p>
+            <p style="font-family: 'JetBrains Mono'; font-size: 12px; color: #4B5563;">
+                © 2026 NOVELEC B2B DISTRIBUTION. Las especificaciones técnicas están sujetas a la documentación original del fabricante.<br>
+                Precios netos expresados en USD (Costo TT). Disponibilidad Inbond garantizada en tiempo real.
+            </p>
+        </div>
+    </footer>
 
 </body>
 </html>
