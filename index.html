@@ -239,6 +239,43 @@
             padding-left: 20px; margin-bottom: 40px;
         }
 
+        /* ========================================== */
+        /* FIX RESPONSIVO PARA MÓVILES (LONGI Y TABLA) */
+        /* ========================================== */
+        
+        /* Layout especial para el panel LONGi */
+        .panel-longi-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        
+        @media (max-width: 900px) {
+            /* Pasa el panel LONGi a 1 sola columna en móvil */
+            .panel-longi-layout { grid-template-columns: 1fr; }
+            .panel-longi-layout .card-image-wrapper {
+                border-right: none !important;
+                border-bottom: 1px solid var(--border-color) !important;
+                height: 250px !important;
+            }
+        }
+
+        /* Fix para evitar que la tabla se aplaste */
+        .table-container {
+            -webkit-overflow-scrolling: touch; /* Scroll suave en iPhone */
+        }
+        .data-table {
+            min-width: 900px; /* Fuerza un tamaño mínimo para un scroll horizontal limpio */
+        }
+        .data-table th, .data-table td {
+            white-space: nowrap; /* Evita que los datos cortos (precios, stock) se rompan en 2 líneas */
+        }
+        .data-table .td-desc {
+            white-space: normal; /* Permite que solo la descripción salte de línea... */
+            min-width: 320px; /* ...pero le da un ancho mínimo para que no quede como tira vertical */
+            line-height: 1.4;
+        }
+
     </style>
 </head>
 <body>
@@ -599,7 +636,7 @@
 
             <div class="grid-tech" style="grid-template-columns: 1fr;">
                 <!-- LONGI PANELES -->
-                <div class="card-tech" style="border: 2px solid var(--danger); box-shadow: 0 0 30px rgba(239,68,68,0.15); display: grid; grid-template-columns: 1fr 1fr; gap: 0;">
+                <div class="card-tech panel-longi-layout" style="border: 2px solid var(--danger); box-shadow: 0 0 30px rgba(239,68,68,0.15);">
                     
                     <!-- Lado Izquierdo: Imagen -->
                     <div class="card-image-wrapper" style="height: auto; border-bottom: none; border-right: 1px solid var(--border-color);">
