@@ -305,26 +305,37 @@
     </section>
 
 <!-- ========================================== -->
-    <!-- SECCIÓN NUEVA: PRE-VENTA CONTENEDORES LONGI -->
+    <!-- SECCIÓN: PRE-VENTA CONTENEDORES LONGI (ALERTA MERCADO) -->
     <!-- ========================================== -->
     <section id="preventa-contenedores" class="section" style="background: linear-gradient(180deg, rgba(31, 41, 55, 0.8) 0%, var(--bg-dark) 100%); position: relative; overflow: hidden;">
         <!-- Elemento decorativo de fondo -->
-        <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: var(--warning); filter: blur(150px); opacity: 0.15; border-radius: 50%; pointer-events: none;"></div>
+        <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: var(--danger); filter: blur(150px); opacity: 0.15; border-radius: 50%; pointer-events: none;"></div>
 
         <div class="container" style="position: relative; z-index: 2;">
-            <!-- Banner de Alerta Pre-venta -->
-            <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); border-radius: 8px; padding: 25px 30px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                <div>
-                    <div style="display: inline-block; background: var(--warning); color: #000; font-family: 'JetBrains Mono'; font-weight: 900; font-size: 13px; padding: 4px 10px; border-radius: 4px; margin-bottom: 10px; text-transform: uppercase;">🚢 En Tránsito Marítimo</div>
-                    <h2 style="font-size: 28px; color: white; margin-bottom: 5px;">PRE-VENTA EXCLUSIVA X CONTENEDOR</h2>
-                    <p style="color: var(--warning); font-weight: 600;">Llegada estimada a puerto: Finales de Abril</p>
+            
+            <!-- BANNER DE ALERTA DE MERCADO (NUEVO) -->
+            <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid var(--danger); border-radius: 8px; overflow: hidden; margin-bottom: 40px;">
+                <div style="background: var(--danger); color: white; padding: 10px 20px; font-family: 'JetBrains Mono'; font-weight: 800; font-size: 14px; letter-spacing: 1px; display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 18px;">⚠️</span> ALERTA DE MERCADO GLOBAL: FIN DE SUBSIDIOS EN CHINA
                 </div>
-                <div style="background: rgba(0,0,0,0.3); padding: 15px 25px; border-radius: 6px; border-left: 4px solid var(--warning);">
-                    <div style="font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Condición Comercial DAP</div>
-                    <div style="font-size: 19px; color: white; font-weight: 800; font-family: 'JetBrains Mono'; margin-top: 5px;">Aceptamos pago del <span style="color: var(--warning);">30% por adelantado</span> para reservar</div>
+                <div style="padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div style="flex: 1; min-width: 300px;">
+                        <h2 style="font-size: 24px; color: white; margin-bottom: 10px;">Asegure su inventario antes del alza de precios</h2>
+                        <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">
+                            El gobierno de China ha iniciado la <strong>eliminación progresiva del reembolso del IVA a la exportación (del 13% al 0%)</strong> para módulos fotovoltaicos. Las fábricas (incluyendo LONGi, Jinko, etc.) ya están ajustando sus precios FOB al alza para compensar la pérdida del subsidio.
+                        </p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.4); padding: 15px 25px; border-radius: 6px; border-left: 4px solid var(--danger); min-width: 250px;">
+                        <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Ventaja Inbond Novelec</div>
+                        <div style="font-size: 16px; color: white; font-weight: 800; font-family: 'JetBrains Mono'; margin-top: 5px;">
+                            Bloquee el precio actual con <span style="color: var(--warning);">30% de anticipo</span>
+                        </div>
+                        <div style="font-size: 12px; color: var(--danger); margin-top: 5px; font-weight: bold;">Válido solo para contenedores en tránsito.</div>
+                    </div>
                 </div>
             </div>
 
+            <!-- GRID DE CONTENEDORES -->
             <div class="grid-tech" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
                 
                 <!-- CONTENEDOR 1: LONGI 545W -->
@@ -332,35 +343,34 @@
                     <div class="card-header">
                         <span class="sku-badge">TECNOLOGÍA: HPBC 2.0 OBB | MONOFACIAL</span>
                         <h3 style="font-size: 24px; color: white;">LONGi Hi-MO X10 (545W)</h3>
-                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Wafer TaiRay · Rendimiento imbatible frente a puntos calientes</p>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Wafer TaiRay · El mejor costo/beneficio del mercado</p>
                         
-                        <div class="price-display"><span class="price-currency">$</span>112.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ panel</span></div>
+                        <!-- PRECIO CON COMPARATIVA -->
+                        <div style="margin-top: 20px;">
+                            <div style="font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono'; text-decoration: line-through;">Precio proyectado post-subsidio: $128.00</div>
+                            <div class="price-display" style="margin-top: 0; color: var(--accent-green);"><span class="price-currency" style="color: var(--accent-green);">$</span>112.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ panel</span></div>
+                        </div>
                         
-                        <div class="stock-badge" style="width: 100%; text-align: center; margin-top: 15px; border-color: var(--accent-blue); color: var(--accent-blue); background: rgba(59, 130, 246, 0.1);">
-                            📦 2 CONTENEDORES EN CAMINO (792 UNIDADES C/U)
+                        <div class="stock-badge" style="width: 100%; text-align: center; margin-top: 15px; border-color: var(--warning); color: var(--warning); background: rgba(245, 158, 11, 0.1);">
+                            🚢 2 CONTENEDORES EN TRÁNSITO (792 UNIDADES C/U)
                         </div>
                     </div>
                     <ul class="specs-list">
-                        <li><span class="spec-label">Modelo</span><span class="spec-value">LR7-60HVH-545M</span></li>
                         <li><span class="spec-label">Eficiencia Máxima</span><span class="spec-value">24.8%</span></li>
                         <li><span class="spec-label">Dimensiones</span><span class="spec-value">1990×1134×30mm</span></li>
-                        <li><span class="spec-label">Degradación Año 1</span><span class="spec-value">< 1%</span></li>
                     </ul>
-                    <!-- INICIO DESGLOSE FINANCIERO -->
                     <div style="padding: 15px 30px; background: rgba(0,0,0,0.2); border-top: 1px dashed var(--border-color);">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: var(--text-muted); font-size: 13px;">Valor Contenedor Completo:</span>
+                            <span style="color: var(--text-muted); font-size: 13px;">Costo DAP Contenedor:</span>
                             <span style="color: white; font-family: 'JetBrains Mono'; font-weight: 700;">$88,704.00</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: var(--warning); font-size: 14px; font-weight: 700;">Anticipo 30% (Reserva):</span>
+                            <span style="color: var(--warning); font-size: 14px; font-weight: 700;">Anticipo 30% (Fijar precio):</span>
                             <span style="color: var(--warning); font-family: 'JetBrains Mono'; font-weight: 800; font-size: 18px;">$26,611.20</span>
                         </div>
                     </div>
-                    <!-- FIN DESGLOSE FINANCIERO -->
                     <div style="padding: 20px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px;">
-                        <a href="https://wa.me/5358183649?text=Hola,%20deseo%20reservar%20el%20contenedor%20de%20paneles%20LONGi%20545W%20(Valor%20total:%20$88,704)%20pagando%20el%20anticipo%20del%2030%25%20($26,611.20)" class="btn btn-primary" style="width: 100%; font-size: 13px;" target="_blank">RESERVAR POR WHATSAPP</a>
-                        <a href="https://drive.google.com/file/d/1-5oSk_I8NIpUuRCI69gHo5NBzzVEDhMy/view?usp=sharing" class="btn btn-outline" style="width: 100%; font-size: 13px; padding: 12px;" target="_blank">📄 VER FICHA TÉCNICA (PDF)</a>
+                        <a href="https://wa.me/5358183649?text=Hola,%20quiero%20fijar%20el%20precio%20y%20reservar%20el%20contenedor%20LONGi%20545W%20($88,704)%20antes%20del%20alza%20de%20aranceles%20chinos." class="btn btn-primary" style="width: 100%; font-size: 13px;" target="_blank">FIJAR PRECIO Y RESERVAR</a>
                     </div>
                 </div>
 
@@ -369,35 +379,34 @@
                     <div class="card-header">
                         <span class="sku-badge">TECNOLOGÍA: HPBC EXPLORER | MONOFACIAL</span>
                         <h3 style="font-size: 24px; color: white;">LONGi Hi-MO X10 (650W)</h3>
-                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Alta potencia para mercado de distribución · Generación superior</p>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Alta potencia para despliegue industrial y granjas.</p>
                         
-                        <div class="price-display"><span class="price-currency">$</span>134.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ panel</span></div>
+                        <!-- PRECIO CON COMPARATIVA -->
+                        <div style="margin-top: 20px;">
+                            <div style="font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono'; text-decoration: line-through;">Precio proyectado post-subsidio: $149.00</div>
+                            <div class="price-display" style="margin-top: 0; color: var(--accent-green);"><span class="price-currency" style="color: var(--accent-green);">$</span>134.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ panel</span></div>
+                        </div>
                         
-                        <div class="stock-badge" style="width: 100%; text-align: center; margin-top: 15px; border-color: var(--accent-blue); color: var(--accent-blue); background: rgba(59, 130, 246, 0.1);">
-                            📦 2 CONTENEDORES EN CAMINO (720 UNIDADES C/U)
+                        <div class="stock-badge" style="width: 100%; text-align: center; margin-top: 15px; border-color: var(--warning); color: var(--warning); background: rgba(245, 158, 11, 0.1);">
+                            🚢 2 CONTENEDORES EN TRÁNSITO (720 UNIDADES C/U)
                         </div>
                     </div>
                     <ul class="specs-list">
-                        <li><span class="spec-label">Modelo</span><span class="spec-value">LR7-72HVH-650M</span></li>
                         <li><span class="spec-label">Eficiencia Máxima</span><span class="spec-value">24.1%</span></li>
                         <li><span class="spec-label">Dimensiones</span><span class="spec-value">2382×1134×30mm</span></li>
-                        <li><span class="spec-label">Degradación Año 1</span><span class="spec-value">< 1%</span></li>
                     </ul>
-                    <!-- INICIO DESGLOSE FINANCIERO -->
                     <div style="padding: 15px 30px; background: rgba(0,0,0,0.2); border-top: 1px dashed var(--border-color);">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: var(--text-muted); font-size: 13px;">Valor Contenedor Completo:</span>
+                            <span style="color: var(--text-muted); font-size: 13px;">Costo DAP Contenedor:</span>
                             <span style="color: white; font-family: 'JetBrains Mono'; font-weight: 700;">$96,480.00</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: var(--warning); font-size: 14px; font-weight: 700;">Anticipo 30% (Reserva):</span>
+                            <span style="color: var(--warning); font-size: 14px; font-weight: 700;">Anticipo 30% (Fijar precio):</span>
                             <span style="color: var(--warning); font-family: 'JetBrains Mono'; font-weight: 800; font-size: 18px;">$28,944.00</span>
                         </div>
                     </div>
-                    <!-- FIN DESGLOSE FINANCIERO -->
                     <div style="padding: 20px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px;">
-                        <a href="https://wa.me/5358183649?text=Hola,%20deseo%20reservar%20el%20contenedor%20de%20paneles%20LONGi%20Explorer%20650W%20(Valor%20total:%20$96,480)%20pagando%20el%20anticipo%20del%2030%25%20($28,944)" class="btn btn-primary" style="width: 100%; font-size: 13px;" target="_blank">RESERVAR POR WHATSAPP</a>
-                        <a href="https://drive.google.com/file/d/1vd7XBdb1ZM7JJTYw8dqD235PLOL9Bw_Z/view?usp=sharing" class="btn btn-outline" style="width: 100%; font-size: 13px; padding: 12px;" target="_blank">📄 VER FICHA TÉCNICA (PDF)</a>
+                        <a href="https://wa.me/5358183649?text=Hola,%20quiero%20fijar%20el%20precio%20y%20reservar%20el%20contenedor%20LONGi%20Explorer%20650W%20($96,480)%20antes%20del%20alza%20de%20aranceles%20chinos." class="btn btn-primary" style="width: 100%; font-size: 13px;" target="_blank">FIJAR PRECIO Y RESERVAR</a>
                     </div>
                 </div>
 
@@ -406,35 +415,34 @@
                     <div class="card-header">
                         <span class="sku-badge">TECNOLOGÍA: HPBC SCIENTIST | MONOFACIAL</span>
                         <h3 style="font-size: 24px; color: white;">LONGi Hi-MO X10 (655W)</h3>
-                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Wafer TaiRay & Celda BC · La mayor eficiencia del mercado</p>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Celda BC Premium · La mayor eficiencia garantizada.</p>
                         
-                        <div class="price-display"><span class="price-currency">$</span>134.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ panel</span></div>
+                        <!-- PRECIO CON COMPARATIVA -->
+                        <div style="margin-top: 20px;">
+                            <div style="font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono'; text-decoration: line-through;">Precio proyectado post-subsidio: $149.00</div>
+                            <div class="price-display" style="margin-top: 0; color: var(--accent-green);"><span class="price-currency" style="color: var(--accent-green);">$</span>134.00 <span style="font-size: 12px; color: var(--text-muted); font-weight: 400;">/ panel</span></div>
+                        </div>
                         
-                        <div class="stock-badge" style="width: 100%; text-align: center; margin-top: 15px; border-color: var(--accent-blue); color: var(--accent-blue); background: rgba(59, 130, 246, 0.1);">
-                            📦 2 CONTENEDORES EN CAMINO (720 UNIDADES C/U)
+                        <div class="stock-badge" style="width: 100%; text-align: center; margin-top: 15px; border-color: var(--warning); color: var(--warning); background: rgba(245, 158, 11, 0.1);">
+                            🚢 2 CONTENEDORES EN TRÁNSITO (720 UNIDADES C/U)
                         </div>
                     </div>
                     <ul class="specs-list">
-                        <li><span class="spec-label">Modelo</span><span class="spec-value">LR7-72HVH-655M</span></li>
                         <li><span class="spec-label">Eficiencia Máxima</span><span class="spec-value">24.8%</span></li>
                         <li><span class="spec-label">Dimensiones</span><span class="spec-value">2382×1134×30mm</span></li>
-                        <li><span class="spec-label">Degradación Año 1</span><span class="spec-value">< 1%</span></li>
                     </ul>
-                    <!-- INICIO DESGLOSE FINANCIERO -->
                     <div style="padding: 15px 30px; background: rgba(0,0,0,0.2); border-top: 1px dashed var(--border-color);">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: var(--text-muted); font-size: 13px;">Valor Contenedor Completo:</span>
+                            <span style="color: var(--text-muted); font-size: 13px;">Costo DAP Contenedor:</span>
                             <span style="color: white; font-family: 'JetBrains Mono'; font-weight: 700;">$96,480.00</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: var(--warning); font-size: 14px; font-weight: 700;">Anticipo 30% (Reserva):</span>
+                            <span style="color: var(--warning); font-size: 14px; font-weight: 700;">Anticipo 30% (Fijar precio):</span>
                             <span style="color: var(--warning); font-family: 'JetBrains Mono'; font-weight: 800; font-size: 18px;">$28,944.00</span>
                         </div>
                     </div>
-                    <!-- FIN DESGLOSE FINANCIERO -->
                     <div style="padding: 20px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px;">
-                        <a href="https://wa.me/5358183649?text=Hola,%20deseo%20reservar%20el%20contenedor%20de%20paneles%20LONGi%20Scientist%20655W%20(Valor%20total:%20$96,480)%20pagando%20el%20anticipo%20del%2030%25%20($28,944)" class="btn btn-primary" style="width: 100%; font-size: 13px;" target="_blank">RESERVAR POR WHATSAPP</a>
-                        <a href="https://drive.google.com/file/d/1VCl3ZhVWgOzBz4djfRK6VTH6axWIxKxU/view?usp=sharing" class="btn btn-outline" style="width: 100%; font-size: 13px; padding: 12px;" target="_blank">📄 VER FICHA TÉCNICA (PDF)</a>
+                        <a href="https://wa.me/5358183649?text=Hola,%20quiero%20fijar%20el%20precio%20y%20reservar%20el%20contenedor%20LONGi%20Scientist%20655W%20($96,480)%20antes%20del%20alza%20de%20aranceles%20chinos." class="btn btn-primary" style="width: 100%; font-size: 13px;" target="_blank">FIJAR PRECIO Y RESERVAR</a>
                     </div>
                 </div>
 
