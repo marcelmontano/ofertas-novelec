@@ -276,6 +276,24 @@
             line-height: 1.4;
         }
 
+        /* ========================================== */
+        /* FIX RESPONSIVO PARA EL PANEL DE NOTICIAS */
+        /* ========================================== */
+        .news-panel-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            padding: 30px;
+        }
+        
+        @media (max-width: 900px) {
+            .news-panel-grid {
+                grid-template-columns: 1fr; /* Cambia a 1 sola columna en móviles */
+                gap: 25px;
+                padding: 20px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -325,7 +343,7 @@
                 </div>
 
                 <!-- Cuerpo de la Noticia y Consecuencias -->
-                <div style="padding: 30px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px;">
+                <div class="news-panel-grid"></div>
                     
                     <!-- Resumen de la noticia -->
                     <div>
