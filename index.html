@@ -294,6 +294,69 @@
             }
         }
 
+        /* ========================================== */
+        /* MARKET ANALYSIS SECTION (REVOLICO VS NOVELEC) */
+        /* ========================================== */
+        .market-analysis-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .market-analysis-container::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent 70%);
+            pointer-events: none;
+        }
+        .market-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .chart-box {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 25px;
+        }
+        .chart-title {
+            font-size: 14px; color: white; text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px;
+        }
+        /* CSS Bar Charts */
+        .bar-group { margin-bottom: 20px; }
+        .bar-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; font-family: 'JetBrains Mono', monospace; }
+        .bar-track { width: 100%; height: 24px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; display: flex; }
+        .bar-fill { height: 100%; display: flex; align-items: center; padding: 0 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 800; color: #000; }
+        .bar-fill.danger { background: var(--danger); width: 85%; color: white; }
+        .bar-fill.warning { background: var(--warning); width: 65%; }
+        .bar-fill.success { background: var(--accent-green); width: 100%; }
+        .bar-fill.short-success { background: var(--accent-green); width: 45%; }
+        
+        /* Vs Cards */
+        .vs-card {
+            padding: 20px; border-radius: 6px; border-left: 4px solid;
+            background: rgba(0,0,0,0.2);
+        }
+        .vs-card.bad { border-color: var(--danger); margin-bottom: 15px; }
+        .vs-card.good { border-color: var(--accent-green); }
+        .vs-header { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .vs-card.bad .vs-header { color: var(--danger); }
+        .vs-card.good .vs-header { color: var(--accent-green); }
+        .vs-list { list-style: none; padding: 0; font-size: 13px; color: var(--text-muted); }
+        .vs-list li { margin-bottom: 5px; display: flex; gap: 8px; }
+        .vs-list li::before { content: '×'; color: var(--danger); font-weight: bold; }
+        .vs-card.good .vs-list li::before { content: '✓'; color: var(--accent-green); }
+
+        @media (max-width: 900px) {
+            .market-grid { grid-template-columns: 1fr; }
+            .market-analysis-container { padding: 20px; }
+        }
+
     </style>
 </head>
 <body>
@@ -376,9 +439,106 @@
                 </div>
             </div>
 
+            <!-- ========================================== -->
+    <!-- SECCIÓN: INTELIGENCIA DE MERCADO (REVOLICO VS NOVELEC) -->
+    <!-- ========================================== -->
+    <section id="mercado" class="section" style="padding-bottom: 0; border-bottom: none;">
+        <div class="container">
+            <div class="section-header" style="border-color: var(--accent-blue);">
+                <h2 style="font-size: 36px; color: white; text-transform: uppercase;">Auditoría de Mercado Local</h2>
+                <p class="font-mono text-muted" style="margin-top: 10px;">ANÁLISIS DE OFERTAS ACTUALES (REVOLICO) VS TECNOLOGÍA NOVELEC</p>
+            </div>
+
+            <div class="market-analysis-container">
+                <p style="color: var(--text-main); font-size: 16px; max-width: 800px; margin-bottom: 10px;">
+                    El mercado informal cubano está saturado de paneles de tecnología obsoleta (PERC), lotes liquidados y supuestos módulos "bifaciales" que no rinden en techos planos. <strong>Lo barato sale caro.</strong> Analizamos los datos reales para demostrar por qué nuestra importación DAP destruye la oferta actual.
+                </p>
+
+                <div class="market-grid">
+                    
+                    <!-- COLUMNA 1: GRÁFICOS CSS -->
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        
+                        <!-- Gráfico de Precios -->
+                        <div class="chart-box">
+                            <div class="chart-title"><span style="font-size: 18px;">💰</span> COMPARATIVA DE PRECIO POR PANEL</div>
+                            
+                            <div class="bar-group">
+                                <div class="bar-label"><span>Mercado (Milexus/Jinko/Trina 600W)</span> <span>Retail / Detalle</span></div>
+                                <div class="bar-track"><div class="bar-fill danger" style="width: 100%;">Hasta $180.00 USD</div></div>
+                            </div>
+                            
+                            <div class="bar-group">
+                                <div class="bar-label"><span>Mercado (Paneles 570W-600W)</span> <span>Pallet Mayorista</span></div>
+                                <div class="bar-track"><div class="bar-fill warning" style="width: 75%;">Aprox. $135.00 USD</div></div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar-label"><span style="color: white;">NOVELEC (LONGi Hi-MO X10 650W)</span> <span style="color: var(--accent-green);">DAP Inbond</span></div>
+                                <div class="bar-track"><div class="bar-fill short-success" style="width: 65%; color: black;">$134.00 USD</div></div>
+                            </div>
+                            <div class="bar-group" style="margin-bottom: 0;">
+                                <div class="bar-label"><span style="color: white;">NOVELEC (LONGi Hi-MO X10 545W)</span> <span style="color: var(--accent-green);">DAP Inbond</span></div>
+                                <div class="bar-track"><div class="bar-fill short-success" style="width: 50%; color: black;">$112.00 USD</div></div>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico de Pérdida por Calor -->
+                        <div class="chart-box">
+                            <div class="chart-title"><span style="font-size: 18px;">🔥</span> CAÍDA DE POTENCIA POR CALOR EXTREMO (65°C en Techo)</div>
+                            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">A las 12:00 PM bajo el sol cubano, los paneles pierden eficiencia. El coeficiente de temperatura define cuánta energía real pierdes.</p>
+                            
+                            <div class="bar-group">
+                                <div class="bar-label"><span>Ofertas Comunes (Coef: -0.35%/°C)</span> <span>Pierde ~14%</span></div>
+                                <div class="bar-track"><div class="bar-fill danger" style="width: 85%;">Pérdida Crítica de Generación</div></div>
+                            </div>
+
+                            <div class="bar-group" style="margin-bottom: 0;">
+                                <div class="bar-label"><span style="color: white;">LONGi X10 (Coef: -0.260%/°C)</span> <span style="color: var(--accent-green);">Pierde solo ~10%</span></div>
+                                <div class="bar-track"><div class="bar-fill short-success" style="width: 40%; color: black;">Rendimiento Sostenido</div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA 2: COMPARATIVA TÉCNICA (VS CARDS) -->
+                    <div style="display: flex; flex-direction: column; justify-content: center;">
+                        <h3 style="color: white; font-size: 20px; margin-bottom: 20px;">Análisis de Especificaciones (La realidad técnica)</h3>
+                        
+                        <!-- Bad Card (Mercado) -->
+                        <div class="vs-card bad">
+                            <div class="vs-header"><span>LO QUE SE VENDE HOY EN CUBA</span> <span>👎</span></div>
+                            <ul class="vs-list">
+                                <li><strong>Tecnología PERC/TOPCon estándar:</strong> Líneas de metal (busbars) en el frente que tapan la luz solar y causan microfisuras con el tiempo.</li>
+                                <li><strong>El mito "Bifacial":</strong> Te cobran más por paneles de doble vidrio que, al pegarlos al techo de placa o zinc, no reciben luz por detrás (ganancia cero).</li>
+                                <li><strong>Alta Degradación:</strong> Garantías irreales o degradación anual superior al 0.55%. En 5 años producen mucho menos.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Good Card (Novelec) -->
+                        <div class="vs-card good">
+                            <div class="vs-header"><span>LA SOLUCIÓN NOVELEC (LONGi Hi-MO X10)</span> <span>👍</span></div>
+                            <ul class="vs-list">
+                                <li><strong style="color: white;">Tecnología HPBC 2.0 (Back Contact):</strong> Cero líneas en el frente. Absorbe el 100% de la luz. Estética superior y cero riesgo de microfisuras.</li>
+                                <li><strong style="color: white;">Monofacial de Alta Densidad:</strong> Máxima potencia (hasta 24.8% de eficiencia) optimizada para los techos cubanos. Más Watts reales en menos metros cuadrados.</li>
+                                <li><strong style="color: white;">Oblea TaiRay (Grado Científico):</strong> Degradación casi nula del 0.35% anual. Garantía lineal de producción de 30 años.</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent-blue); font-size: 13px; color: var(--text-main);">
+                            <strong>Conclusión Comercial:</strong> Estás pagando hasta $180 USD por tecnologías descontinuadas o subóptimas. Novelec te entrega tecnología aeroespacial (HPBC 2.0) a <strong>precios mayoristas reales desde $112.00 USD</strong>.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
             <div class="section-header">
                 <h2 style="font-size: 32px; color: white; text-transform: uppercase;">Asegure su inventario Tier 1 (Tarifas 2024 Congeladas)</h2>
             </div>
+
+            
 
             <!-- GRID DE CONTENEDORES -->
             <div class="grid-tech" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
@@ -842,6 +1002,8 @@
         </div>
     </section>
 
+    
+
     <!-- ========================================== -->
     <!-- SECCIÓN 3: PANELES FOTOVOLTAICOS LONGI -->
     <!-- ========================================== -->
@@ -917,190 +1079,190 @@
                     <tbody>
                         <!-- PRYSMIAN CABLES -->
                         <tr>
-                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X95 MM2 (CALIBRE 3/0) BOBINA</td>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X95MM2 (CALIBRE 3/0) BOBINA 1000M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>CABLES</td>
-                            <td>UD</td>
-                            <td class="td-qty">999</td>
-                            <td class="td-price" style="text-align: right;">$19.90</td>
+                            <td>M</td>
+                            <td class="td-qty">1,000</td>
+                            <td class="td-price" style="text-align: right;">$18.00</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X120 MM2 (CALIBRE 4/0) BOBINA</td>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X120 MM2 (CALIBRE 4/0) BOBINA 1019M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>CABLES</td>
-                            <td>UD</td>
+                            <td>M</td>
                             <td class="td-qty">1,019</td>
-                            <td class="td-price" style="text-align: right;">$25.35</td>
+                            <td class="td-price" style="text-align: right;">$22.00</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X150 MM2 (CALIBRE 300MCM) BOBINA</td>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X150MM2 (CALIBRE 300MCM) BOBINA 1000M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>CABLES</td>
-                            <td>UD</td>
-                            <td class="td-qty">999</td>
-                            <td class="td-price" style="text-align: right;">$31.15</td>
+                            <td>M</td>
+                            <td class="td-qty">1,000</td>
+                            <td class="td-price" style="text-align: right;">$28.00</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X240 MM2 (CALIBRE 500MCM) BOBINA</td>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 1X240MM2 (CALIBRE 500MCM) BOBINA 1000M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>CABLES</td>
                             <td>M</td>
                             <td class="td-qty">2,000</td>
-                            <td class="td-price" style="text-align: right;">$50.14</td>
+                            <td class="td-price" style="text-align: right;">$45.00</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 5G16 MM2 ROYAL CORD 5X6 (1 VIA DE TIERRA), BOBINA</td>
+                            <td class="td-desc">CABLE MTR. RETENAX CPRO RV-K 1KV 5G16MM2 ROYAL CORD 5X6 (1 VIA DE TIERRA), BOBINA 1997M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>CABLES</td>
                             <td>M</td>
                             <td class="td-qty">1,997</td>
-                            <td class="td-price" style="text-align: right;">$18.34</td>
+                            <td class="td-price" style="text-align: right;">$18.00</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE RETENAX CPRO RV-K 1KV 3G6 MM2 ROL, ROYAL CORD 3 VIAS (1 VIA DE TIERRA)</td>
+                            <td class="td-desc">CABLE RETENAX CPRO RV-K 1KV 3G6MM2 ROLLO 100M, ROYAL CORD 3 VIAS (1 VIA DE TIERRA)</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>CABLES</td>
-                            <td>m</td>
+                            <td>M</td>
                             <td class="td-qty">500</td>
-                            <td class="td-price" style="text-align: right;">$4.20</td>
+                            <td class="td-price" style="text-align: right;">$3.60</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 16 AZ CAJ</td>
+                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 16MM AZ CAJA 100M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>LSOH 750V</td>
-                            <td>m</td>
+                            <td>M</td>
                             <td class="td-qty">1,700</td>
-                            <td class="td-price" style="text-align: right;">$3.49</td>
+                            <td class="td-price" style="text-align: right;">$3.30</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 16 NE CAJ</td>
+                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 16MM NE CAJA 100M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>LSOH 750V</td>
-                            <td>m</td>
+                            <td>M</td>
                             <td class="td-qty">1,600</td>
-                            <td class="td-price" style="text-align: right;">$3.49</td>
+                            <td class="td-price" style="text-align: right;">$3.30</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 25 AV ROL</td>
+                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 25MM AV ROLLO 100M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>LSOH 750V</td>
-                            <td>m</td>
+                            <td>M</td>
                             <td class="td-qty">600</td>
-                            <td class="td-price" style="text-align: right;">$5.33</td>
+                            <td class="td-price" style="text-align: right;">$5.00</td>
                         </tr>
                         <tr>
-                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 25 AZ ROL</td>
+                            <td class="td-desc">CABLE AFUMEX CLASS 750V H07Z1-K AS 25MM AZ ROLLO 100M</td>
                             <td class="td-brand">PRYSMIAN</td>
                             <td>LSOH 750V</td>
-                            <td>m</td>
+                            <td>M</td>
                             <td class="td-qty">100</td>
-                            <td class="td-price" style="text-align: right;">$5.33</td>
+                            <td class="td-price" style="text-align: right;">$5.00</td>
                         </tr>
 
                         <!-- ASCABLE CABLES -->
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5 AV (R200)</td>
+                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5MM AV (R200)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>CONTROL</td>
-                            <td>m</td>
+                            <td>M</td>
                             <td class="td-qty">55,200</td>
-                            <td class="td-price" style="text-align: right;">$0.32</td>
+                            <td class="td-price" style="text-align: right;">$0.26</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5 AZ (R200)</td>
+                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5MM AZ (R200)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>CONTROL</td>
-                            <td>m</td>
+                            <td>M</td>
                             <td class="td-qty">50,000</td>
-                            <td class="td-price" style="text-align: right;">$0.32</td>
+                            <td class="td-price" style="text-align: right;">$0.26</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5 NG (R200)</td>
+                            <td class="td-desc">MTR. CABLE H07V-K CPR 1,5MM NG (R200)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>CONTROL</td>
-                            <td>m</td>
+                            <td>M</td>
                             <td class="td-qty">47,200</td>
-                            <td class="td-price" style="text-align: right;">$0.32</td>
+                            <td class="td-price" style="text-align: right;">$0.26</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">H07V-K CPR 6 AV (R100)</td>
+                            <td class="td-desc">H07V-K CPR 6MM AV (R100)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>FUERZA MONO.</td>
                             <td>M</td>
-                            <td class="td-qty">99</td>
-                            <td class="td-price" style="text-align: right;">$1.16</td>
+                            <td class="td-qty">100</td>
+                            <td class="td-price" style="text-align: right;">$1.00</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">H07V-K CPR 6 NG (R100)</td>
+                            <td class="td-desc">H07V-K CPR 6MM NG (R100)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>FUERZA MONO.</td>
                             <td>M</td>
-                            <td class="td-qty">99</td>
-                            <td class="td-price" style="text-align: right;">$1.16</td>
+                            <td class="td-qty">100</td>
+                            <td class="td-price" style="text-align: right;">$1.00</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">H07V-K CPR 16 AV (R100)</td>
+                            <td class="td-desc">H07V-K CPR 16MM AV (R100)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>FUERZA MONO.</td>
                             <td>M</td>
                             <td class="td-qty">14,400</td>
-                            <td class="td-price" style="text-align: right;">$3.26</td>
+                            <td class="td-price" style="text-align: right;">$3.30</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">H07V-K CPR 16 AZ (R100)</td>
+                            <td class="td-desc">H07V-K CPR 16MM AZ (R100)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>FUERZA MONO.</td>
                             <td>M</td>
                             <td class="td-qty">14,900</td>
-                            <td class="td-price" style="text-align: right;">$3.26</td>
+                            <td class="td-price" style="text-align: right;">$3.30</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">H07V-K CPR 16 NG (R100)</td>
-                            <td class="td-brand">ASCABLE</td>
-                            <td>FUERZA MONO.</td>
-                            <td>MTR</td>
-                            <td class="td-qty">1,500</td>
-                            <td class="td-price" style="text-align: right;">$3.26</td>
-                        </tr>
-                        <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">H07V-K CPR 25 AV (R100)</td>
+                            <td class="td-desc">H07V-K CPR 16MM NG (R100)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>FUERZA MONO.</td>
                             <td>M</td>
                             <td class="td-qty">1,500</td>
-                            <td class="td-price" style="text-align: right;">$5.11</td>
+                            <td class="td-price" style="text-align: right;">$3.30</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">H07V-K CPR 35 NG (R100)</td>
+                            <td class="td-desc">H07V-K CPR 25MM AV (R100)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>FUERZA MONO.</td>
-                            <td>MTS</td>
+                            <td>M</td>
+                            <td class="td-qty">1,500</td>
+                            <td class="td-price" style="text-align: right;">$5.00</td>
+                        </tr>
+                        <tr style="background: rgba(59, 130, 246, 0.05);">
+                            <td class="td-desc">H07V-K CPR 35MM NG (R100)</td>
+                            <td class="td-brand">ASCABLE</td>
+                            <td>FUERZA MONO.</td>
+                            <td>M</td>
                             <td class="td-qty">800</td>
-                            <td class="td-price" style="text-align: right;">$6.96</td>
+                            <td class="td-price" style="text-align: right;">$6.00</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">Cable de Fuerza Monoconductor POWERFLEX RV-K 1 X 50 MM2 (BOBINAS 1000 M)</td>
+                            <td class="td-desc">Cable POWERFLEX RV-K 1 X 50 MM2 (BOBINAS 1000 M)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>FUERZA MONO.</td>
                             <td>M</td>
-                            <td class="td-qty">--</td>
-                            <td class="td-price" style="text-align: right;">$12.87</td>
+                            <td class="td-qty">4,000</td>
+                            <td class="td-price" style="text-align: right;">$10.00</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
-                            <td class="td-desc">CABLE DOBLE AISLAMIENTO RV-K 1KV CPR 1X95 NG (BOB)</td>
+                            <td class="td-desc">CABLE RV-K 1KV CPR 1X95MM NG (BOB)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>FUERZA MONO.</td>
-                            <td>PCS</td>
+                            <td>M</td>
                             <td class="td-qty">1,000</td>
-                            <td class="td-price" style="text-align: right;">$19.42</td>
+                            <td class="td-price" style="text-align: right;">$18.00</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
                             <td class="td-desc">RV-K 1KV CPR 3G4 NG (R100)</td>
                             <td class="td-brand">ASCABLE</td>
                             <td>ROYAL CORD</td>
-                            <td>MTS</td>
+                            <td>M</td>
                             <td class="td-qty">900</td>
-                            <td class="td-price" style="text-align: right;">$2.73</td>
+                            <td class="td-price" style="text-align: right;">$2.60</td>
                         </tr>
                         <tr style="background: rgba(59, 130, 246, 0.05);">
                             <td class="td-desc">MTS. RV-K 1kV CPR 7G4 NG (BOB)</td>
@@ -1108,9 +1270,8 @@
                             <td>ROYAL CORD</td>
                             <td>M</td>
                             <td class="td-qty">500</td>
-                            <td class="td-price" style="text-align: right;">$7.86</td>
+                            <td class="td-price" style="text-align: right;">$6.00</td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>
