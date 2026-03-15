@@ -357,6 +357,89 @@
             .market-analysis-container { padding: 20px; }
         }
 
+        /* ========================================== */
+/* DASHBOARD DE INTELIGENCIA B2B (MERCADO) */
+/* ========================================== */
+.market-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.market-category {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.market-category-header {
+    background: var(--bg-card);
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.market-category-header h3 {
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.margin-badge {
+    background: rgba(0, 230, 118, 0.1);
+    color: var(--accent-green);
+    border: 1px solid var(--accent-green);
+    padding: 6px 15px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.market-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+.market-col {
+    padding: 30px;
+}
+
+.market-col.left-col {
+    border-right: 1px solid var(--border-color);
+}
+
+.profit-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px dashed var(--accent-green);
+    border-radius: 6px;
+    padding: 20px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.profit-box .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    color: var(--accent-green);
+    font-weight: 900;
+    line-height: 1;
+    margin: 10px 0;
+}
+
+@media (max-width: 900px) {
+    .market-content-grid { grid-template-columns: 1fr; }
+    .market-col.left-col { border-right: none; border-bottom: 1px solid var(--border-color); }
+    .market-category-header { flex-direction: column; gap: 15px; align-items: flex-start; }
+}
+
     </style>
 </head>
 <body>
@@ -440,99 +523,186 @@
             </div>
 
             <!-- ========================================== -->
-    <!-- SECCIÓN: INTELIGENCIA DE MERCADO (REVOLICO VS NOVELEC) -->
     <!-- ========================================== -->
-    <section id="mercado" class="section" style="padding-bottom: 0; border-bottom: none;">
-        <div class="container">
-            <div class="section-header" style="border-color: var(--accent-blue);">
-                <h2 style="font-size: 36px; color: white; text-transform: uppercase;">Auditoría de Mercado Local</h2>
-                <p class="font-mono text-muted" style="margin-top: 10px;">ANÁLISIS DE OFERTAS ACTUALES (REVOLICO) VS TECNOLOGÍA NOVELEC</p>
-            </div>
+<!-- SECCIÓN: INTELIGENCIA DE MERCADO (REVOLICO VS NOVELEC) -->
+<!-- ========================================== -->
+<section id="mercado" class="section" style="padding-bottom: 0; border-bottom: none;">
+    <div class="container">
+        <div class="section-header" style="border-color: var(--accent-blue);">
+            <h2 style="font-size: 36px; color: white; text-transform: uppercase;">Inteligencia de Mercado B2B</h2>
+            <p class="font-mono text-muted" style="margin-top: 10px;">ANÁLISIS DE DATOS: RETAIL INFORMAL (REVOLICO) VS IMPORTACIÓN DAP NOVELEC</p>
+        </div>
 
-            <div class="market-analysis-container">
-                <p style="color: var(--text-main); font-size: 16px; max-width: 800px; margin-bottom: 10px;">
-                    El mercado informal cubano está saturado de paneles de tecnología obsoleta (PERC), lotes liquidados y supuestos módulos "bifaciales" que no rinden en techos planos. <strong>Lo barato sale caro.</strong> Analizamos los datos reales para demostrar por qué nuestra importación DAP destruye la oferta actual.
-                </p>
+        <p style="color: var(--text-main); font-size: 16px; max-width: 900px; margin-bottom: 40px; line-height: 1.6;">
+            Nuestro equipo de análisis ha extraído la data actual del mercado minorista en Cuba. El resultado es claro: el sector privado (TCP/MIPYMES) está asumiendo sobrecostos de hasta un 50% por tecnologías de grado inferior. <strong>Como importador directo (1ra mano), Novelec le ofrece márgenes de ganancia reales para su negocio o ahorros masivos para su infraestructura.</strong>
+        </p>
 
-                <div class="market-grid">
+        <div class="market-dashboard">
+
+            <!-- CATEGORÍA 1: PANELES SOLARES -->
+            <div class="market-category">
+                <div class="market-category-header">
+                    <h3><span>☀️</span> Módulos Fotovoltaicos Industriales</h3>
+                    <div class="margin-badge">AHORRO MAYORISTA: HASTA $40 USD / PANEL</div>
+                </div>
+                <div class="market-content-grid">
                     
-                    <!-- COLUMNA 1: GRÁFICOS CSS -->
-                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Precios -->
+                    <div class="market-col left-col">
+                        <div class="chart-title">COMPARATIVA DE PRECIOS GLOBALES (POR UNIDAD)</div>
                         
-                        <!-- Gráfico de Precios -->
-                        <div class="chart-box">
-                            <div class="chart-title"><span style="font-size: 18px;">💰</span> COMPARATIVA DE PRECIO POR PANEL</div>
-                            
-                            <div class="bar-group">
-                                <div class="bar-label"><span>Mercado (Milexus/Jinko/Trina 600W)</span> <span>Retail / Detalle</span></div>
-                                <div class="bar-track"><div class="bar-fill danger" style="width: 100%;">Hasta $180.00 USD</div></div>
-                            </div>
-                            
-                            <div class="bar-group">
-                                <div class="bar-label"><span>Mercado (Paneles 570W-600W)</span> <span>Pallet Mayorista</span></div>
-                                <div class="bar-track"><div class="bar-fill warning" style="width: 75%;">Aprox. $135.00 USD</div></div>
-                            </div>
-
-                            <div class="bar-group">
-                                <div class="bar-label"><span style="color: white;">NOVELEC (LONGi Hi-MO X10 650W)</span> <span style="color: var(--accent-green);">DAP Inbond</span></div>
-                                <div class="bar-track"><div class="bar-fill short-success" style="width: 65%; color: black;">$134.00 USD</div></div>
-                            </div>
-                            <div class="bar-group" style="margin-bottom: 0;">
-                                <div class="bar-label"><span style="color: white;">NOVELEC (LONGi Hi-MO X10 545W)</span> <span style="color: var(--accent-green);">DAP Inbond</span></div>
-                                <div class="bar-track"><div class="bar-fill short-success" style="width: 50%; color: black;">$112.00 USD</div></div>
-                            </div>
+                        <div class="bar-group">
+                            <div class="bar-label"><span>Mercado Retail (Milexus/Jinko 600W-750W)</span> <span>Detalle</span></div>
+                            <div class="bar-track"><div class="bar-fill danger" style="width: 100%;">Hasta $180.00 USD</div></div>
+                        </div>
+                        
+                        <div class="bar-group">
+                            <div class="bar-label"><span>Mercado Mayorista (Milexus 600W)</span> <span>Pallet</span></div>
+                            <div class="bar-track"><div class="bar-fill warning" style="width: 80%;">Aprox. $135.00 USD</div></div>
                         </div>
 
-                        <!-- Gráfico de Pérdida por Calor -->
-                        <div class="chart-box">
-                            <div class="chart-title"><span style="font-size: 18px;">🔥</span> CAÍDA DE POTENCIA POR CALOR EXTREMO (65°C en Techo)</div>
-                            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">A las 12:00 PM bajo el sol cubano, los paneles pierden eficiencia. El coeficiente de temperatura define cuánta energía real pierdes.</p>
-                            
-                            <div class="bar-group">
-                                <div class="bar-label"><span>Ofertas Comunes (Coef: -0.35%/°C)</span> <span>Pierde ~14%</span></div>
-                                <div class="bar-track"><div class="bar-fill danger" style="width: 85%;">Pérdida Crítica de Generación</div></div>
-                            </div>
+                        <div class="bar-group" style="margin-top: 30px;">
+                            <div class="bar-label"><span style="color: white;">NOVELEC (LONGi Hi-MO X10 650W)</span> <span style="color: var(--accent-green);">DAP Inbond</span></div>
+                            <div class="bar-track"><div class="bar-fill short-success" style="width: 78%; color: black;">$134.00 USD</div></div>
+                        </div>
+                        
+                        <div class="bar-group" style="margin-bottom: 0;">
+                            <div class="bar-label"><span style="color: white;">NOVELEC (LONGi Hi-MO X10 545W)</span> <span style="color: var(--accent-green);">DAP Inbond</span></div>
+                            <div class="bar-track"><div class="bar-fill short-success" style="width: 60%; color: black;">$112.00 USD</div></div>
+                        </div>
 
-                            <div class="bar-group" style="margin-bottom: 0;">
-                                <div class="bar-label"><span style="color: white;">LONGi X10 (Coef: -0.260%/°C)</span> <span style="color: var(--accent-green);">Pierde solo ~10%</span></div>
-                                <div class="bar-track"><div class="bar-fill short-success" style="width: 40%; color: black;">Rendimiento Sostenido</div></div>
-                            </div>
+                        <div class="profit-box">
+                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Margen bruto potencial para el instalador cubano:</div>
+                            <div class="value">+ $60.00 USD</div>
+                            <div style="font-size: 11px; color: white;">Por cada panel 545W revendido a precio de mercado local.</div>
                         </div>
                     </div>
 
-                    <!-- COLUMNA 2: COMPARATIVA TÉCNICA (VS CARDS) -->
-                    <div style="display: flex; flex-direction: column; justify-content: center;">
-                        <h3 style="color: white; font-size: 20px; margin-bottom: 20px;">Análisis de Especificaciones (La realidad técnica)</h3>
-                        
-                        <!-- Bad Card (Mercado) -->
+                    <!-- Calidad -->
+                    <div class="market-col">
                         <div class="vs-card bad">
-                            <div class="vs-header"><span>LO QUE SE VENDE HOY EN CUBA</span> <span>👎</span></div>
+                            <div class="vs-header"><span>TECNOLOGÍA EN REVOLICO</span> <span>👎</span></div>
                             <ul class="vs-list">
-                                <li><strong>Tecnología PERC/TOPCon estándar:</strong> Líneas de metal (busbars) en el frente que tapan la luz solar y causan microfisuras con el tiempo.</li>
-                                <li><strong>El mito "Bifacial":</strong> Te cobran más por paneles de doble vidrio que, al pegarlos al techo de placa o zinc, no reciben luz por detrás (ganancia cero).</li>
-                                <li><strong>Alta Degradación:</strong> Garantías irreales o degradación anual superior al 0.55%. En 5 años producen mucho menos.</li>
+                                <li><strong>Tecnología PERC Obsoleta:</strong> Venta masiva de marcas estándar con busbars frontales. Alta degradación por calor (Pierden ~14% a 65°C).</li>
+                                <li><strong>Falso valor "Bifacial":</strong> Te cobran extra por cristal doble que no genera luz reflectiva al instalarse pegado a techos de placa cubanos.</li>
                             </ul>
                         </div>
 
-                        <!-- Good Card (Novelec) -->
                         <div class="vs-card good">
-                            <div class="vs-header"><span>LA SOLUCIÓN NOVELEC (LONGi Hi-MO X10)</span> <span>👍</span></div>
+                            <div class="vs-header"><span>LA VENTAJA TÉCNICA NOVELEC</span> <span>👍</span></div>
                             <ul class="vs-list">
-                                <li><strong style="color: white;">Tecnología HPBC 2.0 (Back Contact):</strong> Cero líneas en el frente. Absorbe el 100% de la luz. Estética superior y cero riesgo de microfisuras.</li>
-                                <li><strong style="color: white;">Monofacial de Alta Densidad:</strong> Máxima potencia (hasta 24.8% de eficiencia) optimizada para los techos cubanos. Más Watts reales en menos metros cuadrados.</li>
-                                <li><strong style="color: white;">Oblea TaiRay (Grado Científico):</strong> Degradación casi nula del 0.35% anual. Garantía lineal de producción de 30 años.</li>
+                                <li><strong style="color: white;">LONGi HPBC 2.0 (Grado Tier 1):</strong> Tecnología aeroespacial sin líneas metálicas frontales (Absorción de luz total).</li>
+                                <li><strong style="color: white;">Monofacial Alta Densidad:</strong> Máxima potencia real (24.8% eficiencia). Rinde perfecto en placa plana sin pagar por un cristal trasero inútil. Coeficiente térmico élite.</li>
                             </ul>
-                        </div>
-
-                        <div style="margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent-blue); font-size: 13px; color: var(--text-main);">
-                            <strong>Conclusión Comercial:</strong> Estás pagando hasta $180 USD por tecnologías descontinuadas o subóptimas. Novelec te entrega tecnología aeroespacial (HPBC 2.0) a <strong>precios mayoristas reales desde $112.00 USD</strong>.
                         </div>
                     </div>
 
                 </div>
             </div>
+
+            <!-- CATEGORÍA 2: ECOFLOW -->
+            <div class="market-category">
+                <div class="market-category-header">
+                    <h3><span>🔋</span> Ecosistema Portátil EcoFlow</h3>
+                    <div class="margin-badge">MARGEN DE REVENDEDOR: HASTA 52%</div>
+                </div>
+                <div class="market-content-grid">
+                    
+                    <!-- Precios -->
+                    <div class="market-col left-col">
+                        <div class="chart-title">ANÁLISIS DE PRECIOS (MODELOS HIGH-END)</div>
+                        
+                        <div class="bar-group">
+                            <div class="bar-label"><span>Mercado (EcoFlow Delta Pro Gen 1)</span> <span>Retail</span></div>
+                            <div class="bar-track"><div class="bar-fill danger" style="width: 100%;">Aprox. $2,300.00 USD</div></div>
+                        </div>
+
+                        <div class="bar-group" style="margin-bottom: 0;">
+                            <div class="bar-label"><span style="color: white;">NOVELEC (Delta Pro Gen 1)</span> <span style="color: var(--accent-green);">DAP Inbond</span></div>
+                            <div class="bar-track"><div class="bar-fill short-success" style="width: 65%; color: black;">$1,550.00 USD</div></div>
+                        </div>
+
+                        <div class="profit-box" style="margin-top: 40px;">
+                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Diferencial de precio neto (Ahorro/Ganancia):</div>
+                            <div class="value">$750.00 USD</div>
+                            <div style="font-size: 11px; color: white;">Ahorro neto comprando en Novelec (x1 Unidad).</div>
+                        </div>
+                    </div>
+
+                    <!-- Calidad -->
+                    <div class="market-col">
+                        <div class="vs-card bad">
+                            <div class="vs-header"><span>COMPRAR A "MULEROS" / RETAIL</span> <span>👎</span></div>
+                            <ul class="vs-list">
+                                <li><strong>Ausencia de Garantía Real:</strong> Equipos traídos de importación hormiga. Si el BMS falla, pierdes $2,000 USD al instante sin respaldo de fábrica.</li>
+                                <li><strong>Precios Especulativos:</strong> Márgenes abusivos aplicados por intermediarios al no tener estatus de distribuidor directo.</li>
+                            </ul>
+                        </div>
+
+                        <div class="vs-card good">
+                            <div class="vs-header"><span>ADQUISICIÓN B2B NOVELEC</span> <span>👍</span></div>
+                            <ul class="vs-list">
+                                <li><strong style="color: white;">Canal Oficial:</strong> Facturación a entidades cubanas, inventario físico real (no pre-ventas informales) con respaldo de piezas.</li>
+                                <li><strong style="color: white;">Packs Mayoristas:</strong> Oportunidad de negocio con el EcoFlow E980. Compra pack de 10x ($460 c/u) y revende con margen retail estándar.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CATEGORÍA 3: INVERSORES Y KITS -->
+            <div class="market-category">
+                <div class="market-category-header">
+                    <h3><span>⚡</span> Inversores Híbridos y Baterías</h3>
+                    <div class="margin-badge">SALTO TECNOLÓGICO: GRADO INDUSTRIAL</div>
+                </div>
+                <div class="market-content-grid">
+                    
+                    <!-- Precios -->
+                    <div class="market-col left-col">
+                        <div class="chart-title">COMPARATIVA DE CALIDAD VS INVERSIÓN</div>
+                        
+                        <div class="bar-group">
+                            <div class="bar-label"><span>Mercado ("Kits" y Equipos Must/Genéricos 6kW)</span> <span>Baja Calidad</span></div>
+                            <div class="bar-track"><div class="bar-fill danger" style="width: 60%;">$900 - $1,800 USD (Riesgo alto)</div></div>
+                        </div>
+
+                        <div class="bar-group" style="margin-bottom: 0;">
+                            <div class="bar-label"><span style="color: white;">NOVELEC (DEYE 10kW Híbrido Real / GoodWe)</span> <span style="color: var(--accent-green);">Tier 1</span></div>
+                            <div class="bar-track"><div class="bar-fill short-success" style="width: 100%; color: black;">$1,690 - $2,800 USD (Inversión segura)</div></div>
+                        </div>
+
+                        <div style="margin-top: 25px; padding: 15px; border-left: 3px solid var(--accent-blue); background: rgba(59, 130, 246, 0.1); font-size: 13px; color: var(--text-muted);">
+                            <strong>Nota Técnica:</strong> En inversores, la variable crítica no es buscar lo "más barato", sino la robustez. Un inversor genérico quemado destruye la inversión de todo el sistema.
+                        </div>
+                    </div>
+
+                    <!-- Calidad -->
+                    <div class="market-col">
+                        <div class="vs-card bad">
+                            <div class="vs-header"><span>EL ESTÁNDAR DEL MERCADO LOCAL</span> <span>👎</span></div>
+                            <ul class="vs-list">
+                                <li><strong>Equipos Off-Grid Básicos:</strong> Marcas genéricas (Must, Iberolia) vendidas como "Híbridos". Tiempos de conmutación lentos que apagan equipos sensibles.</li>
+                                <li><strong>Kits Desbalanceados:</strong> Te venden bancos de batería muy pequeños (5kWh) con inversores grandes (6kW), forzando y dañando el Litio a los pocos meses de uso por altas corrientes de descarga.</li>
+                            </ul>
+                        </div>
+
+                        <div class="vs-card good">
+                            <div class="vs-header"><span>LA INGENIERÍA NOVELEC</span> <span>👍</span></div>
+                            <ul class="vs-list">
+                                <li><strong style="color: white;">Tier 1 Global (Deye / SMA / GoodWe):</strong> Inversores verdaderamente híbridos. Integración nativa a Generadores Diésel, soporte Split-Phase (120/240V).</li>
+                                <li><strong style="color: white;">Baterías LFP Industriales (Rack):</strong> Química de celdas diseñada para descargas profundas. Sistemas balanceados que garantizan los 6000 ciclos de vida.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
             <div class="section-header">
                 <h2 style="font-size: 32px; color: white; text-transform: uppercase;">Asegure su inventario Tier 1 (Tarifas 2024 Congeladas)</h2>
