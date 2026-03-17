@@ -37,7 +37,6 @@
 <body>
     <div id="app" v-cloak class="min-h-screen pb-20">
         
-        <!-- HEADER -->
         <header class="bg-black/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
             <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
                 <div class="text-2xl font-black tracking-widest text-white">NOVELEC<span class="text-accent">.</span></div>
@@ -47,80 +46,49 @@
 
         <div class="max-w-5xl mx-auto px-4 mt-8">
             
-            <!-- FASE 1: TÉRMINOS Y CONDICIONES (BLOQUEO) -->
+            <!-- FASE 1: TÉRMINOS Y CONDICIONES (Solo se muestra si entra directo aquí sin pasar por el index) -->
             <div v-if="!acceptedTerms" class="bg-panel border border-gray-800 rounded-xl p-6 md:p-8 shadow-2xl animate-fade-in">
+                <!-- (El contenido de los términos es idéntico al que pondremos en el index, se omite visualmente si ya llenó el index) -->
                 <div class="text-center mb-6">
                     <span class="inline-block bg-blue-900/30 text-blue-400 border border-blue-800 px-4 py-1 rounded-full font-mono text-xs font-bold mb-4">PASO 1 DE 2: LECTURA OBLIGATORIA DEL PROCESO</span>
                     <h1 class="text-3xl font-extrabold uppercase mb-2">Protocolo Operativo de Adquisición</h1>
-                    <p class="text-gray-400">Por favor, lea detalladamente cómo operamos institucionalmente para garantizar total transparencia antes de procesar su solicitud.</p>
+                    <p class="text-gray-400">Por favor, lea detalladamente cómo operamos institucionalmente para garantizar total transparencia.</p>
                 </div>
-
                 <div class="terms-box mb-8">
-                    <p class="mb-4">Estimado Cliente: Lo primero que debe saber es que, a través de nosotros, su entidad estará realizando un proceso formal de <strong>Importación de Mercancía</strong>. A pesar de que los inventarios se encuentran físicamente aquí en plaza, es estrictamente necesario nacionalizarlos a través de una Importadora Estatal.</p>
-                    
-                    <h3>1. EL CONTRATO COMERCIAL</h3>
-                    <p>Para proceder con la liberación de los equipos, es necesario firmar un Contrato Comercial. Este contrato deja las pautas claras de la compraventa y representa una garantía total para su negocio. El mismo especifica tres detalles esenciales:</p>
-                    <ol class="list-decimal">
-                        <li><strong>Condición de Entrega:</strong> DAP (Entrega directa en nuestro Almacén Inbond en el Reparto Eléctrico, La Habana).</li>
-                        <li><strong>Formas de Pago:</strong> Preferentemente mediante transferencia bancaria desde el exterior hacia una de nuestras cuentas definidas en el contrato. Sin embargo, <strong>Novelec acepta efectivo físico (USD/EUR) para la liquidación de todos los productos</strong> en plaza.</li>
-                        <li><strong>Listado de Materiales:</strong> Descripción técnica, precio y cantidad exacta de las unidades contratadas.</li>
-                    </ol>
-                    <p class="mt-2 text-sm text-blue-300"><em>* Nota Legal: El contrato que su empresa realice con la Importadora debe figurar obligatoriamente con los datos de su personalidad jurídica (Licencia de TCP o MIPYME).</em></p>
-
-                    <h3>2. ACREDITACIÓN Y TRÁMITES ADUANALES</h3>
-                    <p>Podemos operar con la importadora de su preferencia, aunque frecuentemente realizamos estos trámites de forma muy ágil con <strong>CUBAELECTRONICA</strong>. Si usted es un cliente nuevo, el primer paso será su acreditación en dicha importadora.</p>
-                    <p class="mt-3">Al ser un proceso de importación en frontera, la Importadora cobra ciertos aranceles operativos bajos por el proceso de nacionalización y servicios de Aduana. <strong>Esto responde a resoluciones oficiales del MINCEX del país, y no constituyen sobrecargos comerciales de nuestra empresa.</strong></p>
-
-                    <h3>3. ACOMPAÑAMIENTO DE NUESTRO EQUIPO COMERCIAL</h3>
-                    <p>Es fundamental resaltar que, en este proceso de nacionalización, <strong>nuestro equipo de ejecutivos comerciales le acompaña y asesora de manera personalizada</strong> en cada uno de los pasos hasta entregarle la mercancía en nuestro almacén. El flujo exacto es el siguiente:</p>
-                    <ul class="list-disc">
-                        <li>Su entidad efectúa el pago (en caso de depositar en efectivo, se realiza directamente en nuestras oficinas corporativas con nuestra Asistente Ejecutiva).</li>
-                        <li>Inmediatamente emitimos y le entregamos su <strong>Factura Comercial</strong> oficial como evidencia de la operación.</li>
-                        <li>Dado que la mercancía se encuentra bajo un régimen de custodia aduanal, utilizamos esta Factura para solicitar la <strong>DM (Declaración de Mercancía)</strong>.</li>
-                        <li><strong>Nosotros nos encargamos</strong> de gestionar toda esta documentación operativa para agilizar al máximo sus tiempos.</li>
-                        <li>Una vez obtenido el permiso de despacho oficial, <strong>le contactamos para que su equipo recoja la mercancía en el almacén</strong>.</li>
-                    </ul>
-
-                    <h3>4. TIEMPOS DE ESPERA Y VENTAJA MAYORISTA</h3>
-                    <p>Una vez firmado el contrato y efectuado el pago, su entidad puede recibir la mercancía generalmente <strong>al día siguiente, o incluso el mismo día</strong> si los autorizos institucionales fluyen rápido (suele demorar máximo entre 1 y 2 días hábiles dependiendo del volumen en aduana).</p>
-                    <p class="mt-3">La gran ventaja de este proceso corporativo es que usted adquiere un inventario físico real en La Habana, con nuestro respaldo y gestión integral, y a <strong>Precios de Venta Mayorista</strong> (Tier 1) que le permitirán comercializar los equipos o ejecutar proyectos con el mejor margen competitivo de la isla.</p>
+                    <p class="mb-4">Estimado Cliente: Lo primero que debe saber es que, a través de nosotros, su entidad estará realizando un proceso formal de <strong>Importación de Mercancía</strong>...</p>
+                    <p class="text-accent font-bold"><em>Si usted ya leyó esto en nuestro catálogo, debió haber sido redirigido automáticamente.</em></p>
                 </div>
-
-                <div class="bg-black/30 p-4 rounded-lg border border-gray-700 flex items-start gap-4 cursor-pointer hover:bg-black/50 transition" @click="checkTerms">
-                    <input type="checkbox" v-model="termsChecked" class="mt-1 w-5 h-5 accent-[#00E676] cursor-pointer" id="chkTerms" @click.stop>
-                    <label for="chkTerms" class="cursor-pointer font-bold text-sm text-gray-300 select-none">
-                        Certifico que he leído, comprendo y acepto la totalidad del proceso institucional explicado anteriormente, incluyendo la modalidad de entrega DAP Inbond, la exigencia de personalidad jurídica (TCP/MIPYME) y los tiempos de tramitación.
-                    </label>
+                <div class="bg-black/30 p-4 rounded-lg border border-gray-700 flex items-start gap-4">
+                    <input type="checkbox" v-model="termsChecked" class="mt-1 w-5 h-5 accent-[#00E676]" id="chkTerms">
+                    <label for="chkTerms" class="font-bold text-sm text-gray-300">Certifico que he leído, comprendo y acepto la totalidad del proceso.</label>
                 </div>
-
-                <button @click="proceedToForm" :disabled="!termsChecked" class="btn-primary mt-6">
-                    ACEPTAR TÉRMINOS Y ACCEDER AL CATÁLOGO DE PEDIDOS
-                </button>
+                <button @click="acceptedTerms = true" :disabled="!termsChecked" class="btn-primary mt-6">ACEPTAR Y PROCEDER</button>
             </div>
 
             <!-- FASE 2: FORMULARIO Y CATÁLOGO -->
             <div v-else class="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-in">
                 
-                <!-- COLUMNA IZQUIERDA: DATOS JURÍDICOS Y CATÁLOGO -->
                 <div class="lg:col-span-7 space-y-6">
-                    
                     <!-- Formulario -->
-                    <div class="bg-panel border border-gray-800 rounded-xl p-6 shadow-2xl">
+                    <div class="bg-panel border border-gray-800 rounded-xl p-6 shadow-2xl relative">
+                        <div class="absolute top-4 right-4 bg-green-900/30 text-green-400 text-[10px] px-2 py-1 rounded border border-green-800" v-if="isPrefilled">
+                            DATOS IMPORTADOS ✓
+                        </div>
                         <h2 class="text-accent font-mono font-bold uppercase mb-4 border-b border-gray-800 pb-2">1. Información Jurídica</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="md:col-span-2">
                                 <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">Nombre Completo del Representante *</label>
-                                <input v-model="form.nombre" type="text" class="input-b2b text-sm" placeholder="Ej: Juan Pérez" required>
+                                <input v-model="form.nombre" type="text" class="input-b2b text-sm" required>
                             </div>
                             <div>
                                 <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">Razón Social (Empresa) *</label>
-                                <input v-model="form.empresa" type="text" class="input-b2b text-sm" placeholder="Ej: Soluciones S.R.L" required>
+                                <input v-model="form.empresa" type="text" class="input-b2b text-sm" required>
                             </div>
                             <div>
                                 <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">Tipo de Entidad *</label>
                                 <select v-model="form.tipo" class="input-b2b text-sm" required>
                                     <option value="" disabled>Seleccionar...</option>
-                                    <option value="TCP">TCP (Trabajador por Cuenta Propia)</option>
+                                    <option value="TCP">TCP</option>
                                     <option value="MIPYME">MIPYME</option>
                                     <option value="ESTATAL">Empresa Estatal</option>
                                 </select>
@@ -128,8 +96,8 @@
                             <div class="md:col-span-2">
                                 <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">WhatsApp de Contacto *</label>
                                 <div class="flex gap-2">
-                                    <input v-model="form.prefijo" type="text" class="input-b2b font-mono w-20 text-center text-sm" placeholder="+53">
-                                    <input v-model="form.telefono" type="number" class="input-b2b font-mono flex-1 text-sm" placeholder="58183649" required>
+                                    <input v-model="form.prefijo" type="text" class="input-b2b font-mono w-20 text-center text-sm">
+                                    <input v-model="form.telefono" type="number" class="input-b2b font-mono flex-1 text-sm" required>
                                 </div>
                             </div>
                         </div>
@@ -138,10 +106,8 @@
                     <!-- Selector de Equipos -->
                     <div class="bg-panel border border-gray-800 rounded-xl p-6 shadow-2xl">
                         <h2 class="text-accent font-mono font-bold uppercase mb-4 border-b border-gray-800 pb-2">2. Selección de Equipos</h2>
-                        
                         <div class="space-y-4">
                             <div>
-                                <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">Buscar en Catálogo Oficial</label>
                                 <select v-model="selectedItemId" @change="onItemSelect" class="input-b2b text-sm font-mono">
                                     <option value="" disabled>--- Seleccione Equipo o Lote ---</option>
                                     <optgroup v-for="(group, catName) in groupedCatalogo" :key="catName" :label="catName">
@@ -151,21 +117,18 @@
                                     </optgroup>
                                 </select>
                             </div>
-
                             <div v-if="currentItem" class="flex flex-col md:flex-row gap-4 items-end bg-black/40 p-4 rounded-lg border border-gray-700">
                                 <div class="flex-1 w-full">
-                                    <!-- Avisos dinámicos según el producto -->
                                     <div class="text-[11px] text-blue-400 font-bold mb-2 uppercase" v-if="currentItem.isContainer">
                                         ⚠️ ESTA OPCIÓN AGREGA EL CONTENEDOR COMPLETO.<br>
                                         <span class="text-gray-400">No se fracciona. La cantidad expresa el número de contenedores.</span>
                                     </div>
                                     <div class="text-[11px] text-blue-400 font-bold mb-2 uppercase" v-else-if="currentItem.isPreBuy">
-                                        ⚠️ RESERVA ANTICIPADA: EL EQUIPO LLEGA A FINALES DE ABRIL.
+                                        ⚠️ RESERVA ANTICIPADA: LLEGA A FINALES DE ABRIL.
                                     </div>
                                     <div class="text-[11px] text-warning font-bold mb-2 text-yellow-500 uppercase" v-if="currentItem.min > 1 && !currentItem.isContainer">
                                         📦 VENTA EXCLUSIVA POR LOTE: Mínimo {{ currentItem.min }} unidades. Solo en múltiplos de {{ currentItem.step }}.
                                     </div>
-                                    
                                     <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">
                                         <span v-if="currentItem.isContainer">CANTIDAD DE CONTENEDORES</span>
                                         <span v-else>CANTIDAD DE UNIDADES</span>
@@ -180,16 +143,11 @@
                     </div>
                 </div>
 
-                <!-- COLUMNA DERECHA: RESUMEN Y ENVÍO -->
                 <div class="lg:col-span-5">
                     <div class="bg-panel border border-gray-800 rounded-xl p-6 shadow-2xl sticky top-24 flex flex-col" style="max-height: calc(100vh - 120px);">
                         <h2 class="text-accent font-mono font-bold uppercase mb-4 border-b border-gray-800 pb-2">3. Resumen de Pre-Oferta</h2>
-                        
-                        <!-- Lista de Items -->
                         <div class="flex-1 overflow-y-auto mb-6 pr-2">
-                            <div v-if="cart.length === 0" class="text-gray-500 text-xs text-center mt-10 font-mono">
-                                Su orden está vacía.
-                            </div>
+                            <div v-if="cart.length === 0" class="text-gray-500 text-xs text-center mt-10 font-mono">Su orden está vacía.</div>
                             <div v-else v-for="(item, index) in cart" :key="index" class="bg-black/50 p-3 rounded border border-gray-800 mb-2">
                                 <div class="flex justify-between items-start mb-1">
                                     <div class="text-sm font-bold pr-2 leading-tight text-gray-200">
@@ -202,63 +160,44 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Cálculos Financieros -->
                         <div class="border-t border-gray-800 pt-4 space-y-2 mb-6">
                             <div class="flex justify-between items-center text-sm">
                                 <span class="text-gray-400 font-bold">VALOR TOTAL ESTIMADO:</span>
                                 <span class="font-mono text-xl text-white font-bold">${{ cartTotal.toLocaleString() }}</span>
                             </div>
-                            
-                            <!-- Anticipo si hay contenedores -->
                             <div v-if="cartAdvanceTotal > 0" class="flex justify-between items-center text-sm bg-yellow-900/20 border border-yellow-700 p-3 rounded mt-2">
                                 <span class="text-yellow-500 font-bold text-xs uppercase">ANTICIPO REQUERIDO (30% PRE-VENTA):</span>
                                 <span class="font-mono text-xl font-bold text-yellow-400">${{ cartAdvanceTotal.toLocaleString() }}</span>
                             </div>
                         </div>
-
-                        <!-- Enviar -->
                         <button @click="submitOrder" :disabled="loading || !isFormValid" class="btn-primary flex flex-col items-center justify-center gap-1">
                             <span v-if="!loading">GENERAR PDF OFICIAL Y AVISAR</span>
                             <span v-else>PROCESANDO SEGURIDAD...</span>
                         </button>
-                        <p class="text-[10px] text-gray-500 text-center mt-3 leading-tight">Al procesar, descargaremos su Pre-Oferta en PDF (incluyendo el anexo legal) y abriremos el WhatsApp de nuestro Ejecutivo Comercial para que usted lo adjunte.</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
     <script>
-        // CONFIGURACIÓN DE BASE DE DATOS
         const SUPABASE_URL = 'https://womolbdbvpkjmxcnkeds.supabase.co'; 
         const SUPABASE_KEY = 'sb_publishable_iSjAp6gEj7UyRtj8DW-0CQ_FEQM_pW6';
         const TELEFONO_NOVELEC = '5358183649'; 
 
-        // CATÁLOGO B2B ACTUALIZADO
         const CATALOGO_RAW = [
-            // CONTENEDORES (PREVENTA 30% - El precio y venta es por contenedor completo, qty = 1 contenedor)
             { id: 'c1', cat: '1. CONTENEDORES PRE-VENTA (LLEGAN FINALES ABRIL)', name: 'Contenedor Completo: LONGi 545W (792 unids)', price: 88704, min: 1, step: 1, isPreBuy: true, isContainer: true },
             { id: 'c2', cat: '1. CONTENEDORES PRE-VENTA (LLEGAN FINALES ABRIL)', name: 'Contenedor Completo: LONGi 650W Explorer (720 unids)', price: 96480, min: 1, step: 1, isPreBuy: true, isContainer: true },
             { id: 'c3', cat: '1. CONTENEDORES PRE-VENTA (LLEGAN FINALES ABRIL)', name: 'Contenedor Completo: LONGi 655W Scientist (720 unids)', price: 96480, min: 1, step: 1, isPreBuy: true, isContainer: true },
-            
-            // PANELES REGULARES INBOND
             { id: 'p1', cat: '2. PANELES FOTOVOLTAICOS INBOND (ENTREGA INMEDIATA)', name: 'Pallet de Paneles LONGi 440W (36 unids)', price: 3060, min: 1, step: 1, isPreBuy: false },
-            
-            // ESTACIONES ECOFLOW (LOTES EXIGIDOS)
             { id: 'e1', cat: '3. ESTACIONES DE ENERGÍA PORTÁTIL (ECOFLOW)', name: 'Lote Mayorista EcoFlow E980', price: 460, min: 10, step: 10, isPreBuy: false },
             { id: 'e2', cat: '3. ESTACIONES DE ENERGÍA PORTÁTIL (ECOFLOW)', name: 'Lote Mayorista EcoFlow Delta Pro Gen 1', price: 1550, min: 10, step: 10, isPreBuy: false },
             { id: 'e3', cat: '3. ESTACIONES DE ENERGÍA PORTÁTIL (ECOFLOW)', name: 'EcoFlow Delta Pro 3 (Combo 4) - Sistema 8kWh', price: 4050, min: 1, step: 1, isPreBuy: false },
-            
-            // INVERSORES Y BATERÍAS
             { id: 'i1', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Sistema Respaldo EcoFlow Ultra (Estándar 12kWh)', price: 7200, min: 1, step: 1, isPreBuy: false },
             { id: 'i2', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Inversor Híbrido Deye 10kW (Split-Phase)', price: 2800, min: 1, step: 1, isPreBuy: false },
             { id: 'i3', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Inversor Comercial SMA Tripower 33kW', price: 6059.06, min: 1, step: 1, isPreBuy: false },
             { id: 'b1', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Batería Rack Deye 5.12kWh (LFP)', price: 1000, min: 1, step: 1, isPreBuy: false },
             { id: 'b2', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Batería Rack Deye 10.24kWh (LFP)', price: 2000, min: 1, step: 1, isPreBuy: false },
-
-            // CABLES
             { id: 'cb1', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 240mm² RV-K Negro (Bobina 2000m)', price: 90000, min: 1, step: 1, isPreBuy: false },
             { id: 'cb2', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 150mm² RV-K Negro (Bobina 1000m)', price: 28000, min: 1, step: 1, isPreBuy: false },
             { id: 'cb3', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 120mm² RV-K Negro (Bobina 1019m)', price: 22418, min: 1, step: 1, isPreBuy: false },
@@ -280,33 +219,36 @@
                 const acceptedTerms = ref(false);
                 const termsChecked = ref(false);
                 const loading = ref(false);
+                const isPrefilled = ref(false);
                 
                 const form = ref({ nombre: '', empresa: '', tipo: '', prefijo: '+53', telefono: '' });
                 const cart = ref([]);
-                
                 const selectedItemId = ref("");
                 const currentItem = ref(null);
                 const currentQty = ref(1);
-
                 let supabase = null;
 
                 onMounted(() => {
                     supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                    // RECUPERAR DATOS DEL INDEX
+                    const storedData = localStorage.getItem('novelec_b2b_user');
+                    if(storedData) {
+                        try {
+                            const parsed = JSON.parse(storedData);
+                            form.value = { ...form.value, ...parsed };
+                            acceptedTerms.value = true; // Salta la lectura obligatoria
+                            isPrefilled.value = true;
+                        } catch(e){}
+                    }
                 });
 
-                // Agrupar catálogo para el select
                 const groupedCatalogo = computed(() => {
                     return CATALOGO_RAW.reduce((acc, item) => {
                         if(!acc[item.cat]) acc[item.cat] = [];
-                        acc[item.cat].push(item);
-                        return acc;
+                        acc[item.cat].push(item); return acc;
                     }, {});
                 });
 
-                const checkTerms = () => { termsChecked.value = !termsChecked.value; };
-                const proceedToForm = () => { acceptedTerms.value = true; };
-
-                // Lógica de Selección y Lotes
                 const onItemSelect = () => {
                     const item = CATALOGO_RAW.find(i => i.id === selectedItemId.value);
                     if(item) {
@@ -317,13 +259,10 @@
 
                 const validateQty = () => {
                     if(!currentItem.value) return;
-                    
                     let minAllowed = currentItem.value.isContainer ? 1 : currentItem.value.min;
                     let stepAllowed = currentItem.value.isContainer ? 1 : currentItem.value.step;
-
                     let val = parseInt(currentQty.value);
                     if(isNaN(val) || val < minAllowed) val = minAllowed;
-                    
                     const rem = val % stepAllowed;
                     if (rem !== 0) {
                         val = val - rem + (rem >= stepAllowed/2 ? stepAllowed : 0);
@@ -336,40 +275,25 @@
                     if(!currentItem.value) return;
                     validateQty();
                     cart.value.push({
-                        id: currentItem.value.id,
-                        name: currentItem.value.name,
-                        price: currentItem.value.price,
-                        qty: currentQty.value,
-                        isPreBuy: currentItem.value.isPreBuy,
-                        isContainer: currentItem.value.isContainer
+                        id: currentItem.value.id, name: currentItem.value.name, price: currentItem.value.price,
+                        qty: currentQty.value, isPreBuy: currentItem.value.isPreBuy, isContainer: currentItem.value.isContainer
                     });
-                    // Reset
-                    selectedItemId.value = "";
-                    currentItem.value = null;
-                    currentQty.value = 1;
+                    selectedItemId.value = ""; currentItem.value = null; currentQty.value = 1;
                 };
 
                 const removeFromCart = (index) => { cart.value.splice(index, 1); };
 
-                // Cálculos Financieros
                 const cartTotal = computed(() => cart.value.reduce((s, i) => s + (i.price * i.qty), 0));
-                
-                // Anticipo (Solo calcula el 30% de los items que son isPreBuy)
                 const cartAdvanceTotal = computed(() => {
                     let preBuyTotal = cart.value.filter(i => i.isPreBuy).reduce((s, i) => s + (i.price * i.qty), 0);
                     return preBuyTotal * 0.30;
                 });
+                const isFormValid = computed(() => form.value.nombre && form.value.empresa && form.value.tipo && form.value.telefono && cart.value.length > 0);
 
-                const isFormValid = computed(() => {
-                    return form.value.nombre && form.value.empresa && form.value.tipo && form.value.telefono && cart.value.length > 0;
-                });
-
-                // GENERADOR PDF OFICIAL
                 const generatePDF = () => {
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF();
                     
-                    // --- PÁGINA 1: LA PRE-OFERTA ---
                     doc.setFont("helvetica", "bold"); doc.setFontSize(26); doc.text("NOVELEC", 14, 22);
                     doc.setFillColor(0, 230, 118); doc.rect(65, 14, 5, 8, 'F');
                     doc.setFontSize(9); doc.setTextColor(100); doc.setFont("helvetica", "normal"); doc.text("División B2B Comercial", 14, 28);
@@ -382,24 +306,16 @@
 
                     doc.setDrawColor(200); doc.line(14, 40, 200, 40);
 
-                    // CLIENTE
                     doc.setFontSize(10); doc.setFont("helvetica", "bold"); doc.text("DATOS DE LA ENTIDAD IMPORTADORA:", 14, 50);
                     doc.setFont("helvetica", "normal");
                     doc.text(`REPRESENTANTE LEGAL: ${form.value.nombre.toUpperCase()}`, 14, 57);
                     doc.text(`RAZÓN SOCIAL / LICENCIA: ${form.value.empresa.toUpperCase()} (${form.value.tipo})`, 14, 62);
                     doc.text(`TELÉFONO CONTACTO: ${form.value.prefijo} ${form.value.telefono}`, 14, 67);
 
-                    // TABLA ITEMS
                     const tableBody = cart.value.map(item => {
                         let desc = item.name;
                         if(item.isPreBuy) desc = `[PRE-VENTA ABRIL] ${desc}`;
-                        
-                        return [
-                            desc,
-                            item.qty.toString(),
-                            `$ ${Number(item.price).toLocaleString('en-US', {minimumFractionDigits: 2})}`,
-                            `$ ${(Number(item.price) * item.qty).toLocaleString('en-US', {minimumFractionDigits: 2})}`
-                        ];
+                        return [desc, item.qty.toString(), `$ ${Number(item.price).toLocaleString('en-US', {minimumFractionDigits: 2})}`, `$ ${(Number(item.price) * item.qty).toLocaleString('en-US', {minimumFractionDigits: 2})}`];
                     });
 
                     doc.autoTable({
@@ -414,7 +330,6 @@
 
                     let finalY = doc.lastAutoTable.finalY + 10;
                     
-                    // TOTALES
                     doc.setFontSize(11); doc.setFont("helvetica", "bold"); doc.setTextColor(0);
                     doc.text("VALOR TOTAL DECLARADO (USD):", 110, finalY); 
                     doc.text(`$ ${cartTotal.value.toLocaleString('en-US', {minimumFractionDigits: 2})}`, 195, finalY, { align: 'right' });
@@ -426,7 +341,6 @@
                         doc.text(`$ ${cartAdvanceTotal.value.toLocaleString('en-US', {minimumFractionDigits: 2})}`, 195, finalY, { align: 'right' });
                     }
 
-                    // --- PÁGINA 2: CONSTANCIA DE TÉRMINOS ACEPTADOS ---
                     doc.addPage();
                     doc.setFontSize(12); doc.setFont("helvetica", "bold"); doc.setTextColor(0);
                     doc.text("ANEXO LEGAL: CONDICIONES DE IMPORTACIÓN ACEPTADAS", 14, 20);
@@ -447,14 +361,12 @@ CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a 
                     const splitText = doc.splitTextToSize(terminosTexto, 180);
                     doc.text(splitText, 14, 35);
 
-                    // GUARDADO
                     doc.save(`PreOferta_NOVELEC_${form.value.empresa.replace(/\s+/g,'_')}.pdf`);
                 };
 
                 const submitOrder = async () => {
                     loading.value = true;
                     try {
-                        // 1. Guardar en Base de Datos (Para tu Manager factura.html)
                         const summaryProd = cart.value.length > 1 ? `Pedido Múltiple (${cart.value.length} ítems)` : cart.value[0].name;
                         const telefonoLimpio = form.value.prefijo.replace('+', '') + form.value.telefono;
                         
@@ -470,13 +382,11 @@ CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a 
                             notas: 'AUTOGENERADO B2B. El cliente aceptó expresamente todos los términos legales de importación DAP y contrato.'
                         }]);
 
-                        // 2. Generar y Descargar PDF
                         generatePDF();
 
-                        // 3. Crear Mensaje Profesional para WhatsApp
                         let textoWhatsApp = `Estimado Señor Marcel,\n\nMi nombre es ${form.value.nombre}, en representación de la entidad ${form.value.empresa} (Licencia: ${form.value.tipo}).\n\nCertifico que he leído, comprendido y aceptado el protocolo institucional de importación, firma de contrato comercial, modalidades de pago (incluyendo el efectivo físico) y la nacionalización DAP Inbond.\n\nHe generado una Solicitud de Compra Mayorista desde la plataforma B2B por un valor total estimado de $${cartTotal.value.toLocaleString()} USD.\n\n*Le adjunto en este mensaje el PDF de mi Pre-Oferta Oficial.* Quedo a su disposición para que me indique los pasos a seguir con la documentación y acreditación correspondiente.`;
 
-                        alert("✅ OPERACIÓN REGISTRADA EXITOSAMENTE.\n\nSe ha descargado el PDF oficial con los detalles de su compra y el anexo legal.\n\nA continuación se abrirá nuestro canal corporativo de WhatsApp. POR FAVOR, ADJUNTE EL PDF DESCARGADO en el chat para que nuestro equipo pueda procesar su solicitud.");
+                        alert("✅ OPERACIÓN REGISTRADA EXITOSAMENTE.\n\nSe ha descargado el PDF oficial con los detalles de su compra y el anexo legal.\n\nA continuación se abrirá nuestro canal corporativo de WhatsApp. POR FAVOR, ADJUNTE EL PDF DESCARGADO en el chat.");
                         
                         const waUrl = `https://wa.me/${TELEFONO_NOVELEC}?text=${encodeURIComponent(textoWhatsApp)}`;
                         window.open(waUrl, '_blank');
@@ -491,9 +401,9 @@ CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a 
                 };
 
                 return { 
-                    acceptedTerms, termsChecked, checkTerms, proceedToForm,
-                    loading, form, cart, groupedCatalogo, selectedItemId, currentItem, currentQty,
-                    cartTotal, cartAdvanceTotal, isFormValid, onItemSelect, validateQty, addToCart, removeFromCart, submitOrder 
+                    acceptedTerms, termsChecked, form, cart, groupedCatalogo, selectedItemId, currentItem, currentQty,
+                    cartTotal, cartAdvanceTotal, isFormValid, onItemSelect, validateQty, addToCart, removeFromCart, submitOrder,
+                    loading, isPrefilled
                 };
             }
         }).mount('#app');

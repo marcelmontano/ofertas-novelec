@@ -440,9 +440,116 @@
     .market-category-header { flex-direction: column; gap: 15px; align-items: flex-start; }
 }
 
+/* --- ESTILOS DE LA BARRERA B2B Y FORMULARIO --- */
+        #b2b-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(7, 11, 20, 0.98); backdrop-filter: blur(10px); z-index: 999999; overflow-y: auto; padding: 20px; display: flex; align-items: center; justify-content: center; }
+        .gate-box { background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px; max-width: 800px; width: 100%; padding: 40px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); margin: auto; }
+        .gate-title { font-size: 28px; font-weight: 900; color: white; text-transform: uppercase; margin-bottom: 5px; text-align: center; }
+        .gate-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent-blue); text-align: center; margin-bottom: 30px; letter-spacing: 1px; }
+        .terms-scroll { background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-blue); padding: 25px; border-radius: 8px; font-size: 14px; line-height: 1.7; color: var(--text-muted); max-height: 300px; overflow-y: auto; margin-bottom: 30px; }
+        .terms-scroll::-webkit-scrollbar { width: 6px; }
+        .terms-scroll::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        .terms-scroll h3 { color: var(--accent-green); font-family: 'JetBrains Mono', monospace; font-weight: 700; margin-top: 20px; margin-bottom: 10px; font-size: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        .terms-scroll ul, .terms-scroll ol { margin-left: 20px; }
+        .terms-scroll strong { color: white; }
+        .checkbox-row { display: flex; gap: 15px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px; align-items: flex-start;}
+        .checkbox-row input[type="checkbox"] { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--accent-green); cursor: pointer; flex-shrink: 0; }
+        .checkbox-row label { font-size: 13px; font-weight: 700; color: white; cursor: pointer; }
+        .btn-gate { width: 100%; background: var(--accent-green); color: #000; font-family: 'JetBrains Mono', monospace; font-weight: 900; padding: 18px; border-radius: 6px; border: none; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 10px; text-transform: uppercase; }
+        .btn-gate:disabled { background: var(--border-color); color: var(--text-muted); cursor: not-allowed; }
+        .btn-gate:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 230, 118, 0.2); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
+        .form-input { background: var(--bg-card); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; color: white; outline: none; font-family: 'Inter', sans-serif; }
+        .form-input:focus { border-color: var(--accent-green); }
+        .form-input.mono { font-family: 'JetBrains Mono', monospace; }
+        @media (max-width: 768px) { .gate-box { padding: 20px; margin: 20px 0; } .form-grid { grid-template-columns: 1fr; } }
+
     </style>
 </head>
 <body>
+
+    <!-- ======================================================= -->
+    <!-- BARRERA DE SEGURIDAD Y REGISTRO (GATE)                  -->
+    <!-- ======================================================= -->
+    <div id="b2b-gate">
+        <!-- PANTALLA 1: TÉRMINOS -->
+        <div id="gate-step-1" class="gate-box">
+            <div class="gate-title">ACUERDO DE OPERACIÓN B2B</div>
+            <div class="gate-subtitle">LECTURA OBLIGATORIA PARA ACCEDER AL CATÁLOGO</div>
+
+            <div class="terms-scroll">
+                <p class="mb-4">Estimado Cliente: Lo primero que debe saber es que, a través de nuestra entidad, usted estará realizando un proceso formal de <strong>Importación de Mercancía</strong>. A pesar de que los inventarios se encuentran físicamente en plaza, es estrictamente necesario nacionalizarlos a través de una Importadora Estatal.</p>
+                
+                <h3>1. EL CONTRATO COMERCIAL</h3>
+                <p>Para proceder con la liberación, es necesario firmar un Contrato Comercial. Este contrato garantiza:</p>
+                <ol>
+                    <li><strong>Condición de Entrega:</strong> DAP (Entrega directa en nuestro Almacén Inbond en el Reparto Eléctrico, La Habana).</li>
+                    <li><strong>Formas de Pago:</strong> Transferencia bancaria internacional o <strong>efectivo físico (USD/EUR)</strong> aceptado en nuestras oficinas corporativas.</li>
+                    <li><strong>Respaldo Legal:</strong> El contrato debe figurar obligatoriamente con los datos de su personalidad jurídica (Licencia de TCP o MIPYME).</li>
+                </ol>
+
+                <h3>2. TRÁMITES Y ACOMPAÑAMIENTO</h3>
+                <p><strong>Nuestro equipo de ejecutivos comerciales le acompaña y asesora de manera personalizada</strong> en cada paso:</p>
+                <ul>
+                    <li>Emitimos y entregamos su <strong>Factura Comercial</strong> oficial al momento del pago.</li>
+                    <li><strong>Nosotros nos encargamos</strong> de solicitar la DM (Declaración de Mercancía) a la importadora para agilizar tiempos.</li>
+                    <li>La Importadora cobrará aranceles operativos bajos (Normativas del MINCEX).</li>
+                    <li>Una vez obtenido el permiso (1 a 2 días hábiles), <strong>le contactamos para la extracción</strong> en almacén.</li>
+                </ul>
+            </div>
+
+            <div class="checkbox-row">
+                <input type="checkbox" id="chk1" onchange="validateGateStep1()">
+                <label for="chk1">Certifico que mi entidad posee personalidad jurídica (TCP o MIPYME) y que mi intención es realizar compras mayoristas B2B bajo las condiciones explicadas.</label>
+            </div>
+            
+            <div class="checkbox-row">
+                <input type="checkbox" id="chk2" onchange="validateGateStep1()">
+                <label for="chk2">He leído y acepto íntegramente el protocolo operativo de Novelec, incluyendo la modalidad de entrega DAP Inbond y los tiempos de tramitación.</label>
+            </div>
+
+            <button id="btn-next-step" class="btn-gate" disabled onclick="showGateStep2()">CONTINUAR AL REGISTRO</button>
+        </div>
+
+        <!-- PANTALLA 2: FORMULARIO -->
+        <div id="gate-step-2" class="gate-box" style="display: none;">
+            <div class="gate-title">REGISTRO DE ENTIDAD</div>
+            <div class="gate-subtitle">COMPLETE SUS DATOS PARA DESBLOQUEAR EL INVENTARIO</div>
+
+            <div class="form-grid">
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>Nombre Completo del Representante Legal *</label>
+                    <input type="text" id="g_nombre" class="form-input" placeholder="Ej: Juan Pérez">
+                </div>
+                <div class="form-group">
+                    <label>Razón Social (Empresa) *</label>
+                    <input type="text" id="g_empresa" class="form-input" placeholder="Ej: Soluciones SRL">
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Entidad *</label>
+                    <select id="g_tipo" class="form-input">
+                        <option value="">Seleccione...</option>
+                        <option value="TCP">TCP</option>
+                        <option value="MIPYME">MIPYME</option>
+                        <option value="ESTATAL">Estatal</option>
+                    </select>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>WhatsApp de Contacto (Para asignación de comercial) *</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="g_prefijo" class="form-input mono" value="+53" style="width: 80px; text-align: center;">
+                        <input type="number" id="g_telefono" class="form-input mono" placeholder="58183649" style="flex: 1;">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-gate" onclick="unlockCatalog()">ACCEDER AL CATÁLOGO MAYORISTA</button>
+            <p style="text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 15px;">Sus datos se guardarán de forma segura en su navegador para agilizar sus futuras órdenes de compra.</p>
+        </div>
+    </div>
+
+    <div id="main-content" style="display: none;"></div>
 
     <!-- HEADER -->
     <header>
@@ -1540,9 +1647,60 @@
     }
 </style>
 
+</div>
+
 <a href="pedido.html" target="_blank" class="btn-flotante-b2b">
     <span style="font-size: 20px;">🛒</span> INICIAR PEDIDO B2B
 </a>
+
+<!-- JAVASCRIPT PARA EL MANEJO DEL GATE Y LOCALSTORAGE -->
+    <script>
+        // Si el usuario ya se registró antes, le mostramos el catálogo directo
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('novelec_b2b_user')) {
+                document.getElementById('b2b-gate').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            }
+        });
+
+        // Validar que ambos checks de la Fase 1 estén marcados
+        function validateGateStep1() {
+            const chk1 = document.getElementById('chk1').checked;
+            const chk2 = document.getElementById('chk2').checked;
+            document.getElementById('btn-next-step').disabled = !(chk1 && chk2);
+        }
+
+        // Pasar de Términos al Formulario (Fase 1 -> Fase 2)
+        function showGateStep2() {
+            document.getElementById('gate-step-1').style.display = 'none';
+            document.getElementById('gate-step-2').style.display = 'block';
+        }
+
+        // Validar Formulario, Guardar en LocalStorage y Desbloquear (Fase 2 -> Catálogo)
+        function unlockCatalog() {
+            const nombre = document.getElementById('g_nombre').value.trim();
+            const empresa = document.getElementById('g_empresa').value.trim();
+            const tipo = document.getElementById('g_tipo').value;
+            const prefijo = document.getElementById('g_prefijo').value.trim();
+            const telefono = document.getElementById('g_telefono').value.trim();
+
+            if (!nombre || !empresa || !tipo || !telefono) {
+                alert("Por favor, complete todos los campos obligatorios (*).");
+                return;
+            }
+
+            // Guardar en la memoria del navegador
+            const userData = { nombre, empresa, tipo, prefijo, telefono };
+            localStorage.setItem('novelec_b2b_user', JSON.stringify(userData));
+
+            // Quitar el muro y mostrar el sitio real
+            document.getElementById('b2b-gate').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            
+            // Subir al tope de la página suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 
 </body>
 </html>
