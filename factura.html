@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVELEC MANAGER | Panel de Control</title>
+    
+    <!-- Librerías -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Space+Mono:wght@400;700&display=swap');
+        
+        [v-cloak] { display: none !important; }
+
+        body { font-family: 'Rajdhani', sans-serif; background: #0f172a; color: #e2e8f0; }
+        .font-mono { font-family: 'Space Mono', monospace; }
+        .bg-gold { background-color: #B08D55; }
+        .text-gold { color: #B08D55; }
+        .border-gold { border-color: #B08D55; }
+        
+        .status-select { 
+            appearance: none; padding: 4px 12px; border-radius: 999px; 
+            font-weight: bold; font-size: 0.75rem; text-align: center;
+            cursor: pointer; border: 2px solid transparent;
+        }
+        .st-Nuevo { background: #334155; color: #fff; border-color: #475569; }
+        .st-WhatsApp { background: #dcfce7; color: #166534; }
+        .st-Comercial { background: #dbeafe; color: #1e40af; }
+        .st-Cerrado { background: #B08D55; color: #000; }
+        .st-Perdido { background: #fee2e2; color: #991b1b; }
+
+        /* Scrollbar fina para la tabla de items */
+        .items-scroll::-webkit-scrollbar { width: 6px; }
+        .items-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    
+    <div id="app" v-cloak class="min-h-screen pb-20">
+        
+        <!-- HEADER -->
+        <header class="bg-black border-b border-gold sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold tracking-widest text-white">NOVELEC <span class="text-gold">MANAGER</span></h1>
+                    <p class="text-xs text-gray-500 font-mono">Panel de Control · Marcel Montano</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-gold font-mono text-xl">{{ leads.length }}</div>
+                    <div class="text-[10px] uppercase text-gray-400">Operaciones Activas</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mx-auto px-4 mt-8">
+            
+            <!-- SECCIÓN NUEVA ORDEN (ENCABEZADO + CARRITO) -->
+            <div class="bg-gray-900 border border-gray-800 rounded-lg p-6 mb-8 shadow-xl flex flex-col lg:flex-row gap-6">
+                
+                <!-- COLUMNA IZQUIERDA: DATOS CLIENTE -->
+                <div class="flex-1 space-y-4">
+                    <h2 class="text-gold text-sm font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <span>1.</span> Datos del Cliente
+                    </h2>
+                    <div>
+                        <label class="text-xs text-gray-500 block mb-1">Cliente / Mipyme / TCP</label>
+                        <input v-model="form.nombre" type="text" class="w-full bg-gray-800 border border-gray-700 rounded p-2 text-white focus:border-gold outline-none" placeholder="Nombre completo">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-gray-500 block mb-1">NIT / Carnet</label>
+                            <input v-model="form.nit" type="text" class="w-full bg-gray-800 border border-gray-700 rounded p-2 text-white font-mono focus:border-gold outline-none" placeholder="ID Documento">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 block mb-1">WhatsApp (con 53)</label>
+                            <input v-model="form.telefono" type="text" class="w-full bg-gray-800 border border-gray-700 rounded p-2 text-white font-mono focus:border-gold outline-none" placeholder="535XXXXXXX">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMNA DERECHA: SELECCIÓN DE PRODUCTOS -->
+                <div class="flex-1 space-y-4 border-l border-gray-800 pl-0 lg:pl-6">
+                    <h2 class="text-gold text-sm font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <span>2.</span> Selección de Equipos
+                    </h2>
+                    
+                    <!-- SELECTOR -->
+                    <div class="flex gap-2 items-end">
+                        <div class="flex-grow">
+                            <label class="text-xs text-gray-500 block mb-1">Producto</label>
+                            <select v-model="currentItem.idx" class="w-full bg-gray-800 border border-gray-700 rounded p-2 text-white focus:border-gold outline-none text-sm">
+                                <option :value="-1">Seleccionar Equipo...</option>
+                                <option v-for="(prod, idx) in catalogo" :value="idx">
+                                    {{ prod.name }} (${{ prod.price }})
+                                </option>
+                            </select>
+                        </div>
+                        <div class="w-20">
+                            <label class="text-xs text-gray-500 block mb-1">Cant.</label>
+                            <input v-model.number="currentItem.qty" type="number" min="1" class="w-full bg-gray-800 border border-gray-700 rounded p-2 text-white font-mono focus:border-gold outline-none text-center" placeholder="1">
+                        </div>
+                        <button @click="addToCart" class="bg-gray-700 hover:bg-white hover:text-black text-white px-4 py-2 rounded font-bold transition">
+                            +
+                        </button>
+                    </div>
+
+                    <!-- LISTA DE ITEMS (CARRITO) -->
+                    <div class="bg-black/30 rounded border border-gray-700 p-2 h-32 overflow-y-auto items-scroll">
+                        <div v-if="cart.length === 0" class="text-gray-500 text-xs text-center mt-10">
+                            No hay equipos seleccionados
+                        </div>
+                        <div v-else v-for="(item, index) in cart" :key="index" class="flex justify-between items-center text-xs mb-2 border-b border-gray-700 pb-1 last:border-0">
+                            <div>
+                                <span class="text-gold font-bold">{{ item.qty }}x</span> {{ item.name }}
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="font-mono">${{ (item.price * item.qty).toLocaleString() }}</span>
+                                <button @click="removeFromCart(index)" class="text-red-500 hover:text-red-300 font-bold">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL Y GUARDAR -->
+                    <div class="flex justify-between items-center pt-2">
+                        <div class="text-right">
+                            <span class="text-xs text-gray-400 uppercase mr-2">Total Estimado:</span>
+                            <span class="text-gold font-mono font-bold text-lg">${{ cartTotal.toLocaleString() }}</span>
+                        </div>
+                        <button @click="saveLead" :disabled="loading || cart.length === 0" class="bg-gold hover:bg-yellow-600 text-black font-bold px-6 py-2 rounded transition uppercase text-xs tracking-wider">
+                            <span v-if="!loading">Crear Reserva</span>
+                            <span v-else>Guardando...</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLA CRM -->
+            <div class="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-black text-gray-400 text-xs uppercase border-b border-gray-800">
+                                <th class="p-4 font-mono">Ref #</th>
+                                <th class="p-4">Cliente</th>
+                                <th class="p-4">Resumen Pedido</th>
+                                <th class="p-4 text-center">Estado</th>
+                                <th class="p-4">Notas Internas</th>
+                                <th class="p-4 text-right">Documentos</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr v-for="lead in leads" :key="lead.id" class="border-b border-gray-800 hover:bg-gray-800/50 transition group">
+                                <td class="p-4 font-mono text-xs text-gray-500">
+                                    <div class="text-gold font-bold text-sm">#{{ lead.id }}</div>
+                                    <div>{{ formatDate(lead.created_at) }}</div>
+                                </td>
+                                <td class="p-4">
+                                    <div class="font-bold text-white text-base">{{ lead.cliente_nombre }}</div>
+                                    <div class="text-gray-500 text-xs font-mono mb-1">ID: {{ lead.cliente_nit || '---' }}</div>
+                                    
+                                    <!-- Botón de WhatsApp Directo al Cliente -->
+                                    <a v-if="lead.cliente_telefono" 
+                                    :href="'https://wa.me/' + lead.cliente_telefono" 
+                                    target="_blank" 
+                                    class="inline-flex items-center gap-1 px-2 py-1 mt-1 bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/30 rounded text-[10px] font-bold hover:bg-[#25D366]/20 hover:scale-105 transition-all">
+                                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                        Chat: {{ lead.cliente_telefono }}
+                                    </a>
+                                </td>
+                                <td class="p-4">
+                                    <!-- Logica para mostrar resumen -->
+                                    <div v-if="lead.items && lead.items.length > 0">
+                                        <div class="text-gray-300 font-bold text-xs">{{ lead.items.length }} Artículos Diferentes</div>
+                                        <div class="text-gray-500 text-[10px] truncate w-48">{{ lead.items.map(i => i.qty + 'x ' + i.name).join(', ') }}</div>
+                                    </div>
+                                    <div v-else>
+                                        <div class="text-gray-300 font-bold">{{ lead.cantidad || 1 }}x {{ lead.producto }}</div>
+                                    </div>
+                                    <div class="text-gold font-mono text-xs mt-1 font-bold">Total: ${{ (lead.precio).toLocaleString() }} USD</div>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <select v-model="lead.estado" @change="updateLead(lead)" :class="`status-select st-${lead.estado.replace(' ', '')}`">
+                                        <option value="Nuevo">Nuevo</option>
+                                        <option value="WhatsApp">En Chat</option>
+                                        <option value="Comercial">Enviado a Cierre</option>
+                                        <option value="Cerrado">✅ Cobrado</option>
+                                        <option value="Perdido">❌ Cancelado</option>
+                                    </select>
+                                </td>
+                                <td class="p-4">
+                                    <textarea v-model="lead.notas" @change="updateLead(lead)" placeholder="Notas..." class="bg-transparent border border-gray-700 rounded text-xs text-gray-400 p-2 w-full h-16 focus:border-gray-500 outline-none resize-none"></textarea>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <div class="flex flex-col gap-2 items-end">
+                                        <button @click="generateInvoice(lead)" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-xs font-mono flex items-center gap-2 border border-gray-600 w-36 justify-center">
+                                            📄 PDF RESERVA
+                                        </button>
+                                        <a :href="getComercialLink(lead)" target="_blank" class="bg-blue-900/30 hover:bg-blue-900/50 text-blue-300 border border-blue-800 px-3 py-1 rounded text-xs font-mono w-36 text-center block">
+                                            AVISAR COMERCIAL
+                                        </a>
+                                        <button @click="deleteLead(lead.id)" class="text-red-900 hover:text-red-500 text-[10px] mt-2 underline">Eliminar Reg.</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN
+        const SUPABASE_URL = 'https://womolbdbvpkjmxcnkeds.supabase.co'; 
+        const SUPABASE_KEY = 'sb_publishable_iSjAp6gEj7UyRtj8DW-0CQ_FEQM_pW6';
+        const TELEFONO_COMERCIAL = '5363467628'; 
+
+        const CATALOGO = [
+            // --- EQUIPOS ORIGINALES ---
+            { name: 'EcoFlow E980 (Lote)', price: 460 },
+            { name: 'EcoFlow Delta 2 Max', price: 980 },
+            { name: 'EcoFlow Delta Pro 3 (Combo 4)', price: 4050 },
+            { name: 'EcoFlow Delta Pro 3 (Solo)', price: 2300 },
+            { name: 'Panel Solar LONGi (Pallet)', price: 3060 },
+            { name: 'Panel Solar LONGi (Unidad)', price: 85 },
+            { name: 'Inversor SMA Tripower', price: 5100 },
+            { name: 'Sistema Ultra (Estándar)', price: 7200 },
+            { name: 'Inversor Híbrido Deye 10kW', price: 2800 },
+            { name: 'Batería Deye 5.12kWh (LFP)', price: 1000 },
+            { name: 'Batería Deye 10.24kWh (LFP)', price: 2000 },
+
+            // --- 1. CABLES MONOCONDUCTORES (Precios por Rollo/Bobina) ---
+            { name: 'Unipolar 240mm² RV-K Negro (Bobina 2000m) | Stock: 1 ud', price: 90000.00, stock: 1 },
+            { name: 'Unipolar 150mm² RV-K Negro (Bobina 1000m) | Stock: 1 ud', price: 28000.00, stock: 1 },
+            { name: 'Unipolar 120mm² RV-K Negro (Bobina 1019m) | Stock: 1 ud', price: 22418.00, stock: 1 },
+            { name: 'Unipolar 95mm² RV-K Negro (Bobina 2000m) | Stock: 1 ud', price: 36000.00, stock: 1 },
+            { name: 'Unipolar 50mm² RV-K Negro (Bobina 4000m) | Stock: 1 ud', price: 40000.00, stock: 1 },
+            
+            { name: 'Unipolar 35mm² H07V-K Negro (Rollo 100m) | Stock: 8 uds', price: 600.00, stock: 8 },
+            { name: 'Unipolar 25mm² H07V-K Amar/Verde (Rollo 100m) | Stock: 15 uds', price: 500.00, stock: 15 },
+            { name: 'Unipolar 25mm² Libre Halógenos Amar/Verde (Rollo 100m) | Stock: 6 uds', price: 500.00, stock: 6 },
+            { name: 'Unipolar 25mm² Libre Halógenos Azul (Rollo 100m) | Stock: 1 ud', price: 500.00, stock: 1 },
+            
+            { name: 'Unipolar 16mm² H07V-K Amar/Verde (Rollo 100m) | Stock: 144 uds', price: 330.00, stock: 144 },
+            { name: 'Unipolar 16mm² H07V-K Azul (Rollo 100m) | Stock: 149 uds', price: 330.00, stock: 149 },
+            { name: 'Unipolar 16mm² H07V-K Negro (Rollo 100m) | Stock: 15 uds', price: 330.00, stock: 15 },
+            { name: 'Unipolar 16mm² Libre Halógenos Azul (Caja 100m) | Stock: 17 uds', price: 330.00, stock: 17 },
+            { name: 'Unipolar 16mm² Libre Halógenos Negro (Caja 100m) | Stock: 16 uds', price: 330.00, stock: 16 },
+            
+            { name: 'Unipolar 6mm² H07V-K Amar/Verde (Rollo 100m) | Stock: 1 ud', price: 100.00, stock: 1 },
+            { name: 'Unipolar 6mm² H07V-K Negro (Rollo 100m) | Stock: 1 ud', price: 100.00, stock: 1 },
+            
+            { name: 'Unipolar 1.5mm² H07V-K Amar/Verde (Rollo 200m) | Stock: 276 uds', price: 52.00, stock: 276 },
+            { name: 'Unipolar 1.5mm² H07V-K Azul (Rollo 200m) | Stock: 250 uds', price: 52.00, stock: 250 },
+            { name: 'Unipolar 1.5mm² H07V-K Negro (Rollo 200m) | Stock: Consultar', price: 52.00, stock: 0 },
+
+            // --- 2. CABLES MULTICONDUCTORES (Royal Cord) ---
+            { name: 'Multiconductor 5G16mm² RV-K Negro (Bobina 1997m) | Stock: 1 ud', price: 35946.00, stock: 1 },
+            { name: 'Multiconductor 7G4mm² RV-K Negro (Bobina 500m) | Stock: 1 ud', price: 3000.00, stock: 1 },
+            { name: 'Multiconductor 3G6mm² RV-K Negro (Rollo 100m) | Stock: 5 uds', price: 360.00, stock: 5 },
+            { name: 'Multiconductor 3G4mm² RV-K Negro (Rollo 100m) | Stock: 9 uds', price: 260.00, stock: 9 }
+        ];
+
+        const { createApp, ref, computed, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                const leads = ref([]);
+                const loading = ref(false);
+                const catalogo = CATALOGO;
+                
+                // Formulario
+                const form = ref({ nombre: '', nit: '', telefono: '' });
+                // Estado del Item actual que se va a agregar
+                const currentItem = ref({ idx: -1, qty: 1 });
+                // Carrito de compras
+                const cart = ref([]);
+                
+                let supabase = null;
+
+                onMounted(async () => {
+                    if(SUPABASE_URL.includes('AQUI_TU')) return alert("FALTAN CLAVES");
+                    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                    await fetchLeads();
+                });
+
+                // Computed: Total del carrito
+                const cartTotal = computed(() => {
+                    return cart.value.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                });
+
+                // Agregar al carrito
+                const addToCart = () => {
+                    if(currentItem.value.idx === -1) return;
+                    const prod = catalogo[currentItem.value.idx];
+                    cart.value.push({
+                        name: prod.name,
+                        price: prod.price,
+                        qty: currentItem.value.qty
+                    });
+                    // Reset inputs
+                    currentItem.value = { idx: -1, qty: 1 };
+                };
+
+                // Quitar del carrito
+                const removeFromCart = (index) => {
+                    cart.value.splice(index, 1);
+                };
+
+                const fetchLeads = async () => {
+                    let { data, error } = await supabase.from('referidos').select('*').order('created_at', { ascending: false });
+                    if (data) leads.value = data;
+                };
+
+                const saveLead = async () => {
+                    if(!form.value.nombre || cart.value.length === 0) return alert("Falta Nombre o Equipos");
+                    loading.value = true;
+                    
+                    try {
+                        // Guardamos un resumen en los campos antiguos para compatibilidad visual
+                        // Y el detalle completo en el campo JSON 'items'
+                        const summaryProd = cart.value.length > 1 ? "Pedido Múltiple (" + cart.value.length + " ítems)" : cart.value[0].name;
+                        
+                        const { error } = await supabase.from('referidos').insert([{
+                            cliente_nombre: form.value.nombre,
+                            cliente_nit: form.value.nit,
+                            cliente_telefono: form.value.telefono,
+                            producto: summaryProd, 
+                            precio: cartTotal.value, // Total global
+                            cantidad: 1, // Representa 1 orden
+                            items: cart.value, // <--- AQUÍ VA LA LISTA COMPLETA
+                            estado: 'Nuevo',
+                            notas: ''
+                        }]);
+
+                        if(!error) {
+                            form.value = { nombre: '', nit: '', telefono: '' };
+                            cart.value = [];
+                            await fetchLeads();
+                        } else {
+                            alert("Error: " + error.message);
+                        }
+                    } catch(e) { console.error(e); }
+                    loading.value = false;
+                };
+
+                const updateLead = async (lead) => {
+                    await supabase.from('referidos').update({ estado: lead.estado, notas: lead.notas }).eq('id', lead.id);
+                };
+
+                const deleteLead = async (id) => {
+                    if(!confirm("¿Eliminar registro?")) return;
+                    await supabase.from('referidos').delete().eq('id', id);
+                    await fetchLeads();
+                };
+
+                const getComercialLink = (lead) => {
+                    // Construir lista para whatsapp
+                    let itemsList = "";
+                    if(lead.items && lead.items.length > 0) {
+                        itemsList = lead.items.map(i => `• ${i.qty}x ${i.name}`).join('\n');
+                    } else {
+                        itemsList = `• ${lead.cantidad || 1}x ${lead.producto}`;
+                    }
+
+                    const text = `REFERIDO DE MARCEL MONTANO:\n\n` +
+                                 `👤 Nombre: ${lead.cliente_nombre}\n` +
+                                 `🆔 ID: ${lead.cliente_nit || 'N/A'}\n` +
+                                 `📞 Tel: ${lead.cliente_telefono}\n\n` +
+                                 `🛒 PEDIDO:\n${itemsList}\n\n` +
+                                 `💰 Total: $${lead.precio.toLocaleString()}\n` +
+                                 `\nAdjunto PDF de reserva.`;
+                    return `https://wa.me/${TELEFONO_COMERCIAL}?text=${encodeURIComponent(text)}`;
+                };
+
+                const formatDate = (date) => new Date(date).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
+
+                // --- GENERADOR DE PDF ---
+                const generateInvoice = (lead) => {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    const goldColor = [176, 141, 85];
+                    const blackColor = [20, 20, 20];
+
+                    // --- LOGO VECTORIAL ---
+                    doc.setFont("helvetica", "bold"); doc.setFontSize(26); doc.setTextColor(0); doc.text("NOVELEC", 14, 22);
+                    doc.setFillColor(...goldColor); doc.rect(65, 14, 5, 8, 'F');
+                    doc.setFontSize(9); doc.setTextColor(100); doc.setFont("helvetica", "normal"); doc.text("Distribución Mayorista", 14, 28);
+                    
+                    // ATENDIDO POR
+                    doc.setFontSize(9); doc.setTextColor(...goldColor); doc.setFont("helvetica", "bold");
+                    doc.text("ATENDIDO POR: MARCEL MONTANO", 14, 35);
+
+                    // ETIQUETA
+                    doc.setFillColor(...goldColor); doc.rect(140, 10, 60, 10, 'F');
+                    doc.setTextColor(255); doc.setFontSize(10); doc.setFont("helvetica", "bold");
+                    doc.text("ORDEN DE DESPACHO", 170, 16.5, { align: 'center' });
+
+                    doc.setTextColor(0); doc.setFont("helvetica", "normal"); doc.setFontSize(9);
+                    doc.text("Almacén Inbond: Reparto Eléctrico", 200, 30, { align: 'right' });
+                    doc.text("La Habana, Cuba", 200, 34, { align: 'right' });
+
+                    doc.setDrawColor(200); doc.line(14, 45, 200, 45);
+
+                    // DATOS CLIENTE
+                    doc.setFontSize(10); doc.setFont("helvetica", "bold"); doc.text("DATOS PARA RESERVA / DESPACHO:", 14, 55);
+                    doc.setFont("helvetica", "normal");
+                    doc.text(`CLIENTE: ${(lead.cliente_nombre || '').toUpperCase()}`, 14, 62);
+                    doc.text(`ID REGISTRO: ${lead.cliente_nit || 'N/A'}`, 14, 67);
+                    doc.text(`CONTACTO: ${lead.cliente_telefono || '---'}`, 14, 72);
+
+                    // CAJA REF
+                    doc.setFillColor(245, 245, 245); doc.rect(130, 50, 70, 25, 'F');
+                    doc.text("Nº Referencia:", 135, 58);
+                    doc.setFont("helvetica", "bold"); doc.text(`#REF-${lead.id}`, 195, 58, { align: 'right' });
+                    doc.setFont("helvetica", "normal"); doc.text("Fecha Emisión:", 135, 65);
+                    doc.text(new Date().toLocaleDateString(), 195, 65, { align: 'right' });
+
+                    // PREPARAR DATOS DE LA TABLA (MULTILINEA)
+                    let tableBody = [];
+                    
+                    // Verificamos si es un pedido nuevo (con array items) o viejo
+                    if (lead.items && lead.items.length > 0) {
+                        tableBody = lead.items.map(item => [
+                            item.name,
+                            item.qty.toString(),
+                            `$ ${Number(item.price).toLocaleString('en-US', {minimumFractionDigits: 2})}`,
+                            `$ ${(Number(item.price) * item.qty).toLocaleString('en-US', {minimumFractionDigits: 2})}`
+                        ]);
+                    } else {
+                        // Retrocompatibilidad con pedidos viejos de 1 solo item
+                        const qty = lead.cantidad || 1;
+                        const unitPrice = Number(lead.precio); // En viejos, precio era total si qty=1, asumimos unitario aqui aprox o ajustamos
+                        // Mejor: Precio total / cantidad
+                        const total = Number(lead.precio); // En el sistema viejo el precio guardado era el del item unitario? No, era unitario.
+                        // Ajuste: en tu código anterior `precio` era unitario.
+                        tableBody = [[
+                            lead.producto,
+                            qty.toString(),
+                            `$ ${unitPrice.toLocaleString('en-US', {minimumFractionDigits: 2})}`,
+                            `$ ${(unitPrice * qty).toLocaleString('en-US', {minimumFractionDigits: 2})}`
+                        ]];
+                    }
+
+                    // TOTAL GLOBAL
+                    // Si tiene items, sumamos manual para asegurar, si no, usamos lead.precio
+                    let grandTotal = 0;
+                    if(lead.items && lead.items.length > 0) {
+                        grandTotal = lead.items.reduce((sum, i) => sum + (i.price * i.qty), 0);
+                    } else {
+                        grandTotal = Number(lead.precio) * (lead.cantidad || 1);
+                    }
+
+                    doc.autoTable({
+                        startY: 85,
+                        head: [["DESCRIPCIÓN", "CANTIDAD", "PRECIO UNIT.", "TOTAL"]],
+                        body: tableBody,
+                        theme: 'plain',
+                        headStyles: { fillColor: blackColor, textColor: 255, fontStyle: 'bold' },
+                        styles: { fontSize: 10, cellPadding: 3 },
+                        columnStyles: { 0: { cellWidth: 90 }, 3: { halign: 'right', fontStyle: 'bold' } }
+                    });
+
+                    // TOTALES
+                    const finalY = doc.lastAutoTable.finalY + 10;
+                    doc.setFontSize(12); doc.setFont("helvetica", "bold"); doc.setTextColor(...goldColor);
+                    
+                    doc.text("TOTAL A PAGAR (USD):", 110, finalY + 14); 
+                    doc.text(`$ ${grandTotal.toLocaleString('en-US', {minimumFractionDigits: 2})}`, 195, finalY + 14, { align: 'right' });
+
+                    // FOOTER
+                    doc.setDrawColor(...goldColor); doc.line(14, 280, 200, 280);
+                    doc.setFontSize(8); doc.setTextColor(100);
+                    doc.text("Documento Oficial de Reserva - NOVELEC Partner Network", 105, 285, { align: 'center' });
+
+                    doc.save(`Reserva_Novelec_${lead.cliente_nombre.replace(/\s+/g,'_')}.pdf`);
+                };
+
+                return { 
+                    leads, form, currentItem, cart, cartTotal, // Variables nuevas
+                    catalogo, loading, 
+                    addToCart, removeFromCart, saveLead, // Funciones nuevas
+                    updateLead, deleteLead, getComercialLink, formatDate, generateInvoice 
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
