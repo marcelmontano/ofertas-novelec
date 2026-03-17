@@ -7,6 +7,8 @@
     
     <!-- Fuentes premium y técnicas -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Librería de Base de Datos -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
     <style>
         :root {
@@ -1655,15 +1657,20 @@
     <span style="font-size: 20px;">🛒</span> INICIAR PEDIDO B2B
 </a>
 
-<!-- JAVASCRIPT PARA EL MANEJO DEL GATE Y LOCALSTORAGE -->
+<!-- JAVASCRIPT PARA EL MANEJO DEL GATE, LOCALSTORAGE Y BASE DE DATOS -->
     <script>
+        // CONFIGURACIÓN DE BASE DE DATOS (Mismas credenciales de tu Manager)
+        const SUPABASE_URL = 'https://womolbdbvpkjmxcnkeds.supabase.co'; 
+        const SUPABASE_KEY = 'sb_publishable_iSjAp6gEj7UyRtj8DW-0CQ_FEQM_pW6';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('novelec_b2b_user')) {
-                // Si ya está registrado, quitamos la barrera
+                // Si ya está registrado en este navegador, quitamos la barrera
                 document.getElementById('b2b-gate').style.display = 'none';
                 document.body.classList.remove('gate-active');
             } else {
-                // Si es nuevo, activamos el bloqueo absoluto de la página
+                // Si es nuevo, activamos el bloqueo absoluto
                 document.body.classList.add('gate-active');
             }
         });
@@ -1682,8 +1689,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Guardar datos y desbloquear catálogo
-        function unlockCatalog() {
+        // Guardar datos en Base de Datos, LocalStorage y desbloquear catálogo
+        async function unlockCatalog() {
             const nombre = document.getElementById('g_nombre').value.trim();
             const empresa = document.getElementById('g_empresa').value.trim();
             const tipo = document.getElementById('g_tipo').value;
@@ -1695,16 +1702,49 @@
                 return;
             }
 
-            // Guardar en la memoria del navegador
-            const userData = { nombre, empresa, tipo, prefijo, telefono };
-            localStorage.setItem('novelec_b2b_user', JSON.stringify(userData));
+            // Cambiar texto del botón para que el cliente sepa que está cargando
+            const btn = document.querySelector('#gate-step-2 .btn-gate');
+            const originalText = btn.innerText;
+            btn.innerText = "PROCESANDO ACCESO...";
+            btn.disabled = true;
 
-            // Quitar el muro y el bloqueo
-            document.getElementById('b2b-gate').style.display = 'none';
-            document.body.classList.remove('gate-active');
-            
-            // Subir al tope de la página
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            try {
+                // Limpiar el teléfono
+                const telefonoLimpio = prefijo.replace('+', '') + telefono;
+
+                // 1. GUARDAR EL LEAD EN TU BASE DE DATOS (Panel de Control)
+                await supabase.from('referidos').insert([{
+                    cliente_nombre: `${nombre} (${empresa})`,
+                    cliente_nit: tipo,
+                    cliente_telefono: telefonoLimpio,
+                    producto: "ACCESO A CATÁLOGO (PROSPECTO)",
+                    precio: 0,
+                    cantidad: 0,
+                    items: [],
+                    estado: 'Nuevo',
+                    notas: '⚠️ Prospecto capturado en la barrera B2B. Accedió a ver los precios, pero aún no ha hecho un pedido formal.'
+                }]);
+
+                // 2. Guardar en la memoria del navegador para que no lo vuelva a pedir
+                const userData = { nombre, empresa, tipo, prefijo, telefono };
+                localStorage.setItem('novelec_b2b_user', JSON.stringify(userData));
+
+                // 3. Quitar el muro y el bloqueo
+                document.getElementById('b2b-gate').style.display = 'none';
+                document.body.classList.remove('gate-active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                // Si falla el internet un momento, igual le dejamos entrar para no trabarlo
+                console.error("Error guardando el lead:", error);
+                const userData = { nombre, empresa, tipo, prefijo, telefono };
+                localStorage.setItem('novelec_b2b_user', JSON.stringify(userData));
+                document.getElementById('b2b-gate').style.display = 'none';
+                document.body.classList.remove('gate-active');
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
         }
     </script>
 
