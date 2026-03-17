@@ -1497,8 +1497,50 @@
         </div>
     </footer>
 
-    <!-- BOTÓN FLOTANTE PARA GENERAR PEDIDO -->
-<a href="pedido.html" target="_blank" style="position: fixed; bottom: 30px; right: 30px; background: #00E676; color: #000; padding: 15px 25px; border-radius: 50px; font-family: 'JetBrains Mono', monospace; font-weight: 900; font-size: 16px; text-decoration: none; box-shadow: 0 10px 30px rgba(0, 230, 118, 0.4); display: flex; align-items: center; gap: 10px; z-index: 9999; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <!-- ESTILOS Y BOTÓN FLOTANTE RESPONSIVO -->
+<style>
+    .btn-flotante-b2b {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #00E676;
+        color: #000;
+        padding: 15px 25px;
+        border-radius: 50px;
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 900;
+        font-size: 16px;
+        text-decoration: none;
+        box-shadow: 0 10px 30px rgba(0, 230, 118, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        z-index: 9999;
+        transition: transform 0.3s ease;
+    }
+    .btn-flotante-b2b:hover {
+        transform: scale(1.05);
+    }
+    
+    /* Ajuste perfecto para celulares (Móviles) */
+    @media (max-width: 768px) {
+        .btn-flotante-b2b {
+            bottom: 20px;
+            right: 50%;
+            transform: translateX(50%); /* Centra el botón horizontalmente */
+            width: 90%; /* Toma el 90% de la pantalla para que nunca se corte */
+            padding: 14px 20px;
+            font-size: 14px;
+            border-radius: 12px; /* Se ve más moderno y corporativo en móvil */
+        }
+        .btn-flotante-b2b:hover {
+            transform: translateX(50%) scale(1.02);
+        }
+    }
+</style>
+
+<a href="pedido.html" target="_blank" class="btn-flotante-b2b">
     <span style="font-size: 20px;">🛒</span> INICIAR PEDIDO B2B
 </a>
 
