@@ -32,6 +32,14 @@
         .news-banner { background: linear-gradient(90deg, #1e1b4b 0%, #450a0a 100%); border: 1px solid var(--danger); }
         .product-card { background: var(--bg-panel); border: 1px solid var(--border-color); transition: all 0.3s ease; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--accent-green); }
+        .product-card {
+    background: #0F172A; /* Azul oscuro profundo */
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.product-card:hover {
+    border-color: #00E676;
+    box-shadow: 0 0 30px rgba(0, 230, 118, 0.1);
+}
     </style>
 </head>
 <body>
@@ -169,6 +177,29 @@
             </div>
         </section>
 
+        <!-- Dentro del catálogo, después del News Banner -->
+<section class="container mx-auto max-w-7xl px-6 mb-12">
+    <div class="bg-gradient-to-r from-[#111827] to-[#070B14] border border-white/10 p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div class="flex-1">
+            <span class="bg-[#00E676]/10 text-[#00E676] border border-[#00E676]/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest italic mb-4 inline-block">
+                📱 Comunidad Exclusiva Novelec
+            </span>
+            <h3 class="text-2xl md:text-3xl font-black leading-tight uppercase tracking-tighter">Acceda a nuestra Inteligencia de Mercado B2B</h3>
+            <p class="text-gray-400 text-sm mt-2 max-w-xl">Reciba alertas prioritarias de contenedores en tránsito, liquidaciones de inventario Inbond y análisis de precios antes que el mercado local.</p>
+        </div>
+        <a href="https://chat.whatsapp.com/IAzlu4BJN8OEZVp522tQpE?mode=gi_t" target="_blank" class="bg-[#25D366] text-black px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-transform flex items-center gap-3">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            UNIRME AL GRUPO VIP
+        </a>
+    </div>
+</section>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/5358183649" target="_blank" class="fixed bottom-8 right-8 z-[999] bg-[#25D366] p-4 rounded-full shadow-2xl hover:scale-110 transition-transform active:scale-95 group">
+    <div class="absolute -top-12 right-0 bg-white text-black text-[10px] font-bold px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">¿Dudas? Chat Directo</div>
+    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
         <!-- Grilla de Productos -->
         <main class="container mx-auto max-w-7xl px-6 pb-32">
             <!-- Selector de Categorías -->
@@ -179,36 +210,56 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div v-for="prod in productosFiltrados" :key="prod.id" class="product-card rounded-3xl overflow-hidden flex flex-col group">
-                    <div class="h-64 bg-white p-10 flex items-center justify-center relative">
-                        <img :src="prod.imagen_url" class="max-h-full object-contain group-hover:scale-105 transition duration-500">
-                        <div v-if="prod.stock_status === 'preventa'" class="absolute top-4 right-4 bg-blue-600 text-white text-[9px] font-black px-3 py-1 rounded-full uppercase">Contenedor en Tránsito</div>
-                    </div>
+                <!-- Reemplaza el contenido dentro del v-for en index.html -->
+<div v-for="prod in productosFiltrados" :key="prod.id" class="product-card rounded-3xl overflow-hidden flex flex-col group">
+    <!-- IMAGEN Y ETIQUETAS -->
+    <div class="h-64 bg-white p-10 flex items-center justify-center relative">
+        <img :src="prod.imagen_url" class="max-h-full object-contain group-hover:scale-105 transition duration-500">
+        
+        <!-- Etiqueta especial para Contenedores -->
+        <div v-if="prod.is_container" class="absolute top-4 left-4 flex flex-col gap-2">
+            <span class="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-xl">
+                🚢 Arribo: Finales de Abril
+            </span>
+            <span class="bg-[#00E676] text-black text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-xl">
+                Reserva con el 30%
+            </span>
+        </div>
+    </div>
 
-                    <div class="p-8 flex-1 flex flex-col">
-                        <div class="flex justify-between items-start mb-4 text-sm">
-                            <div class="flex-1">
-                                <span class="text-[9px] text-[#00E676] font-mono uppercase">{{ prod.categoria }}</span>
-                                <h3 class="text-lg font-black leading-tight">{{ prod.nombre }}</h3>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-black text-white">${{ prod.precio.toLocaleString() }}</p>
-                                <p class="text-[8px] text-gray-500 uppercase font-bold tracking-widest">DAP TOTAL</p>
-                            </div>
-                        </div>
+    <div class="p-8 flex-1 flex flex-col">
+        <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+                <span class="text-[9px] text-[#00E676] font-mono uppercase">{{ prod.categoria }}</span>
+                <h3 class="text-lg font-black leading-tight">{{ prod.nombre }}</h3>
+            </div>
+            <div class="text-right">
+                <p class="text-2xl font-black text-white">${{ prod.precio.toLocaleString() }}</p>
+                <p class="text-[8px] text-gray-500 uppercase font-bold tracking-widest">TOTAL DAP</p>
+            </div>
+        </div>
 
-                        <p class="text-xs text-gray-400 mb-8 flex-1 leading-relaxed">{{ prod.descripcion }}</p>
+        <!-- Bloque informativo de Reserva (Solo para contenedores) -->
+        <div v-if="prod.is_container" class="mb-6 p-4 bg-white/5 border border-white/10 rounded-2xl">
+            <p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Pago Inicial para Reserva (30%):</p>
+            <p class="text-xl font-black text-[#00E676]">${{ (prod.precio * 0.3).toLocaleString() }} <span class="text-[10px] text-white/50">USD</span></p>
+        </div>
 
-                        <div class="space-y-3">
-                            <a v-if="prod.ficha_url !== '#'" :href="prod.ficha_url" target="_blank" class="block w-full text-center py-3 text-[9px] font-black uppercase border border-white/10 rounded-xl hover:bg-white/5 transition tracking-widest">
-                                Ver Especificaciones Técnicas
-                            </a>
-                            <button @click="hacerPedido(prod)" :disabled="prod.stock_status === 'agotado'" class="w-full py-4 bg-[#00E676] text-black font-black rounded-xl text-[10px] uppercase tracking-widest active:scale-95 transition-all">
-                                {{ prod.is_container ? '🚢 Bloquear Contenedor' : '🛒 Iniciar Trámite B2B' }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <p class="text-xs text-gray-400 mb-8 flex-1 leading-relaxed">{{ prod.descripcion }}</p>
+
+        <div class="space-y-3">
+            <a v-if="prod.ficha_url !== '#'" :href="prod.ficha_url" target="_blank" class="block w-full text-center py-3 text-[9px] font-black uppercase border border-white/10 rounded-xl hover:bg-white/5 transition tracking-widest">
+                Especificaciones Técnicas
+            </a>
+            
+            <!-- Botón condicional -->
+            <button @click="hacerPedido(prod)" class="w-full py-4 font-black rounded-xl text-[10px] uppercase tracking-widest active:scale-95 transition-all shadow-lg"
+                :class="prod.is_container ? 'bg-[#00E676] text-black' : 'bg-white text-black'">
+                {{ prod.is_container ? '🚢 Bloquear Contenedor' : '🛒 Solicitar Equipo' }}
+            </button>
+        </div>
+    </div>
+</div>
             </div>
         </main>
     </div>
@@ -270,9 +321,10 @@ createApp({
         });
 
         const hacerPedido = (prod) => {
-            const msg = `Hola Marcel, mi nombre es ${userData.value.nombre} de ${userData.value.empresa}.\n\nHe leído el protocolo de Novelec y me interesa iniciar el trámite para: ${prod.nombre}.\nValor DAP: $${prod.precio.toLocaleString()}.\n\nEspero sus instrucciones para el Contrato Comercial y la Acreditación.`;
-            window.open(`https://wa.me/5358183649?text=${encodeURIComponent(msg)}`, '_blank');
-        };
+    // Guardamos el producto seleccionado en localStorage para pedido.html
+    localStorage.setItem('selected_product', JSON.stringify(prod));
+    window.location.href = 'pedido.html';
+};
 
         onMounted(() => {
             fetchProductos();

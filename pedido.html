@@ -3,437 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo de Adquisición B2B | NOVELEC</title>
-    
-    <!-- Librerías -->
+    <title>Configurador de Pedido B2B | NOVELEC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700;800&display=swap');
-        [v-cloak] { display: none !important; }
-        body { font-family: 'Inter', sans-serif; background: #070B14; color: #F9FAFB; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .text-accent { color: #00E676; }
-        .bg-panel { background: #111827; }
-        .input-b2b { width: 100%; background: #1F2937; border: 1px solid #374151; border-radius: 6px; padding: 12px; color: white; outline: none; transition: border-color 0.3s; }
-        .input-b2b:focus { border-color: #00E676; }
-        .btn-primary { background: #00E676; color: #000; font-family: 'JetBrains Mono'; font-weight: 800; padding: 15px; border-radius: 6px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; width: 100%; text-align: center; }
-        .btn-primary:hover:not(:disabled) { background: #00C853; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,230,118,0.3); }
-        .btn-primary:disabled { background: #374151; color: #9CA3AF; cursor: not-allowed; transform: none; box-shadow: none; }
-        
-        .terms-box { background: rgba(0,0,0,0.4); border: 1px solid #374151; border-left: 4px solid #3B82F6; padding: 30px; border-radius: 8px; font-size: 14px; line-height: 1.8; color: #D1D5DB; max-height: 60vh; overflow-y: auto; }
-        .terms-box::-webkit-scrollbar { width: 8px; }
-        .terms-box::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
-        .terms-box strong { color: white; font-weight: 800; }
-        .terms-box h3 { color: #00E676; font-family: 'JetBrains Mono', monospace; font-weight: 700; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #374151; padding-bottom: 5px; }
-        .terms-box ul, .terms-box ol { margin-left: 20px; margin-bottom: 15px; }
-        .terms-box li { margin-bottom: 10px; }
+        body { background: #070B14; color: white; font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(17, 24, 39, 0.8); border: 1px solid #374151; backdrop-filter: blur(10px); }
+        .input-b2b { background: #1F2937; border: 1px solid #4B5563; padding: 12px; border-radius: 10px; width: 100%; color: white; }
+        .input-b2b:focus { border-color: #00E676; outline: none; }
+        [v-cloak] { display: none; }
     </style>
 </head>
-<body>
-    <div id="app" v-cloak class="min-h-screen pb-20">
+<body class="p-4 md:p-8">
+
+<div id="app" v-cloak class="max-w-4xl mx-auto">
+    
+    <header class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-black italic tracking-tighter">NOVELEC<span class="text-[#00E676]">.</span> B2B</h1>
+            <p class="text-[10px] text-gray-500 font-mono uppercase">Generador de Orden de Reserva</p>
+        </div>
+        <a href="index.html" class="text-xs bg-white/5 px-4 py-2 rounded-full border border-white/10 hover:bg-white/10">← Volver al Catálogo</a>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <header class="bg-black/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
-            <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-                <div class="text-2xl font-black tracking-widest text-white">NOVELEC<span class="text-accent">.</span></div>
-                <div class="text-xs text-gray-400 font-mono">DIVISIÓN COMERCIAL B2B</div>
-            </div>
-        </header>
-
-        <div class="max-w-5xl mx-auto px-4 mt-8">
-            
-            <!-- FASE 1: PROTOCOLO OPERATIVO (BLOQUEO INICIAL) -->
-            <div v-if="!acceptedTerms" class="max-w-3xl mx-auto bg-panel border border-gray-800 rounded-xl p-6 md:p-10 shadow-2xl animate-fade-in mt-10">
-                <div class="text-center mb-8">
-                    <span class="inline-block bg-green-900/30 text-accent border border-green-800 px-4 py-1 rounded-full font-mono text-xs font-bold mb-4 tracking-widest uppercase">
-                        Protocolo de Adquisición B2B
-                    </span>
-                    <h1 class="text-3xl font-black uppercase mb-2 tracking-tight">Acuerdo de Operación Institucional</h1>
-                    <p class="text-gray-400 text-sm">Lea detenidamente las condiciones de importación y nacionalización antes de proceder.</p>
-                </div>
-
-                <div class="terms-box mb-8 text-justify">
-                    <p class="mb-4">Estimado Cliente: Lo primero que debe saber es que, a través de nuestra entidad, usted estará realizando un proceso formal de <strong>Importación de Mercancía</strong>. A pesar de que los inventarios se encuentran físicamente en plaza, es estrictamente necesario nacionalizarlos a través de una Importadora Estatal.</p>
-                    
-                    <h3>1. NATURALEZA DE LA OPERACIÓN</h3>
-                    <p>El cliente comprende que esta operación constituye un proceso de nacionalización de mercancías ubicadas en <strong>Almacén Inbond</strong> (Reparto Eléctrico, La Habana) bajo el régimen y custodia de la Aduana General de la República.</p>
-                    
-                    <h3>2. EL CONTRATO COMERCIAL</h3>
-                    <p>Para proceder con la liberación, es obligatorio firmar un Contrato Comercial a nombre de su personalidad jurídica (TCP o MIPYME). Este contrato garantiza:</p>
-                    <ul>
-                        <li><strong>Condición de Entrega:</strong> DAP (Entrega directa en nuestro Almacén Inbond).</li>
-                        <li><strong>Formas de Pago:</strong> Transferencia bancaria internacional o <strong>efectivo físico (USD/EUR)</strong> aceptado en nuestras oficinas corporativas.</li>
-                        <li><strong>Respaldo Legal:</strong> Factura comercial oficial emitida por la importadora.</li>
-                    </ul>
-
-                    <h3>3. TRÁMITES Y TIEMPOS</h3>
-                    <p>Nuestro equipo comercial gestiona la Declaración de Mercancía (DM) y los permisos de extracción. Este proceso toma habitualmente entre <strong>24 y 48 horas hábiles</strong> tras la confirmación del pago. Los aranceles aduanales y operativos responden a las normativas oficiales del MINCEX.</p>
-                    
-                    <p class="mt-4 border-t border-gray-800 pt-4 text-xs italic text-gray-500">Al aceptar, usted confirma que tiene la capacidad legal para representar a su entidad y que comprende los costos y tiempos descritos.</p>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="bg-black/40 p-5 rounded-lg border border-gray-700 flex items-start gap-4">
-                        <input type="checkbox" v-model="termsChecked" class="mt-1 w-6 h-6 accent-[#00E676] cursor-pointer" id="chkTerms">
-                        <label for="chkTerms" class="font-bold text-sm text-gray-200 cursor-pointer select-none">
-                            Certifico que he leído, comprendo y acepto en su totalidad el Protocolo Operativo de Adquisición y Nacionalización DAP.
-                        </label>
+        <!-- Columna Izquierda: Formulario -->
+        <div class="lg:col-span-2 space-y-6">
+            <section class="glass-card p-6 rounded-3xl">
+                <h2 class="text-[#00E676] text-xs font-black uppercase mb-4 tracking-widest">1. Datos de Identificación</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="md:col-span-2">
+                        <label class="text-[10px] text-gray-400 font-bold uppercase ml-1">Nombre o Razón Social (MIPYME / TCP)</label>
+                        <input v-model="form.empresa" type="text" class="input-b2b" placeholder="Ej: Soluciones Energéticas S.R.L.">
                     </div>
-                    
-                    <button @click="acceptedTerms = true" :disabled="!termsChecked" class="btn-primary">
-                        ACEPTAR Y CONTINUAR AL PEDIDO
-                    </button>
+                    <div>
+                        <label class="text-[10px] text-gray-400 font-bold uppercase ml-1">Tipo de Entidad</label>
+                        <select v-model="form.tipo" class="input-b2b">
+                            <option value="MIPYME">MIPYME</option>
+                            <option value="TCP">TCP</option>
+                            <option value="ESTATAL">Empresa Estatal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-gray-400 font-bold uppercase ml-1">WhatsApp de Contacto</label>
+                        <input v-model="form.telefono" type="tel" class="input-b2b" placeholder="535XXXXXXX">
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- FASE 2: FORMULARIO Y CATÁLOGO -->
-            <div v-else class="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-in">
+            <section class="glass-card p-6 rounded-3xl">
+                <h2 class="text-[#00E676] text-xs font-black uppercase mb-4 tracking-widest">2. Selección de Productos</h2>
                 
-                <div class="lg:col-span-7 space-y-6">
-                    <!-- Formulario -->
-                    <div class="bg-panel border border-gray-800 rounded-xl p-6 shadow-2xl relative">
-                        <div class="absolute top-4 right-4 bg-green-900/30 text-green-400 text-[10px] px-2 py-1 rounded border border-green-800" v-if="isPrefilled">
-                            DATOS IMPORTADOS ✓
-                        </div>
-                        <h2 class="text-accent font-mono font-bold uppercase mb-4 border-b border-gray-800 pb-2">1. Información Jurídica</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="md:col-span-2">
-                                <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">Nombre Completo del Representante *</label>
-                                <input v-model="form.nombre" type="text" class="input-b2b text-sm" required>
-                            </div>
-                            <div>
-                                <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">Razón Social (Empresa) *</label>
-                                <input v-model="form.empresa" type="text" class="input-b2b text-sm" required>
-                            </div>
-                            <div>
-                                <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">Tipo de Entidad *</label>
-                                <select v-model="form.tipo" class="input-b2b text-sm" required>
-                                    <option value="" disabled>Seleccionar...</option>
-                                    <option value="TCP">TCP</option>
-                                    <option value="MIPYME">MIPYME</option>
-                                    <option value="ESTATAL">Empresa Estatal</option>
-                                </select>
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">WhatsApp de Contacto *</label>
-                                <div class="flex gap-2">
-                                    <input v-model="form.prefijo" type="text" class="input-b2b font-mono w-20 text-center text-sm">
-                                    <input v-model="form.telefono" type="number" class="input-b2b font-mono flex-1 text-sm" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Añadir más productos -->
+                <div class="flex gap-2 mb-6">
+                    <select v-model="selectedToAdd" class="input-b2b text-sm">
+                        <option value="">Seleccionar otro producto...</option>
+                        <option v-for="p in inventario" :key="p.id" :value="p" :disabled="p.stock_max <= 0">
+                            {{ p.nombre }} - ${{ p.precio }}
+                        </option>
+                    </select>
+                    <button @click="addProduct" class="bg-white text-black px-6 rounded-xl font-bold">+</button>
+                </div>
 
-                    <!-- Selector de Equipos -->
-                    <div class="bg-panel border border-gray-800 rounded-xl p-6 shadow-2xl">
-                        <h2 class="text-accent font-mono font-bold uppercase mb-4 border-b border-gray-800 pb-2">2. Selección de Equipos</h2>
-                        <div class="space-y-4">
-                            <div>
-                                <select v-model="selectedItemId" @change="onItemSelect" class="input-b2b text-sm font-mono">
-                                    <option value="" disabled>--- Seleccione Equipo o Lote ---</option>
-                                    <optgroup v-for="(group, catName) in groupedCatalogo" :key="catName" :label="catName">
-                                        <option v-for="item in group" :key="item.id" :value="item.id">
-                                            {{ item.name }} - ${{ item.price.toLocaleString() }}
-                                        </option>
-                                    </optgroup>
-                                </select>
+                <!-- Lista del Pedido -->
+                <div class="space-y-3">
+                    <div v-for="(item, index) in carrito" :key="index" class="bg-black/40 p-4 rounded-2xl border border-white/5 flex justify-between items-center">
+                        <div class="flex-1">
+                            <p class="font-bold text-sm">{{ item.nombre }}</p>
+                            <p class="text-[10px] text-gray-500 uppercase">${{ item.precio }} / unidad o metro</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center bg-gray-800 rounded-lg">
+                                <button @click="item.cantidad > 1 ? item.cantidad-- : null" class="px-3 py-1 text-xl">-</button>
+                                <input type="number" v-model.number="item.cantidad" class="w-16 bg-transparent text-center font-bold text-sm outline-none">
+                                <button @click="item.cantidad < item.stock_max ? item.cantidad++ : alert('Stock máximo alcanzado')" class="px-3 py-1 text-xl">+</button>
                             </div>
-                            <div v-if="currentItem" class="flex flex-col md:flex-row gap-4 items-end bg-black/40 p-4 rounded-lg border border-gray-700">
-                                <div class="flex-1 w-full">
-                                    <div class="text-[11px] text-blue-400 font-bold mb-2 uppercase" v-if="currentItem.isContainer">
-                                        ⚠️ ESTA OPCIÓN AGREGA EL CONTENEDOR COMPLETO.<br>
-                                        <span class="text-gray-400">No se fracciona. La cantidad expresa el número de contenedores.</span>
-                                    </div>
-                                    <div class="text-[11px] text-blue-400 font-bold mb-2 uppercase" v-else-if="currentItem.isPreBuy">
-                                        ⚠️ RESERVA ANTICIPADA: LLEGA A FINALES DE ABRIL.
-                                    </div>
-                                    <div class="text-[11px] text-warning font-bold mb-2 text-yellow-500 uppercase" v-if="currentItem.min > 1 && !currentItem.isContainer">
-                                        📦 VENTA EXCLUSIVA POR LOTE: Mínimo {{ currentItem.min }} unidades. Solo en múltiplos de {{ currentItem.step }}.
-                                    </div>
-                                    <label class="text-[10px] text-gray-400 block mb-1 uppercase font-bold">
-                                        <span v-if="currentItem.isContainer">CANTIDAD DE CONTENEDORES</span>
-                                        <span v-else>CANTIDAD DE UNIDADES</span>
-                                    </label>
-                                    <input v-model.number="currentQty" type="number" :min="currentItem.isContainer ? 1 : currentItem.min" :step="currentItem.isContainer ? 1 : currentItem.step" class="input-b2b font-mono text-lg font-bold w-full" @change="validateQty">
-                                </div>
-                                <button @click="addToCart" class="bg-gray-300 hover:bg-white text-black px-6 py-3 rounded font-bold transition w-full md:w-auto">
-                                    AGREGAR
-                                </button>
-                            </div>
+                            <button @click="removeProduct(index)" class="text-red-500 font-bold text-xl">&times;</button>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="lg:col-span-5">
-                    <div class="bg-panel border border-gray-800 rounded-xl p-6 shadow-2xl sticky top-24 flex flex-col" style="max-height: calc(100vh - 120px);">
-                        <h2 class="text-accent font-mono font-bold uppercase mb-4 border-b border-gray-800 pb-2">3. Resumen de Pre-Oferta</h2>
-                        <div class="flex-1 overflow-y-auto mb-6 pr-2">
-                            <div v-if="cart.length === 0" class="text-gray-500 text-xs text-center mt-10 font-mono">Su orden está vacía.</div>
-                            <div v-else v-for="(item, index) in cart" :key="index" class="bg-black/50 p-3 rounded border border-gray-800 mb-2">
-                                <div class="flex justify-between items-start mb-1">
-                                    <div class="text-sm font-bold pr-2 leading-tight text-gray-200">
-                                        <span class="text-accent font-mono">{{ item.qty }}x</span> {{ item.name }}
-                                    </div>
-                                    <button @click="removeFromCart(index)" class="text-red-500 hover:text-red-400 font-bold text-lg leading-none">&times;</button>
-                                </div>
-                                <div class="text-right text-gray-400 font-mono text-xs">
-                                    Subtotal: <span class="text-white font-bold">${{ (item.price * item.qty).toLocaleString() }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-t border-gray-800 pt-4 space-y-2 mb-6">
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-400 font-bold">VALOR TOTAL ESTIMADO:</span>
-                                <span class="font-mono text-xl text-white font-bold">${{ cartTotal.toLocaleString() }}</span>
-                            </div>
-                            <div v-if="cartAdvanceTotal > 0" class="flex justify-between items-center text-sm bg-yellow-900/20 border border-yellow-700 p-3 rounded mt-2">
-                                <span class="text-yellow-500 font-bold text-xs uppercase">ANTICIPO REQUERIDO (30% PRE-VENTA):</span>
-                                <span class="font-mono text-xl font-bold text-yellow-400">${{ cartAdvanceTotal.toLocaleString() }}</span>
-                            </div>
-                        </div>
-                        <button @click="submitOrder" :disabled="loading || !isFormValid" class="btn-primary flex flex-col items-center justify-center gap-1">
-                            <span v-if="!loading">GENERAR PDF OFICIAL Y AVISAR</span>
-                            <span v-else>PROCESANDO SEGURIDAD...</span>
-                        </button>
+            <section class="glass-card p-6 rounded-3xl space-y-4">
+                <h2 class="text-[#00E676] text-xs font-black uppercase mb-4 tracking-widest">3. Protocolo Legal</h2>
+                
+                <label class="flex gap-4 p-4 bg-white/5 rounded-2xl cursor-pointer border border-transparent hover:border-[#00E676]/30 transition">
+                    <input type="checkbox" v-model="form.checkNacionalizacion" class="w-6 h-6 accent-[#00E676]">
+                    <span class="text-[11px] leading-tight text-gray-300">Confirmo que deseo iniciar el proceso de <strong>Nacionalización</strong> de esta mercancía y que poseo (o tramitaré) contrato vigente con una Importadora Estatal.</span>
+                </label>
+
+                <label class="flex gap-4 p-4 bg-white/5 rounded-2xl cursor-pointer border border-transparent hover:border-[#00E676]/30 transition">
+                    <input type="checkbox" v-model="form.checkPago" class="w-6 h-6 accent-[#00E676]">
+                    <span class="text-[11px] leading-tight text-gray-300">Acepto realizar el pago mediante <strong>Transferencia Bancaria Internacional</strong> o excepcionalmente en <strong>Efectivo (USD/EUR)</strong> antes del despacho en Almacén Inbond.</span>
+                </label>
+            </section>
+        </div>
+
+        <!-- Columna Derecha: Resumen -->
+        <div class="lg:col-span-1">
+            <div class="glass-card p-6 rounded-3xl sticky top-8">
+                <h2 class="text-white text-sm font-black uppercase mb-6 tracking-widest border-b border-white/10 pb-4">Resumen Total</h2>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex justify-between text-xs text-gray-400">
+                        <span>Subtotal Mercancía</span>
+                        <span>${{ totalPedido.toLocaleString() }}</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-400">
+                        <span>Tasa de Gestión B2B</span>
+                        <span class="text-[#00E676]">Incluida</span>
+                    </div>
+                    <div class="flex justify-between items-end pt-4 border-t border-white/10">
+                        <span class="text-xs font-bold uppercase">Total DAP USD</span>
+                        <span class="text-3xl font-black text-[#00E676]">${{ totalPedido.toLocaleString() }}</span>
                     </div>
                 </div>
+
+                <button @click="enviarPedido" :disabled="!isFormValid || loading" class="w-full bg-[#00E676] text-black font-black py-4 rounded-2xl uppercase tracking-widest text-xs hover:scale-105 transition disabled:opacity-20">
+                    {{ loading ? 'Procesando...' : 'Generar y Enviar Reserva' }}
+                </button>
+                <p v-if="!isFormValid" class="text-[9px] text-center mt-4 text-red-400 font-bold uppercase tracking-tighter">Complete todos los campos obligatorios</p>
             </div>
         </div>
     </div>
 
-    <script>
-        const SUPABASE_URL = 'https://womolbdbvpkjmxcnkeds.supabase.co'; 
+</div>
+
+<script>
+const { createApp, ref, computed, onMounted } = Vue;
+
+createApp({
+    setup() {
+        const loading = ref(false);
+        const inventario = ref([]);
+        const carrito = ref([]);
+        const selectedToAdd = ref("");
+        
+        const form = ref({
+            empresa: '',
+            tipo: 'MIPYME',
+            telefono: '',
+            checkNacionalizacion: false,
+            checkPago: false
+        });
+
+        const SUPABASE_URL = 'https://womolbdbvpkjmxcnkeds.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_iSjAp6gEj7UyRtj8DW-0CQ_FEQM_pW6';
-        const TELEFONO_NOVELEC = '5358183649'; 
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const CATALOGO_RAW = [
-            { id: 'c1', cat: '1. CONTENEDORES PRE-VENTA (LLEGAN FINALES ABRIL)', name: 'Contenedor Completo: LONGi 545W (792 unids)', price: 88704, min: 1, step: 1, isPreBuy: true, isContainer: true },
-            { id: 'c2', cat: '1. CONTENEDORES PRE-VENTA (LLEGAN FINALES ABRIL)', name: 'Contenedor Completo: LONGi 650W Explorer (720 unids)', price: 96480, min: 1, step: 1, isPreBuy: true, isContainer: true },
-            { id: 'c3', cat: '1. CONTENEDORES PRE-VENTA (LLEGAN FINALES ABRIL)', name: 'Contenedor Completo: LONGi 655W Scientist (720 unids)', price: 96480, min: 1, step: 1, isPreBuy: true, isContainer: true },
-            { id: 'p1', cat: '2. PANELES FOTOVOLTAICOS INBOND (ENTREGA INMEDIATA)', name: 'Pallet de Paneles LONGi 440W (36 unids)', price: 3060, min: 1, step: 1, isPreBuy: false },
-            { id: 'e1', cat: '3. ESTACIONES DE ENERGÍA PORTÁTIL (ECOFLOW)', name: 'Lote Mayorista EcoFlow E980', price: 460, min: 10, step: 10, isPreBuy: false },
-            { id: 'e2', cat: '3. ESTACIONES DE ENERGÍA PORTÁTIL (ECOFLOW)', name: 'Lote Mayorista EcoFlow Delta Pro Gen 1', price: 1550, min: 10, step: 10, isPreBuy: false },
-            { id: 'e3', cat: '3. ESTACIONES DE ENERGÍA PORTÁTIL (ECOFLOW)', name: 'EcoFlow Delta Pro 3 (Combo 4) - Sistema 8kWh', price: 4050, min: 1, step: 1, isPreBuy: false },
-            { id: 'i1', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Sistema Respaldo EcoFlow Ultra (Estándar 12kWh)', price: 7200, min: 1, step: 1, isPreBuy: false },
-            { id: 'i2', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Inversor Híbrido Deye 10kW (Split-Phase)', price: 2800, min: 1, step: 1, isPreBuy: false },
-            { id: 'i3', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Inversor Comercial SMA Tripower 33kW', price: 6059.06, min: 1, step: 1, isPreBuy: false },
-            { id: 'b1', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Batería Rack Deye 5.12kWh (LFP)', price: 1000, min: 1, step: 1, isPreBuy: false },
-            { id: 'b2', cat: '4. SISTEMAS HÍBRIDOS Y ALMACENAMIENTO', name: 'Batería Rack Deye 10.24kWh (LFP)', price: 2000, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb1', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 240mm² RV-K Negro (Bobina 2000m)', price: 90000, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb2', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 150mm² RV-K Negro (Bobina 1000m)', price: 28000, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb3', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 120mm² RV-K Negro (Bobina 1019m)', price: 22418, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb4', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 95mm² RV-K Negro (Bobina 2000m)', price: 36000, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb5', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 50mm² RV-K Negro (Bobina 4000m)', price: 40000, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb6', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 35mm² H07V-K Negro (Rollo 100m)', price: 600, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb7', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 25mm² H07V-K Amar/Verde (Rollo 100m)', price: 500, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb8', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 16mm² H07V-K Amar/Verde (Rollo 100m)', price: 330, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb9', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 6mm² H07V-K Negro (Rollo 100m)', price: 100, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb10', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Unipolar 1.5mm² H07V-K Azul (Rollo 200m)', price: 52, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb11', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Multiconductor 5G16mm² RV-K (Bobina 1997m)', price: 35946, min: 1, step: 1, isPreBuy: false },
-            { id: 'cb12', cat: '5. CABLES Y CONDUCTORES INDUSTRIALES', name: 'Cable Multiconductor 3G6mm² RV-K (Rollo 100m)', price: 360, min: 1, step: 1, isPreBuy: false }
-        ];
-
-        const { createApp, ref, computed, onMounted } = Vue;
-
-        createApp({
-            setup() {
-                const acceptedTerms = ref(false);
-                const termsChecked = ref(false);
-                const loading = ref(false);
-                const isPrefilled = ref(false);
-                
-                const form = ref({ nombre: '', empresa: '', tipo: '', prefijo: '+53', telefono: '' });
-                const cart = ref([]);
-                const selectedItemId = ref("");
-                const currentItem = ref(null);
-                const currentQty = ref(1);
-                let supabase = null;
-
-                onMounted(() => {
-                    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                    
-                    // RECUPERAR DATOS DEL INDEX SI EXISTEN
-                    const storedData = localStorage.getItem('novelec_b2b_user');
-                    if(storedData) {
-                        try {
-                            const parsed = JSON.parse(storedData);
-                            form.value = { ...form.value, ...parsed };
-                            isPrefilled.value = true;
-                            // COMENTAMOS LA LÍNEA QUE SE SALTA LOS TÉRMINOS:
-                            // acceptedTerms.value = true; 
-                        } catch(e){}
-                    }
-                });
-
-                const groupedCatalogo = computed(() => {
-                    return CATALOGO_RAW.reduce((acc, item) => {
-                        if(!acc[item.cat]) acc[item.cat] = [];
-                        acc[item.cat].push(item); return acc;
-                    }, {});
-                });
-
-                const onItemSelect = () => {
-                    const item = CATALOGO_RAW.find(i => i.id === selectedItemId.value);
-                    if(item) {
-                        currentItem.value = item;
-                        currentItem.value.isContainer ? currentQty.value = 1 : currentQty.value = item.min;
-                    }
-                };
-
-                const validateQty = () => {
-                    if(!currentItem.value) return;
-                    let minAllowed = currentItem.value.isContainer ? 1 : currentItem.value.min;
-                    let stepAllowed = currentItem.value.isContainer ? 1 : currentItem.value.step;
-                    let val = parseInt(currentQty.value);
-                    if(isNaN(val) || val < minAllowed) val = minAllowed;
-                    const rem = val % stepAllowed;
-                    if (rem !== 0) {
-                        val = val - rem + (rem >= stepAllowed/2 ? stepAllowed : 0);
-                        if(val < minAllowed) val = minAllowed;
-                    }
-                    currentQty.value = val;
-                };
-
-                const addToCart = () => {
-                    if(!currentItem.value) return;
-                    validateQty();
-                    cart.value.push({
-                        id: currentItem.value.id, name: currentItem.value.name, price: currentItem.value.price,
-                        qty: currentQty.value, isPreBuy: currentItem.value.isPreBuy, isContainer: currentItem.value.isContainer
-                    });
-                    selectedItemId.value = ""; currentItem.value = null; currentQty.value = 1;
-                };
-
-                const removeFromCart = (index) => { cart.value.splice(index, 1); };
-
-                const cartTotal = computed(() => cart.value.reduce((s, i) => s + (i.price * i.qty), 0));
-                const cartAdvanceTotal = computed(() => {
-                    let preBuyTotal = cart.value.filter(i => i.isPreBuy).reduce((s, i) => s + (i.price * i.qty), 0);
-                    return preBuyTotal * 0.30;
-                });
-                const isFormValid = computed(() => form.value.nombre && form.value.empresa && form.value.tipo && form.value.telefono && cart.value.length > 0);
-
-                const generatePDF = () => {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
-                    
-                    doc.setFont("helvetica", "bold"); doc.setFontSize(26); doc.text("NOVELEC", 14, 22);
-                    doc.setFillColor(0, 230, 118); doc.rect(65, 14, 5, 8, 'F');
-                    doc.setFontSize(9); doc.setTextColor(100); doc.setFont("helvetica", "normal"); doc.text("División B2B Comercial", 14, 28);
-                    
-                    doc.setFillColor(17, 24, 39); doc.rect(120, 10, 80, 10, 'F');
-                    doc.setTextColor(255); doc.setFontSize(10); doc.setFont("helvetica", "bold");
-                    doc.text("SOLICITUD DE COMPRA B2B", 160, 16.5, { align: 'center' });
-                    doc.setTextColor(0); doc.setFont("helvetica", "normal"); doc.setFontSize(9);
-                    doc.text(`Fecha Emisión: ${new Date().toLocaleDateString()}`, 200, 30, { align: 'right' });
-
-                    doc.setDrawColor(200); doc.line(14, 40, 200, 40);
-
-                    doc.setFontSize(10); doc.setFont("helvetica", "bold"); doc.text("DATOS DE LA ENTIDAD IMPORTADORA:", 14, 50);
-                    doc.setFont("helvetica", "normal");
-                    doc.text(`REPRESENTANTE LEGAL: ${form.value.nombre.toUpperCase()}`, 14, 57);
-                    doc.text(`RAZÓN SOCIAL / LICENCIA: ${form.value.empresa.toUpperCase()} (${form.value.tipo})`, 14, 62);
-                    doc.text(`TELÉFONO CONTACTO: ${form.value.prefijo} ${form.value.telefono}`, 14, 67);
-
-                    const tableBody = cart.value.map(item => {
-                        let desc = item.name;
-                        if(item.isPreBuy) desc = `[PRE-VENTA ABRIL] ${desc}`;
-                        return [desc, item.qty.toString(), `$ ${Number(item.price).toLocaleString('en-US', {minimumFractionDigits: 2})}`, `$ ${(Number(item.price) * item.qty).toLocaleString('en-US', {minimumFractionDigits: 2})}`];
-                    });
-
-                    doc.autoTable({
-                        startY: 75,
-                        head: [["DESCRIPCIÓN DEL EQUIPO O LOTE", "CANT.", "PRECIO UNIT.", "SUBTOTAL"]],
-                        body: tableBody,
-                        theme: 'plain',
-                        headStyles: { fillColor: [20,20,20], textColor: 255, fontStyle: 'bold' },
-                        styles: { fontSize: 9, cellPadding: 4 },
-                        columnStyles: { 0: { cellWidth: 90 }, 3: { halign: 'right', fontStyle: 'bold' } }
-                    });
-
-                    let finalY = doc.lastAutoTable.finalY + 10;
-                    
-                    doc.setFontSize(11); doc.setFont("helvetica", "bold"); doc.setTextColor(0);
-                    doc.text("VALOR TOTAL DECLARADO (USD):", 110, finalY); 
-                    doc.text(`$ ${cartTotal.value.toLocaleString('en-US', {minimumFractionDigits: 2})}`, 195, finalY, { align: 'right' });
-
-                    if(cartAdvanceTotal.value > 0) {
-                        finalY += 8;
-                        doc.setTextColor(200, 100, 0);
-                        doc.text("ANTICIPO REQUERIDO (30% PRE-VENTAS):", 110, finalY); 
-                        doc.text(`$ ${cartAdvanceTotal.value.toLocaleString('en-US', {minimumFractionDigits: 2})}`, 195, finalY, { align: 'right' });
-                    }
-
-                    doc.addPage();
-                    doc.setFontSize(12); doc.setFont("helvetica", "bold"); doc.setTextColor(0);
-                    doc.text("ANEXO LEGAL: CONDICIONES DE IMPORTACIÓN ACEPTADAS", 14, 20);
-                    doc.setDrawColor(200); doc.line(14, 25, 200, 25);
-                    
-                    doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.setTextColor(50);
-                    const terminosTexto = `Por medio del presente documento generado de forma electrónica, el ciudadano(a) ${form.value.nombre.toUpperCase()}, en representación de la entidad ${form.value.empresa.toUpperCase()} (Licencia: ${form.value.tipo}), certifica haber LEÍDO y ACEPTADO íntegramente los siguientes términos operativos para la adquisición de la mercancía descrita en la Página 1:
-
-1. NATURALEZA DE LA OPERACIÓN: El cliente comprende que esta operación constituye un proceso de Importación y Nacionalización de mercancías ubicadas en Almacén Inbond (Reparto Eléctrico, La Habana) bajo el régimen y custodia de la Aduana General de la República.
-2. IDENTIDAD JURÍDICA: El Contrato Comercial se establece obligatoriamente a nombre de su licencia de TCP o MIPYME a través de una Importadora Estatal (frecuentemente CUBAELECTRONICA). Si es cliente nuevo, deberá cumplir con el proceso de acreditación.
-3. CONDICIÓN DE ENTREGA: Modalidad DAP (Delivered At Place). La mercancía se entrega exclusivamente en el Almacén Inbond mencionado.
-4. FORMAS DE PAGO: El cliente comprende que la vía preferente es la transferencia bancaria internacional. Sin embargo, NOVELEC acepta la liquidación en efectivo físico (USD/EUR) de todos los productos en plaza descritos en la factura. El pago en efectivo se realiza en nuestras oficinas corporativas a nuestra Asistente Ejecutiva.
-5. PROCEDIMIENTO ADUANAL Y ACOMPAÑAMIENTO: Tras emitirse la Factura Comercial (evidencia de pago), el equipo Comercial de Novelec gestiona la Declaración de Mercancía (DM) y el permiso de extracción de almacén. Este proceso toma habitualmente entre 1 y 2 días hábiles (24h a 48h). Una vez listo, se avisa al cliente para la extracción.
-6. ARANCELES DE LEY: El cliente asume los aranceles aduanales y operativos aplicados por la Importadora estatal, reconociendo que responden a normativas oficiales del MINCEX y no son impuestos arbitrarios ni sobrecargos ocultos de Novelec.
-
-CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a la aceptación de las condiciones preliminares descritas, dando el consentimiento necesario para dar paso a la firma del Contrato Comercial oficial que rige la transacción.`;
-
-                    const splitText = doc.splitTextToSize(terminosTexto, 180);
-                    doc.text(splitText, 14, 35);
-
-                    doc.save(`PreOferta_NOVELEC_${form.value.empresa.replace(/\s+/g,'_')}.pdf`);
-                };
-
-                const submitOrder = async () => {
-                    loading.value = true;
-                    try {
-                        const summaryProd = cart.value.length > 1 ? `Pedido Múltiple (${cart.value.length} ítems)` : cart.value[0].name;
-                        const telefonoLimpio = form.value.prefijo.replace('+', '') + form.value.telefono;
-                        
-                        await supabase.from('referidos').insert([{
-                            cliente_nombre: `${form.value.nombre} (${form.value.empresa})`,
-                            cliente_nit: form.value.tipo,
-                            cliente_telefono: telefonoLimpio,
-                            producto: summaryProd, 
-                            precio: cartTotal.value, 
-                            cantidad: 1, 
-                            items: cart.value, 
-                            estado: 'Nuevo',
-                            notas: 'AUTOGENERADO B2B. El cliente aceptó expresamente todos los términos legales de importación DAP y contrato.'
-                        }]);
-
-                        generatePDF();
-
-                        let textoWhatsApp = `Estimado Señor Marcel,\n\nMi nombre es ${form.value.nombre}, en representación de la entidad ${form.value.empresa} (Licencia: ${form.value.tipo}).\n\nCertifico que he leído, comprendido y aceptado el protocolo institucional de importación, firma de contrato comercial, modalidades de pago (incluyendo el efectivo físico) y la nacionalización DAP Inbond.\n\nHe generado una Solicitud de Compra Mayorista desde la plataforma B2B por un valor total estimado de $${cartTotal.value.toLocaleString()} USD.\n\n*Le adjunto en este mensaje el PDF de mi Pre-Oferta Oficial.* Quedo a su disposición para que me indique los pasos a seguir con la documentación y acreditación correspondiente.`;
-
-                        alert("✅ OPERACIÓN REGISTRADA EXITOSAMENTE.\n\nSe ha descargado el PDF oficial con los detalles de su compra y el anexo legal.\n\nA continuación se abrirá nuestro canal corporativo de WhatsApp. POR FAVOR, ADJUNTE EL PDF DESCARGADO en el chat.");
-                        
-                        const waUrl = `https://wa.me/${TELEFONO_NOVELEC}?text=${encodeURIComponent(textoWhatsApp)}`;
-                        window.open(waUrl, '_blank');
-
-                        setTimeout(() => { window.location.reload(); }, 2000);
-
-                    } catch(e) { 
-                        alert("Ocurrió un error de conexión al guardar el registro. Por favor escríbanos directamente por WhatsApp.");
-                        console.error(e);
-                    }
-                    loading.value = false;
-                };
-
-                return { 
-                    acceptedTerms, termsChecked, form, cart, groupedCatalogo, selectedItemId, currentItem, currentQty,
-                    cartTotal, cartAdvanceTotal, isFormValid, onItemSelect, validateQty, addToCart, removeFromCart, submitOrder,
-                    loading, isPrefilled
-                };
+        onMounted(async () => {
+            // Cargar datos del usuario desde el login
+            const stored = localStorage.getItem('novelec_auth');
+            if(stored) {
+                const u = JSON.parse(stored);
+                form.value.empresa = u.empresa;
+                form.value.telefono = u.telefono;
+                form.value.tipo = u.tipo || 'MIPYME';
             }
-        }).mount('#app');
-    </script>
+
+            // Cargar producto inicial
+            const initialProd = localStorage.getItem('selected_product');
+            if(initialProd) {
+                const p = JSON.parse(initialProd);
+                carrito.value.push({ ...p, cantidad: 1 });
+            }
+
+            // Cargar todo el inventario para poder añadir más
+            const { data } = await supabase.from('productos').select('*');
+            if(data) inventario.value = data;
+        });
+
+        const addProduct = () => {
+            if(!selectedToAdd.value) return;
+            const exists = carrito.value.find(i => i.id === selectedToAdd.value.id);
+            if(exists) {
+                exists.cantidad++;
+            } else {
+                carrito.value.push({ ...selectedToAdd.value, cantidad: 1 });
+            }
+            selectedToAdd.value = "";
+        };
+
+        const removeProduct = (index) => {
+            carrito.value.splice(index, 1);
+        };
+
+        const totalPedido = computed(() => {
+            return carrito.value.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+        });
+
+        const isFormValid = computed(() => {
+            return form.value.empresa && 
+                   form.value.telefono && 
+                   form.value.checkNacionalizacion && 
+                   form.value.checkPago && 
+                   carrito.value.length > 0;
+        });
+
+        const enviarPedido = async () => {
+    loading.value = true;
+    try {
+        // 1. Guardar en DB
+        const { data, error } = await supabase.from('referidos').insert([{
+            cliente_nombre: form.value.empresa,
+            cliente_nit: form.value.tipo,
+            cliente_telefono: form.value.telefono,
+            producto: carrito.value.map(i => `${i.cantidad}x ${i.nombre}`).join(', '),
+            precio: totalPedido.value,
+            cantidad: 1,
+            items: carrito.value,
+            estado: 'WhatsApp',
+            notas: `Check Nacionalización: ${form.value.checkNacionalizacion} | Check Pago: ${form.value.checkPago}`
+        }]).select();
+
+        if (error) throw error;
+        const orderId = data[0].id;
+
+        // 2. Generar PDF
+        generarPDF(orderId);
+
+        // 3. Lógica de Mensaje para Contenedores
+        const esContenedor = carrito.value.some(i => i.is_container);
+        const deposito30 = totalPedido.value * 0.3;
+
+        // 4. Construir Mensaje de WhatsApp
+        let mensaje = `*SOLICITUD DE RESERVA B2B - NOVELEC*\n\n` +
+                      `*ID Orden:* #REF-${orderId}\n` +
+                      `*Cliente:* ${form.value.empresa} (${form.value.tipo})\n` +
+                      `*Teléfono:* ${form.value.telefono}\n\n` +
+                      `*PEDIDO:*\n` + 
+                      carrito.value.map(i => `• ${i.cantidad}x ${i.nombre}`).join('\n') +
+                      `\n\n*TOTAL DAP:* $${totalPedido.value.toLocaleString()} USD\n`;
+
+        if (esContenedor) {
+            mensaje += `*PAGO PARA RESERVA (30%):* $${deposito30.toLocaleString()} USD\n` +
+                       `*FECHA ARRIBO:* Finales de Abril\n`;
+        }
+
+        mensaje += `\n_Confirmo el inicio del proceso de nacionalización y acepto las condiciones de pago (Bancario/Efectivo)._`;
+
+        // Abrir WhatsApp
+        window.location.href = `https://wa.me/5358183649?text=${encodeURIComponent(mensaje)}`;
+
+    } catch (err) {
+        console.error(err);
+        alert("Error al procesar el pedido.");
+    } finally {
+        loading.value = false;
+    }
+};
+
+const generarPDF = (id) => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // --- CONFIGURACIÓN DE COLORES ---
+    const primaryBlack = [17, 24, 39]; 
+    const grayText = [80, 80, 80];
+    const goldColor = [176, 141, 85]; 
+
+    // --- PÁGINA 1: SOLICITUD DE COMPRA ---
+
+    // 1. Cabecera
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(28);
+    doc.setTextColor(0, 0, 0);
+    doc.text("NOVELEC", 15, 25);
+    
+    doc.setFillColor(0, 230, 118);
+    doc.rect(72, 16, 8, 8, 'F'); 
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(...grayText);
+    doc.text("División B2B Comercial", 15, 32);
+
+    doc.setFillColor(...primaryBlack);
+    doc.rect(120, 12, 75, 12, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text("SOLICITUD DE COMPRA B2B", 157.5, 20, { align: "center" });
+
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(9);
+    doc.text(`Fecha Emisión: ${new Date().toLocaleDateString()}`, 195, 32, { align: "right" });
+
+    doc.setDrawColor(230, 230, 230);
+    doc.line(15, 40, 195, 40);
+
+    // 2. Datos del Solicitante
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text("DATOS DEL SOLICITANTE O CLIENTE:", 15, 52);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(0, 0, 0);
+    doc.text(`REPRESENTANTE LEGAL: ${form.value.empresa.toUpperCase()}`, 15, 60);
+    doc.text(`RAZÓN SOCIAL / LICENCIA: ${form.value.empresa.toUpperCase()} (${form.value.tipo})`, 15, 66);
+    doc.text(`TELÉFONO CONTACTO: +${form.value.telefono}`, 15, 72);
+
+    // 3. Tabla de Productos (Mejorada)
+    const esContenedor = carrito.value.some(i => i.is_container);
+    const tableBody = carrito.value.map(i => [
+        esContenedor ? `[PRE-VENTA ABRIL] ${i.nombre}` : i.nombre,
+        i.cantidad,
+        `$ ${i.precio.toLocaleString('en-US', {minimumFractionDigits: 2})}`,
+        `$ ${(i.precio * i.cantidad).toLocaleString('en-US', {minimumFractionDigits: 2})}`
+    ]);
+
+    doc.autoTable({
+        startY: 85,
+        head: [['DESCRIPCIÓN DEL EQUIPO O LOTE', 'CANT.', 'PRECIO UNIT.', 'SUBTOTAL']],
+        body: tableBody,
+        theme: 'plain',
+        headStyles: { fillColor: primaryBlack, textColor: 255, fontStyle: 'bold', fontSize: 9, halign: 'center' },
+        styles: { fontSize: 9, cellPadding: 6, textColor: [0, 0, 0], valign: 'middle' },
+        columnStyles: { 
+            0: { cellWidth: 95 }, 
+            1: { halign: 'center' }, 
+            2: { halign: 'right' }, 
+            3: { halign: 'right', fontStyle: 'bold' } 
+        },
+        margin: { left: 15, right: 15 }
+    });
+
+    // 4. Totales (CORREGIDO PARA EVITAR SOLAPAMIENTO)
+    let finalY = doc.lastAutoTable.finalY + 20;
+    const rightMargin = 195; // Donde termina el número a la derecha
+    const labelX = 60;       // <--- ESTE ES EL CAMBIO CLAVE. Antes estaba en 100, ahora en 60.
+
+    // Valor Total
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 0, 0);
+    doc.text("VALOR TOTAL DECLARADO (USD):", labelX, finalY);
+    doc.text(`$ ${totalPedido.value.toLocaleString('en-US', {minimumFractionDigits: 2})}`, rightMargin, finalY, { align: "right" });
+
+    // Anticipo (Solo si es contenedor)
+    if (esContenedor) {
+        finalY += 12; // Espacio entre el Total y el Anticipo
+        doc.setTextColor(...goldColor);
+        // Ahora el texto tiene desde la posición 60 hasta la 195 para escribirse sin chocar
+        doc.text("ANTICIPO REQUERIDO (30% PRE-VENTAS):", labelX, finalY);
+        doc.text(`$ ${(totalPedido.value * 0.3).toLocaleString('en-US', {minimumFractionDigits: 2})}`, rightMargin, finalY, { align: "right" });
+    }
+
+    // --- PÁGINA 2: ANEXO LEGAL ---
+    doc.addPage();
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text("ANEXO LEGAL: CONDICIONES DE IMPORTACIÓN ACEPTADAS", 15, 20);
+    doc.setDrawColor(230, 230, 230);
+    doc.line(15, 25, 195, 25);
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(50, 50, 50);
+
+    const introText = `Por medio del presente documento generado de forma electrónica, el ciudadano(a) ${form.value.empresa}, en representación de la entidad ${form.value.empresa} (Licencia: ${form.value.tipo}), certifica haber LEÍDO y ACEPTADO íntegramente los siguientes términos operativos para la adquisición de la mercancía descrita en la Página 1:`;
+    
+    const lines = doc.splitTextToSize(introText, 180);
+    doc.text(lines, 15, 35);
+
+    const clausulas = [
+        ["1. NATURALEZA DE LA OPERACIÓN:", "El cliente comprende que esta operación constituye un proceso de Importación y Nacionalización de mercancías ubicadas en Almacén Inbond (Reparto Eléctrico, La Habana) bajo el régimen y custodia de la Aduana General de la República."],
+        ["2. IDENTIDAD JURÍDICA:", "El Contrato Comercial se establece obligatoriamente a nombre de su licencia de TCP o MIPYME a través de una Importadora Estatal (frecuentemente CUBAELECTRONICA). Si es cliente nuevo, deberá cumplir con el proceso de acreditación."],
+        ["3. CONDICIÓN DE ENTREGA:", "Modalidad DAP (Delivered At Place). La mercancía se entrega exclusivamente en el Almacén Inbond mencionado."],
+        ["4. FORMAS DE PAGO:", "El cliente comprende que la vía preferente es la transferencia bancaria internacional. Sin embargo, NOVELEC acepta la liquidación en efectivo físico (USD/EUR) de todos los productos en plaza descritos en la factura. El pago en efectivo se realiza en nuestras oficinas corporativas a nuestra Asistente Ejecutiva."],
+        ["5. PROCEDIMIENTO ADUANAL Y ACOMPAÑAMIENTO:", "Tras emitirse la Factura Comercial (evidencia de pago), el equipo Comercial de Novelec gestiona la Declaración de Mercancía (DM) y el permiso de extracción de almacén. Este proceso toma habitualmente entre 1 y 2 días hábiles (24h a 48h). Una vez listo, se avisa al cliente para la extracción."],
+        ["6. ARANCELES DE LEY:", "El cliente asume los aranceles aduanales y operativos aplicados por la Importadora estatal, reconociendo que responden a normativas oficiales del MINCEX y no son impuestos arbitrarios ni sobrecargos ocultos de Novelec."]
+    ];
+
+    let currentY = 55;
+    clausulas.forEach(item => {
+        doc.setFont("helvetica", "bold");
+        doc.text(item[0], 15, currentY);
+        doc.setFont("helvetica", "normal");
+        const sublines = doc.splitTextToSize(item[1], 180);
+        doc.text(sublines, 15, currentY + 5);
+        currentY += (sublines.length * 5) + 8;
+    });
+
+    doc.setFont("helvetica", "italic");
+    const certText = "CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a la aceptación de las condiciones preliminares descritas, dando el consentimiento necesario para dar paso a la firma del Contrato Comercial oficial que rige la transacción.";
+    const certLines = doc.splitTextToSize(certText, 180);
+    doc.text(certLines, 15, currentY + 10);
+
+    doc.save(`Solicitud_Compra_Novelec_${id}.pdf`);
+};
+
+        return { form, inventario, carrito, selectedToAdd, totalPedido, isFormValid, loading, addProduct, removeProduct, enviarPedido };
+    }
+}).mount('#app');
+</script>
 </body>
 </html>
