@@ -325,36 +325,68 @@ const generarPDF = (id) => {
         doc.text(`$ ${(totalPedido.value * 0.3).toLocaleString('en-US', {minimumFractionDigits: 2})}`, rightMargin, finalY, { align: "right" });
     }
 
-    // --- PÁGINA 2 --- (Se mantiene igual)
+    // --- PÁGINA 2 ---
     doc.addPage();
-    doc.setTextColor(0, 0, 0); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 0, 0); 
+    doc.setFontSize(14); 
+    doc.setFont("helvetica", "bold");
     doc.text("ANEXO LEGAL: CONDICIONES DE IMPORTACIÓN ACEPTADAS", 15, 20);
-    doc.setDrawColor(230, 230, 230); doc.line(15, 25, 195, 25);
-    doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.setTextColor(50, 50, 50);
+    
+    doc.setDrawColor(230, 230, 230); 
+    doc.line(15, 25, 195, 25);
+    
+    doc.setFontSize(10); 
+    doc.setFont("helvetica", "normal"); 
+    doc.setTextColor(50, 50, 50);
 
     const introText = `Por medio del presente documento generado de forma electrónica, el ciudadano(a) ${form.value.empresa}, en representación de la entidad ${form.value.empresa} (Licencia: ${form.value.tipo}), certifica haber LEÍDO y ACEPTADO íntegramente los siguientes términos operativos para la adquisición de la mercancía descrita en la Página 1:`;
-    const lines = doc.splitTextToSize(introText, 180); doc.text(lines, 15, 35);
+    const lines = doc.splitTextToSize(introText, 180); 
+    doc.text(lines, 15, 35);
 
     const clausulas = [
-        ["1. NATURALEZA DE LA OPERACIÓN:", "El cliente comprende que esta operación constituye un proceso de Importación y Nacionalización de mercancías ubicadas en Almacén Inbond..."],
-        ["2. IDENTIDAD JURÍDICA:", "El Contrato Comercial se establece obligatoriamente a nombre de su licencia de TCP o MIPYME..."],
-        ["3. CONDICIÓN DE ENTREGA:", "Modalidad DAP (Delivered At Place). La mercancía se entrega exclusivamente en el Almacén Inbond mencionado."],
-        ["4. FORMAS DE PAGO:", "El cliente comprende que la vía preferente es la transferencia bancaria internacional..."],
-        ["5. PROCEDIMIENTO ADUANAL Y ACOMPAÑAMIENTO:", "Tras emitirse la Factura Comercial (evidencia de pago), el equipo Comercial de Novelec gestiona la Declaración de Mercancía (DM)..."],
-        ["6. ARANCELES DE LEY:", "El cliente asume los aranceles aduanales y operativos aplicados por la Importadora estatal..."]
+        [
+            "1. NATURALEZA DE LA OPERACIÓN:", 
+            "El cliente comprende que esta operación constituye un proceso de Importación y Nacionalización de mercancías ubicadas en Almacén Inbond (Reparto Eléctrico, La Habana) bajo el régimen y custodia de la Aduana General de la República."
+        ],
+        [
+            "2. IDENTIDAD JURÍDICA:", 
+            "El Contrato Comercial se establece obligatoriamente a nombre de su licencia de TCP o MIPYME a través de una Importadora Estatal (frecuentemente CUBAELECTRONICA). Si es cliente nuevo, deberá cumplir con el proceso de acreditación."
+        ],
+        [
+            "3. CONDICIÓN DE ENTREGA:", 
+            "Modalidad DAP (Delivered At Place). La mercancía se entrega exclusivamente en el Almacén Inbond mencionado."
+        ],
+        [
+            "4. FORMAS DE PAGO:", 
+            "El cliente comprende que la vía preferente es la transferencia bancaria internacional. Sin embargo, NOVELEC acepta la liquidación en efectivo físico (USD/EUR) de todos los productos en plaza descritos en la factura. El pago en efectivo se realiza en nuestras oficinas corporativas a nuestra Asistente Ejecutiva."
+        ],
+        [
+            "5. PROCEDIMIENTO ADUANAL Y ACOMPAÑAMIENTO:", 
+            "Tras emitirse la Factura Comercial (evidencia de pago), el equipo Comercial de Novelec gestiona la Declaración de Mercancía (DM) y el permiso de extracción de almacén. Este proceso toma habitualmente entre 1 y 2 días hábiles (24h a 48h). Una vez listo, se avisa al cliente para la extracción."
+        ],
+        [
+            "6. ARANCELES DE LEY:", 
+            "El cliente asume los aranceles aduanales y operativos aplicados por la Importadora estatal, reconociendo que responden a normativas oficiales del MINCEX y no son impuestos arbitrarios ni sobrecargos ocultos de Novelec."
+        ]
     ];
 
     let currentY = 55;
     clausulas.forEach(item => {
-        doc.setFont("helvetica", "bold"); doc.text(item[0], 15, currentY);
+        doc.setFont("helvetica", "bold"); 
+        doc.text(item[0], 15, currentY);
+        
         doc.setFont("helvetica", "normal");
-        const sublines = doc.splitTextToSize(item[1], 180); doc.text(sublines, 15, currentY + 5);
+        const sublines = doc.splitTextToSize(item[1], 180); 
+        doc.text(sublines, 15, currentY + 5);
+        
+        // Ajuste dinámico del espacio según el largo del texto
         currentY += (sublines.length * 5) + 8;
     });
 
     doc.setFont("helvetica", "italic");
-    const certText = "CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a la aceptación de las condiciones preliminares descritas...";
-    const certLines = doc.splitTextToSize(certText, 180); doc.text(certLines, 15, currentY + 10);
+    const certText = "CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a la aceptación de las condiciones preliminares descritas, dando el consentimiento necesario para dar paso a la firma del Contrato Comercial oficial que rige la transacción.";
+    const certLines = doc.splitTextToSize(certText, 180); 
+    doc.text(certLines, 15, currentY + 10);
 
     doc.save(`Solicitud_Compra_Novelec_${id}.pdf`);
 };
