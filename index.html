@@ -211,19 +211,33 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Reemplaza el contenido dentro del v-for en index.html -->
+<!-- Busca el v-for de los productos y reemplaza toda la tarjeta por esta -->
 <div v-for="prod in productosFiltrados" :key="prod.id" class="product-card rounded-3xl overflow-hidden flex flex-col group">
+    
     <!-- IMAGEN Y ETIQUETAS -->
     <div class="h-64 bg-white p-10 flex items-center justify-center relative">
         <img :src="prod.imagen_url" class="max-h-full object-contain group-hover:scale-105 transition duration-500">
         
-        <!-- Etiqueta especial para Contenedores -->
-        <div v-if="prod.is_container" class="absolute top-4 left-4 flex flex-col gap-2">
-            <span class="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-xl">
-                🚢 Arribo: Finales de Abril
-            </span>
-            <span class="bg-[#00E676] text-black text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-xl">
-                Reserva con el 30%
-            </span>
+        <!-- ETIQUETAS DINÁMICAS -->
+        <div class="absolute top-4 left-4 flex flex-col gap-2">
+            <!-- Caso Preventa -->
+            <template v-if="prod.stock_status === 'preventa'">
+                <span class="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-xl">
+                    🚢 Arribo: Finales de Abril
+                </span>
+                <span class="bg-[#00E676] text-black text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-xl">
+                    Reserva con el 30%
+                </span>
+            </template>
+            <!-- Caso Disponible -->
+            <template v-else>
+                <span class="bg-[#00E676] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-xl">
+                    ✅ Entrega Inmediata
+                </span>
+                <span class="bg-white/10 backdrop-blur-md text-white text-[9px] px-3 py-1 rounded-full uppercase tracking-tighter border border-white/20">
+                    Stock en Almacén
+                </span>
+            </template>
         </div>
     </div>
 
@@ -239,8 +253,8 @@
             </div>
         </div>
 
-        <!-- Bloque informativo de Reserva (Solo para contenedores) -->
-        <div v-if="prod.is_container" class="mb-6 p-4 bg-white/5 border border-white/10 rounded-2xl">
+        <!-- Bloque informativo del 30% solo si es preventa -->
+        <div v-if="prod.stock_status === 'preventa'" class="mb-6 p-4 bg-white/5 border border-white/10 rounded-2xl">
             <p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Pago Inicial para Reserva (30%):</p>
             <p class="text-xl font-black text-[#00E676]">${{ (prod.precio * 0.3).toLocaleString() }} <span class="text-[10px] text-white/50">USD</span></p>
         </div>
@@ -248,14 +262,15 @@
         <p class="text-xs text-gray-400 mb-8 flex-1 leading-relaxed">{{ prod.descripcion }}</p>
 
         <div class="space-y-3">
-            <a v-if="prod.ficha_url !== '#'" :href="prod.ficha_url" target="_blank" class="block w-full text-center py-3 text-[9px] font-black uppercase border border-white/10 rounded-xl hover:bg-white/5 transition tracking-widest">
-                Especificaciones Técnicas
+            <a v-if="prod.ficha_url && prod.ficha_url !== '#'" :href="prod.ficha_url" target="_blank" class="block w-full text-center py-3 text-[9px] font-black uppercase border border-white/10 rounded-xl hover:bg-white/5 transition tracking-widest">
+                Ficha Técnica
             </a>
             
-            <!-- Botón condicional -->
-            <button @click="hacerPedido(prod)" class="w-full py-4 font-black rounded-xl text-[10px] uppercase tracking-widest active:scale-95 transition-all shadow-lg"
-                :class="prod.is_container ? 'bg-[#00E676] text-black' : 'bg-white text-black'">
-                {{ prod.is_container ? '🚢 Bloquear Contenedor' : '🛒 Solicitar Equipo' }}
+            <button @click="hacerPedido(prod)" 
+                class="w-full py-4 font-black rounded-xl text-[10px] uppercase tracking-widest active:scale-95 transition-all shadow-lg"
+                :class="prod.stock_status === 'preventa' ? 'bg-[#00E676] text-black' : 'bg-white text-black'">
+                <span v-if="prod.stock_status === 'preventa'">🚢 RESERVAR AHORA</span>
+                <span v-else>🛒 SOLICITAR ENTREGA</span>
             </button>
         </div>
     </div>

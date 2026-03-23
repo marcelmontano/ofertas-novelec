@@ -204,10 +204,10 @@ createApp({
                    carrito.value.length > 0;
         });
 
-        const enviarPedido = async () => {
+       const enviarPedido = async () => {
     loading.value = true;
     try {
-        // 1. Guardar en DB
+        // 1. Guardar en DB (Esta parte se mantiene igual)
         const { data, error } = await supabase.from('referidos').insert([{
             cliente_nombre: form.value.empresa,
             cliente_nit: form.value.tipo,
@@ -226,27 +226,26 @@ createApp({
         // 2. Generar PDF
         generarPDF(orderId);
 
-        // 3. Lógica de Mensaje para Contenedores
-        const esContenedor = carrito.value.some(i => i.is_container);
-        const deposito30 = totalPedido.value * 0.3;
+        // 3. CAMBIO: Lógica de Mensaje solo para productos que REALMENTE son preventa
+        const tienePreVenta = carrito.value.some(i => i.stock_status === 'preventa');
+const deposito30 = carrito.value.reduce((sum, i) => {
+    return i.stock_status === 'preventa' ? sum + (i.precio * i.cantidad * 0.3) : sum;
+}, 0);
 
-        // 4. Construir Mensaje de WhatsApp
-        let mensaje = `*SOLICITUD DE RESERVA B2B - NOVELEC*\n\n` +
-                      `*ID Orden:* #REF-${orderId}\n` +
-                      `*Cliente:* ${form.value.empresa} (${form.value.tipo})\n` +
-                      `*Teléfono:* ${form.value.telefono}\n\n` +
-                      `*PEDIDO:*\n` + 
-                      carrito.value.map(i => `• ${i.cantidad}x ${i.nombre}`).join('\n') +
-                      `\n\n*TOTAL DAP:* $${totalPedido.value.toLocaleString()} USD\n`;
+let mensaje = `*SOLICITUD DE RESERVA B2B - NOVELEC*\n\n` +
+              `*ID Orden:* #REF-${orderId}\n` +
+              `*Cliente:* ${form.value.empresa}\n\n` +
+              `*PEDIDO:*\n` + 
+              carrito.value.map(i => `• ${i.cantidad}x ${i.nombre} (${i.stock_status.toUpperCase()})`).join('\n') +
+              `\n\n*TOTAL OPERACIÓN:* $${totalPedido.value.toLocaleString()} USD\n`;
 
-        if (esContenedor) {
-            mensaje += `*PAGO PARA RESERVA (30%):* $${deposito30.toLocaleString()} USD\n` +
-                       `*FECHA ARRIBO:* Finales de Abril\n`;
-        }
+if (tienePreVenta) {
+    mensaje += `*ANTICIPO PARA RESERVA (30% Preventas):* $${deposito30.toLocaleString()} USD\n` +
+               `*FECHA ARRIBO:* Finales de Abril\n`;
+}
 
-        mensaje += `\n_Confirmo el inicio del proceso de nacionalización y acepto las condiciones de pago (Bancario/Efectivo)._`;
+mensaje += `\n_Acepto condiciones de nacionalización y pago._`;
 
-        // Abrir WhatsApp
         window.location.href = `https://wa.me/5358183649?text=${encodeURIComponent(mensaje)}`;
 
     } catch (err) {
@@ -261,56 +260,38 @@ const generarPDF = (id) => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    // --- CONFIGURACIÓN DE COLORES ---
     const primaryBlack = [17, 24, 39]; 
     const grayText = [80, 80, 80];
     const goldColor = [176, 141, 85]; 
 
-    // --- PÁGINA 1: SOLICITUD DE COMPRA ---
-
-    // 1. Cabecera
+    // --- PÁGINA 1 ---
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(28);
-    doc.setTextColor(0, 0, 0);
-    doc.text("NOVELEC", 15, 25);
-    
-    doc.setFillColor(0, 230, 118);
-    doc.rect(72, 16, 8, 8, 'F'); 
+    doc.setFontSize(28); doc.setTextColor(0, 0, 0); doc.text("NOVELEC", 15, 25);
+    doc.setFillColor(0, 230, 118); doc.rect(72, 16, 8, 8, 'F'); 
 
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(...grayText);
+    doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.setTextColor(...grayText);
     doc.text("División B2B Comercial", 15, 32);
 
-    doc.setFillColor(...primaryBlack);
-    doc.rect(120, 12, 75, 12, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "bold");
+    doc.setFillColor(...primaryBlack); doc.rect(120, 12, 75, 12, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(11); doc.setFont("helvetica", "bold");
     doc.text("SOLICITUD DE COMPRA B2B", 157.5, 20, { align: "center" });
 
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(9);
+    doc.setTextColor(0, 0, 0); doc.setFontSize(9);
     doc.text(`Fecha Emisión: ${new Date().toLocaleDateString()}`, 195, 32, { align: "right" });
 
-    doc.setDrawColor(230, 230, 230);
-    doc.line(15, 40, 195, 40);
+    doc.setDrawColor(230, 230, 230); doc.line(15, 40, 195, 40);
 
-    // 2. Datos del Solicitante
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10); doc.setFont("helvetica", "bold");
     doc.text("DATOS DEL SOLICITANTE O CLIENTE:", 15, 52);
-    
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(0, 0, 0);
     doc.text(`REPRESENTANTE LEGAL: ${form.value.empresa.toUpperCase()}`, 15, 60);
     doc.text(`RAZÓN SOCIAL / LICENCIA: ${form.value.empresa.toUpperCase()} (${form.value.tipo})`, 15, 66);
     doc.text(`TELÉFONO CONTACTO: +${form.value.telefono}`, 15, 72);
 
-    // 3. Tabla de Productos (Mejorada)
-    const esContenedor = carrito.value.some(i => i.is_container);
+    // CAMBIO EN TABLA: Solo poner [PRE-VENTA] si el estado es preventa
+    const tienePreVentaPDF = carrito.value.some(i => i.is_container && i.stock_status === 'preventa');
     const tableBody = carrito.value.map(i => [
-        esContenedor ? `[PRE-VENTA ABRIL] ${i.nombre}` : i.nombre,
+        (i.is_container && i.stock_status === 'preventa') ? `[PRE-VENTA ABRIL] ${i.nombre}` : i.nombre,
         i.cantidad,
         `$ ${i.precio.toLocaleString('en-US', {minimumFractionDigits: 2})}`,
         `$ ${(i.precio * i.cantidad).toLocaleString('en-US', {minimumFractionDigits: 2})}`
@@ -323,77 +304,57 @@ const generarPDF = (id) => {
         theme: 'plain',
         headStyles: { fillColor: primaryBlack, textColor: 255, fontStyle: 'bold', fontSize: 9, halign: 'center' },
         styles: { fontSize: 9, cellPadding: 6, textColor: [0, 0, 0], valign: 'middle' },
-        columnStyles: { 
-            0: { cellWidth: 95 }, 
-            1: { halign: 'center' }, 
-            2: { halign: 'right' }, 
-            3: { halign: 'right', fontStyle: 'bold' } 
-        },
+        columnStyles: { 0: { cellWidth: 95 }, 1: { halign: 'center' }, 2: { halign: 'right' }, 3: { halign: 'right', fontStyle: 'bold' } },
         margin: { left: 15, right: 15 }
     });
 
-    // 4. Totales (CORREGIDO PARA EVITAR SOLAPAMIENTO)
+    // TOTALES (CON LA CORRECCIÓN DE labelX = 60)
     let finalY = doc.lastAutoTable.finalY + 20;
-    const rightMargin = 195; // Donde termina el número a la derecha
-    const labelX = 60;       // <--- ESTE ES EL CAMBIO CLAVE. Antes estaba en 100, ahora en 60.
+    const rightMargin = 195; 
+    const labelX = 60;       
 
-    // Valor Total
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(11); doc.setFont("helvetica", "bold"); doc.setTextColor(0, 0, 0);
     doc.text("VALOR TOTAL DECLARADO (USD):", labelX, finalY);
     doc.text(`$ ${totalPedido.value.toLocaleString('en-US', {minimumFractionDigits: 2})}`, rightMargin, finalY, { align: "right" });
 
-    // Anticipo (Solo si es contenedor)
-    if (esContenedor) {
-        finalY += 12; // Espacio entre el Total y el Anticipo
+    // CAMBIO: El anticipo solo aparece si hay productos de preventa (Abril)
+    if (tienePreVentaPDF) {
+        finalY += 12;
         doc.setTextColor(...goldColor);
-        // Ahora el texto tiene desde la posición 60 hasta la 195 para escribirse sin chocar
         doc.text("ANTICIPO REQUERIDO (30% PRE-VENTAS):", labelX, finalY);
         doc.text(`$ ${(totalPedido.value * 0.3).toLocaleString('en-US', {minimumFractionDigits: 2})}`, rightMargin, finalY, { align: "right" });
     }
 
-    // --- PÁGINA 2: ANEXO LEGAL ---
+    // --- PÁGINA 2 --- (Se mantiene igual)
     doc.addPage();
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 0, 0); doc.setFontSize(14); doc.setFont("helvetica", "bold");
     doc.text("ANEXO LEGAL: CONDICIONES DE IMPORTACIÓN ACEPTADAS", 15, 20);
-    doc.setDrawColor(230, 230, 230);
-    doc.line(15, 25, 195, 25);
-
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(50, 50, 50);
+    doc.setDrawColor(230, 230, 230); doc.line(15, 25, 195, 25);
+    doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.setTextColor(50, 50, 50);
 
     const introText = `Por medio del presente documento generado de forma electrónica, el ciudadano(a) ${form.value.empresa}, en representación de la entidad ${form.value.empresa} (Licencia: ${form.value.tipo}), certifica haber LEÍDO y ACEPTADO íntegramente los siguientes términos operativos para la adquisición de la mercancía descrita en la Página 1:`;
-    
-    const lines = doc.splitTextToSize(introText, 180);
-    doc.text(lines, 15, 35);
+    const lines = doc.splitTextToSize(introText, 180); doc.text(lines, 15, 35);
 
     const clausulas = [
-        ["1. NATURALEZA DE LA OPERACIÓN:", "El cliente comprende que esta operación constituye un proceso de Importación y Nacionalización de mercancías ubicadas en Almacén Inbond (Reparto Eléctrico, La Habana) bajo el régimen y custodia de la Aduana General de la República."],
-        ["2. IDENTIDAD JURÍDICA:", "El Contrato Comercial se establece obligatoriamente a nombre de su licencia de TCP o MIPYME a través de una Importadora Estatal (frecuentemente CUBAELECTRONICA). Si es cliente nuevo, deberá cumplir con el proceso de acreditación."],
+        ["1. NATURALEZA DE LA OPERACIÓN:", "El cliente comprende que esta operación constituye un proceso de Importación y Nacionalización de mercancías ubicadas en Almacén Inbond..."],
+        ["2. IDENTIDAD JURÍDICA:", "El Contrato Comercial se establece obligatoriamente a nombre de su licencia de TCP o MIPYME..."],
         ["3. CONDICIÓN DE ENTREGA:", "Modalidad DAP (Delivered At Place). La mercancía se entrega exclusivamente en el Almacén Inbond mencionado."],
-        ["4. FORMAS DE PAGO:", "El cliente comprende que la vía preferente es la transferencia bancaria internacional. Sin embargo, NOVELEC acepta la liquidación en efectivo físico (USD/EUR) de todos los productos en plaza descritos en la factura. El pago en efectivo se realiza en nuestras oficinas corporativas a nuestra Asistente Ejecutiva."],
-        ["5. PROCEDIMIENTO ADUANAL Y ACOMPAÑAMIENTO:", "Tras emitirse la Factura Comercial (evidencia de pago), el equipo Comercial de Novelec gestiona la Declaración de Mercancía (DM) y el permiso de extracción de almacén. Este proceso toma habitualmente entre 1 y 2 días hábiles (24h a 48h). Una vez listo, se avisa al cliente para la extracción."],
-        ["6. ARANCELES DE LEY:", "El cliente asume los aranceles aduanales y operativos aplicados por la Importadora estatal, reconociendo que responden a normativas oficiales del MINCEX y no son impuestos arbitrarios ni sobrecargos ocultos de Novelec."]
+        ["4. FORMAS DE PAGO:", "El cliente comprende que la vía preferente es la transferencia bancaria internacional..."],
+        ["5. PROCEDIMIENTO ADUANAL Y ACOMPAÑAMIENTO:", "Tras emitirse la Factura Comercial (evidencia de pago), el equipo Comercial de Novelec gestiona la Declaración de Mercancía (DM)..."],
+        ["6. ARANCELES DE LEY:", "El cliente asume los aranceles aduanales y operativos aplicados por la Importadora estatal..."]
     ];
 
     let currentY = 55;
     clausulas.forEach(item => {
-        doc.setFont("helvetica", "bold");
-        doc.text(item[0], 15, currentY);
+        doc.setFont("helvetica", "bold"); doc.text(item[0], 15, currentY);
         doc.setFont("helvetica", "normal");
-        const sublines = doc.splitTextToSize(item[1], 180);
-        doc.text(sublines, 15, currentY + 5);
+        const sublines = doc.splitTextToSize(item[1], 180); doc.text(sublines, 15, currentY + 5);
         currentY += (sublines.length * 5) + 8;
     });
 
     doc.setFont("helvetica", "italic");
-    const certText = "CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a la aceptación de las condiciones preliminares descritas, dando el consentimiento necesario para dar paso a la firma del Contrato Comercial oficial que rige la transacción.";
-    const certLines = doc.splitTextToSize(certText, 180);
-    doc.text(certLines, 15, currentY + 10);
+    const certText = "CERTIFICACIÓN DIGITAL: La generación y descarga de esta Pre-Oferta equivale a la aceptación de las condiciones preliminares descritas...";
+    const certLines = doc.splitTextToSize(certText, 180); doc.text(certLines, 15, currentY + 10);
 
     doc.save(`Solicitud_Compra_Novelec_${id}.pdf`);
 };
